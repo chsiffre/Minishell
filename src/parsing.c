@@ -6,8 +6,13 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/27 14:11:45 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:50:18 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+// int ft_parse(char *line)
+// {
+    
+// }

@@ -14,7 +14,7 @@ LIST_SRC =	main.c \
 			parsing.c \
 			prompt.c
 
-LIST_INC = minishell.h	
+LIST_INC = minishell.h
 
 LIST_OBJ = ${LIST_SRC:.c=.o}
 
@@ -40,7 +40,7 @@ $(DIR_OBJ)%.o : $(DIR_SRC)%.c $(INC)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC)
 
 $(NAME) : $(DIR_OBJ) $(OBJ) $(INC) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
 
 bonus :
 	$(MAKE) -C bonus
