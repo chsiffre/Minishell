@@ -1,13 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/27 14:11:45 by chsiffre         ###   ########.fr       */
+/*   Created: 2022/10/27 12:45:19 by charles           #+#    #+#             */
+/*   Updated: 2022/11/09 15:13:41 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
+
+char	*ft_strdup(const char *s)
+{
+	int		i;
+	char	*dest;
+	int		count;
+
+	i = -1;
+	count = ft_strlen(s) + 1;
+	dest = malloc(count * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (s[++i])
+		dest[i] = s[i];
+	dest[i] = '\0';
+	return (dest);
+}

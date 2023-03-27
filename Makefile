@@ -1,5 +1,9 @@
 NAME = minishell
 
+CFLAGS = -Wall -Wextra #-Werror
+
+CC = cc
+
 DIR_SRC = ./src/
 
 DIR_OBJ = ./.obj/
@@ -8,6 +12,7 @@ DIR_INC = ./include/
 
 LIST_SRC =	main.c \
 			parsing.c \
+			prompt.c
 
 LIST_INC = minishell.h	
 
@@ -23,23 +28,19 @@ DIR_LIBFT = libft
 
 LIBFT = libft/libft.a
 
+all : $(NAME)
+
 $(DIR_OBJ) :
 	mkdir -p $(DIR_OBJ)
 
 $(LIBFT) : $(DIR_LIBFT)
 	$(MAKE) -C $(DIR_LIBFT)
 
-CFLAGS = -Wall -Wextra #-Werror
-
-CC = cc
-
 $(DIR_OBJ)%.o : $(DIR_SRC)%.c $(INC)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC)
 
 $(NAME) : $(DIR_OBJ) $(OBJ) $(INC) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
-
-all : $(NAME)
 
 bonus :
 	$(MAKE) -C bonus

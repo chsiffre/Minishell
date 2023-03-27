@@ -1,13 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/27 14:11:45 by chsiffre         ###   ########.fr       */
+/*   Created: 2022/11/03 13:56:22 by charles           #+#    #+#             */
+/*   Updated: 2023/03/15 16:47:45 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
+
+void	ft_putendl_fd(char *s, int fd)
+{
+
+	if (!s)
+		return ;
+	ft_putstr_fd(s, fd);
+	write (fd, "\n", 1);
+}
