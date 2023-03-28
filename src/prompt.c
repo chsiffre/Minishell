@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/27 18:50:48 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:31:46 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,28 @@
 
 int	ft_exec(t_data *prompt, char **cmd)
 {
-	int		fd[2];
 	pid_t	pid;
 
-	if (pipe(fd) == -1)
-		return (ft_printf("bash error\n"));
 	pid = fork();
 	if (pid == -1)
 		return (ft_printf("bash error\n"));
 	else if (pid == 0)
-        //exit(1);
-	    execve(cmd[0], cmd, prompt->env_path);
-    waitpid(pid, NULL, 0);
+	{
+		if (execve(cmd[0], cmd, prompt->env_path) == -1)
+			return (ft_printf("bash error\n"));
+	}
+	waitpid(pid, NULL, 0);
 	return (0);
 }
 
-char	**ft_try_path(t_data *data, char *line, char **cmd)
+char	*ft_try_path(t_data *data, char *line, char *cmd)
 {
 	int		i;
 	char	*tmp;
 	char	*tab;
 
 	i = 0;
-	line[ft_strlen(line)] = '\0';
-    cmd = ft_split(line, ' ');
-    if (!cmd)
-        return (NULL);
-	tmp = ft_strjoin("/", line);
+	tmp = ft_strjoin("/", cmd);
 	while (data->split_path[i])
 	{
 		tab = ft_strjoin(data->split_path[i], tmp);
@@ -53,8 +48,7 @@ char	**ft_try_path(t_data *data, char *line, char **cmd)
 	free(tmp);
 	if (!tab)
 		return (ft_printf("bash : command not found: %s\n", line), line);
-	//free(line);
-	return (cmd);
+	return (tab);
 }
 
 void	ft_get_env(t_data *data)
