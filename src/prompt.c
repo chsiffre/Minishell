@@ -6,13 +6,13 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/27 17:03:36 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:50:48 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_exec(t_data *prompt, char *line)
+int	ft_exec(t_data *prompt, char **cmd)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -24,12 +24,12 @@ int	ft_exec(t_data *prompt, char *line)
 		return (ft_printf("bash error\n"));
 	else if (pid == 0)
         //exit(1);
-	    execve(line, NULL, prompt->env_path);
+	    execve(cmd[0], cmd, prompt->env_path);
     waitpid(pid, NULL, 0);
 	return (0);
 }
 
-char	*ft_try_path(t_data *prompt, char *line)
+char	**ft_try_path(t_data *data, char *line, char **cmd)
 {
 	int		i;
 	char	*tmp;
@@ -37,10 +37,13 @@ char	*ft_try_path(t_data *prompt, char *line)
 
 	i = 0;
 	line[ft_strlen(line)] = '\0';
+    cmd = ft_split(line, ' ');
+    if (!cmd)
+        return (NULL);
 	tmp = ft_strjoin("/", line);
-	while (prompt->split_path[i])
+	while (data->split_path[i])
 	{
-		tab = ft_strjoin(prompt->split_path[i], tmp);
+		tab = ft_strjoin(data->split_path[i], tmp);
 		if (access(tab, F_OK) != -1)
 			break ;
 		free(tab);
@@ -50,8 +53,8 @@ char	*ft_try_path(t_data *prompt, char *line)
 	free(tmp);
 	if (!tab)
 		return (ft_printf("bash : command not found: %s\n", line), line);
-	free(line);
-	return (tab);
+	//free(line);
+	return (cmd);
 }
 
 void	ft_get_env(t_data *data)
