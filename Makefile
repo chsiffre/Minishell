@@ -12,7 +12,8 @@ DIR_INC = ./include/
 
 LIST_SRC =	main.c \
 			parsing.c \
-			prompt.c
+			prompt.c \
+			builtins.c
 
 LIST_INC = minishell.h
 

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/28 15:31:46 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:53:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_exec(t_data *prompt, char **cmd)
 	else if (pid == 0)
 	{
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
-			return (ft_printf("bash error\n"));
+			return (ft_printf("error execve\n"));
 	}
 	waitpid(pid, NULL, 0);
 	return (0);
@@ -35,6 +35,8 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	char	*tab;
 
 	i = 0;
+	if (access(cmd, F_OK) != -1)
+		return (cmd);
 	tmp = ft_strjoin("/", cmd);
 	while (data->split_path[i])
 	{
@@ -47,7 +49,7 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
-		return (ft_printf("bash : command not found: %s\n", line), line);
+		return (ft_printf("bash : command not found: %s\n", line), NULL);
 	return (tab);
 }
 
@@ -65,4 +67,23 @@ void	ft_get_env(t_data *data)
 		}
 		data->env_path++;
 	}
+}
+
+void	ft_prompt(t_data *data)
+{
+	while (1)
+	{
+		data->line = readline("prompt>");
+		if (data->line)
+			add_history(data->line);
+		ft_builtins(data);
+		data->cmd = ft_split(data->line, ' ');
+		if (!data->cmd)
+			return ;
+		data->cmd[0] = ft_try_path(data, data->line, data->cmd[0]);
+		if (data->cmd[0])
+			ft_exec(data, data->cmd);
+		free(data->line);
+	}
+	free(data->line);
 }

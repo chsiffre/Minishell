@@ -6,23 +6,24 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/28 15:33:51 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:25:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <stdio.h>
 # include <stdlib.h>
-# include "../libft/libft.h"
-# include "../libft/get_next_line_bonus.h"
-# include "../libft/ft_printf.h"
+# include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../libft/libft.h"
+# include "../libft/ft_printf.h"
+# include "../libft/get_next_line_bonus.h"
 
 
 typedef struct s_data {
@@ -38,5 +39,7 @@ void	ft_get_env(t_data *prompt);
 char	*ft_try_path(t_data *data, char *line, char *cmd);
 int		ft_exec(t_data *prompt, char **cmd);
 char	**ft_parse(char *line);
+void	ft_prompt(t_data *data);
+void	ft_builtins(t_data *data);
 
 #endif
