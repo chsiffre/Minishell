@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 15:43:23 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:51:50 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ void	ft_prompt(t_data *data);
 void	ft_builtins(t_data *data);
 void	ft_conv_lst(char *line);
 t_data	ft_init_struct(t_data data);
+void    ft_add_lst(t_lst *lst, t_list *new, char *str);
+t_list	*ft_lstnew_t(void *content, int type);
 
 #endif
