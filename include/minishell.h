@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 14:26:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:52:05 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
 
+typedef struct s_env {
+	char			*name;
+	char			*value;
+	int				equal;
+	struct t_env	*next;
+}	t_env;
 
 typedef struct s_data {
 	char	*line;
@@ -32,6 +38,7 @@ typedef struct s_data {
 	char	*path;
 	char	**split_path;
 	char	**cmd;
+	t_env	*env;
 }	t_data;
 
 int		ft_parsing(int ac, char **av);

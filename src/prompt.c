@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 14:29:53 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:44:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,16 @@ void	ft_prompt(t_data *data)
 		if (data->line)
 			add_history(data->line);
 		data->cmd = ft_split(data->line, ' ');
-		data->cmd[0] = ft_builtins(data);
 		if (!data->cmd)
 			return ;
-		if (data->cmd[0] != NULL)
-			data->cmd[0] = ft_try_path(data, data->line, data->cmd[0]);
 		if (data->cmd[0])
-			ft_exec(data, data->cmd);
+		{
+			data->cmd[0] = ft_builtins(data);
+			if (data->cmd[0] != NULL)
+				data->cmd[0] = ft_try_path(data, data->line, data->cmd[0]);
+			if (data->cmd[0])
+				ft_exec(data, data->cmd);
+		}
 		free(data->line);
 	}
 	free(data->line);
