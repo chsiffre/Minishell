@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 11:53:55 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:05:37 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	ft_prompt(t_data *data)
 		data->line = readline("prompt>");
 		if (data->line)
 			add_history(data->line);
+		ft_parse(data);
 		ft_builtins(data);
-		data->cmd = ft_split(data->line, ' ');
+		//data->cmd = ft_split(data->line, ' ');
 		if (!data->cmd)
 			return ;
 		data->cmd[0] = ft_try_path(data, data->line, data->cmd[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 11:25:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:43:23 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,24 @@ typedef struct s_data {
 	char	*path;
 	char	**split_path;
 	char	**cmd;
+	char	**result;
 }	t_data;
+
+typedef	struct s_lst {
+	char			**content;
+	struct s_lst	*next;
+	int				type;
+	
+}	t_lst;
 
 int		ft_parsing(int ac, char **av);
 void	ft_get_env(t_data *prompt);
 char	*ft_try_path(t_data *data, char *line, char *cmd);
 int		ft_exec(t_data *prompt, char **cmd);
-char	**ft_parse(char *line);
+void	ft_parse(t_data *data);
 void	ft_prompt(t_data *data);
 void	ft_builtins(t_data *data);
+void	ft_conv_lst(char *line);
+t_data	ft_init_struct(t_data data);
 
 #endif

@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 11:22:48 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/29 13:14:12 by chsiffre         ###   ########.fr       */
+/*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
+/*   Updated: 2023/03/29 15:43:01 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-void	ft_builtins(t_data *data)
+t_data  ft_init_struct(t_data data)
 {
-	if (!ft_strncmp(data->cmd[0], "exit", ft_strlen(data->cmd[0])))
-		exit(1);
+    data.line = NULL;
+    data.path = NULL;
+    data.split_path = NULL;
+    data.cmd = NULL;
+    data.result = NULL;
+    return (data);
 }
