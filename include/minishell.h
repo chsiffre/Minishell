@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/29 11:25:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:26:58 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ char	*ft_try_path(t_data *data, char *line, char *cmd);
 int		ft_exec(t_data *prompt, char **cmd);
 char	**ft_parse(char *line);
 void	ft_prompt(t_data *data);
-void	ft_builtins(t_data *data);
+char	*ft_builtins(t_data *data);
 
 #endif
