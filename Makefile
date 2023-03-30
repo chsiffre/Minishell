@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra #-Werror 
 
 CC = cc
 
@@ -13,7 +13,10 @@ DIR_INC = ./include/
 LIST_SRC =	main.c \
 			parsing.c \
 			prompt.c \
-			builtins.c
+			builtins.c \
+			init_struct.c \
+			b_env.c \
+			b_unset.c
 
 LIST_INC = minishell.h
 
