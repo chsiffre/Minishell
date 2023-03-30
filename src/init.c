@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 16:24:30 by lucas            ###   ########.fr       */
+/*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
+/*   Updated: 2023/03/29 15:43:01 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_data  ft_init_struct(t_data data)
 {
-	t_data	data;
-
-	(void)argc;
-	(void)**argv;
-	data.env_path = envp;
-	data = ft_init_struct(data);
-	ft_get_env(&data);
-	ft_prompt(&data);
-	return (0);
+    data.line = NULL;
+    data.path = NULL;
+    data.split_path = NULL;
+    data.cmd = NULL;
+    data.result = NULL;
+    return (data);
 }
