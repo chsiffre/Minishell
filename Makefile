@@ -16,7 +16,9 @@ LIST_SRC =	main.c \
 			builtins.c \
 			init_struct.c \
 			b_env.c \
-			b_unset.c
+			b_unset.c \
+			b_export.c \
+			
 
 LIST_INC = minishell.h
 
