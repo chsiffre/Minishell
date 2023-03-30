@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 16:27:52 by lucas            ###   ########.fr       */
+/*   Updated: 2023/03/30 16:51:56 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,30 @@ typedef struct s_data {
 }	t_data;
 
 
+
+//***********parsing***************//
+void	ft_parse(t_data *data);
+t_lst	*ft_lstnew_t(void *content, int type);
+t_lst	*ft_last(t_lst *lst);
+void	ft_add_lst(t_lst *lst, char *str, int type);
+void	ft_check_redir(char **strs, t_lst *lst);
+ssize_t ft_check_cmd_builtins(char **strs, t_lst *lst);
+void	ft_add_back(t_lst **lst, t_lst *new);
+int		ft_is_builtins(char *str);
+
 void	ft_init_data(t_data *data, char **envp);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_has_equal(char *str);
 t_env	*ft_new_env(char *str);
-int		ft_parsing(int ac, char **av);
 void	ft_get_env(t_data *prompt);
 char	*ft_try_path(t_data *data, char *line, char *cmd);
 int		ft_exec(t_data *prompt, char **cmd);
-void	ft_parse(t_data *data);
 void	ft_prompt(t_data *data);
 char	*ft_builtins(t_data *data);
 void	ft_conv_lst(char *line);
 t_data	ft_init_struct(t_data data);
-void	ft_add_lst(t_lst **lst, char *str, int type);
-t_lst	*ft_lstnew_t(void *content, int type);
-void	ft_check_redir(char **strs, t_lst *lst);
+
 void	ft_struct_env(t_data *data);
 void	ft_unset(t_data *data, char *name);
 void	ft_export(t_data *data, char *name);
