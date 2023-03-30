@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 11:14:37 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:18:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ char	**ft_parse(char *line);
 void	ft_prompt(t_data *data);
 char	*ft_builtins(t_data *data);
 void	ft_struct_env(t_data *data);
+void	ft_unset(t_data *data, char *name);
 
 #endif
