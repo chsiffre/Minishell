@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:22:48 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/30 14:59:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:37:29 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	ft_print_env(t_data *data)
 	tmp = data->env;
 	while (tmp)
 	{
-		printf("%s", tmp->name);
-		printf("%s\n", tmp->value);
+		if (tmp->equal == 1)
+		{
+			printf("%s", tmp->name);
+			printf("%s\n", tmp->value);
+		}
 		tmp = tmp->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 14:46:49 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:58:50 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_data {
 }	t_data;
 
 void	ft_init_data(t_data *data, char **envp);
+t_env	*ft_envlast(t_env *lst);
+void	ft_envadd_back(t_env **env, t_env *new);
+int		ft_has_equal(char *str);
+t_env	*ft_new_env(char *str);
 int		ft_parsing(int ac, char **av);
 void	ft_get_env(t_data *prompt);
 char	*ft_try_path(t_data *data, char *line, char *cmd);

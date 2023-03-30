@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/30 11:49:40 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:55:51 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ void	ft_envadd_back(t_env **env, t_env *new)
 	}
 }
 
+int	ft_has_equal(char *str)
+{
+	int	k;
+
+	k = 0;
+	while (str[k])
+	{
+		if (str[k] == '=')
+			return (1);
+		k++;
+	}
+	return (0);
+}
+
 t_env	*ft_new_env(char *str)
 {
 	t_env	*new;
@@ -44,7 +58,8 @@ t_env	*ft_new_env(char *str)
 	k = 0;
 	temp = -1;
 	new = malloc(sizeof(t_env));
-	while (str[k] != '=')
+	new->equal = ft_has_equal(str);
+	while (str[k] && str[k] != '=')
 		k++;
 	new->name = malloc(sizeof(char *) * (k + 1));
 	if (!new->name)
@@ -52,14 +67,19 @@ t_env	*ft_new_env(char *str)
 	while (++temp <= k)
 		new->name[temp] = str[temp];
 	new->name[temp] = '\0';
-	while (str[k])
-		k++;
-	new->value = malloc(sizeof(char *) * ((k - temp) + 1));
-	k = temp;
-	temp = 0;
-	while (str[k])
-		new->value[temp++] = str[k++];
-	new->value[temp] = '\0';
+	if (new->equal == 1)
+	{
+		while (str[k])
+			k++;
+		new->value = malloc(sizeof(char *) * ((k - temp) + 1));
+		k = temp;
+		temp = 0;
+		while (str[k])
+			new->value[temp++] = str[k++];
+		new->value[temp] = '\0';
+	}
+	else
+		new->value = NULL;
 	new->next = NULL;
 	return (new);
 }
