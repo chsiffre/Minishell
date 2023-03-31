@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/30 16:00:55 by lucas            ###   ########.fr       */
+/*   Updated: 2023/03/30 22:47:12 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_print_export(t_data *data)
 	tmp = data->env;
 	while (tmp)
 	{
-		printf("declare -x ");
-		printf("%s", tmp->name);
+		printf("declare -x %s", tmp->name);
 		if (tmp->value)
 			printf("%s", tmp->value);
 		printf("\n");

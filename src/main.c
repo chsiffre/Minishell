@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 16:24:30 by lucas            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:03:23 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)**argv;
-	data.env_path = envp;
-	data = ft_init_struct(data);
+	ft_init_data(&data, envp);
 	ft_get_env(&data);
 	ft_prompt(&data);
 	return (0);

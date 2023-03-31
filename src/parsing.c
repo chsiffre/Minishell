@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 16:47:04 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:45:51 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void    ft_parse(t_data *data)
+void	ft_parse(t_data *data)
 {
-    t_lst   *lst;
-    ssize_t i;
-    ssize_t y;
+	t_lst	*lst;
+	ssize_t	i;
+	ssize_t	y;
 
-    lst = NULL;
-    y = 0;
-    i = -1;
-    data->result = ft_split_charset(data->line, " \t\n\r\v\f");
-    if (!data->result)
-        return ;
+	lst = NULL;
+	y = 0;
+	i = -1;
+	data->result = ft_split_charset(data->line, " \t\n\r\v\f");
+	if (!data->result)
+		return ;
     while (data->result[++i])
     {
         ft_check_redir(data->result, lst);
