@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/30 12:27:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:39:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	ft_envdelone(t_env *env)
 	}
 }
 
+int	ft_special_unset(char *name)
+{
+	if (!ft_strncmp(name, "PWD=", 4)
+		|| !ft_strncmp(name, "_=", 2)
+		|| !ft_strncmp(name, "SHLVL=", 6))
+		return (printf("minishell: %s: not a valid identifer\n", name), 1);
+	return (0);
+}
+
 void	ft_unset(t_data *data, char *name)
 {
 	t_env	*tmp;
@@ -29,9 +38,11 @@ void	ft_unset(t_data *data, char *name)
 
 	prev = NULL;
 	tmp = data->env;
+	if (ft_special_unset(name))
+		return ;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->name, name, ft_strlen(name)))
+		if (!ft_strncmp(tmp->name, name, ft_strlen(name) + 1))
 		{
 			if (prev == NULL)
 				data->env = tmp->next;
