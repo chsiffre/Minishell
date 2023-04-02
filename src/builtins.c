@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/30 23:14:32 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/01 13:19:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void	ft_echo(t_data *data)
 
 char	*ft_builtins(t_data *data)
 {
-	if (!ft_strncmp(data->cmd[0], "echo", 4))
+	if (!ft_strncmp(data->cmd[0], "echo", ft_strlen(data->cmd[0])))
 		return (ft_echo(data), NULL);
-	if (!ft_strncmp(data->cmd[0], "pwd", 3))
+	if (!ft_strncmp(data->cmd[0], "pwd", ft_strlen(data->cmd[0])))
 		return (ft_get_pwd(data), NULL);
-	if (!ft_strncmp(data->cmd[0], "export", 6))
+	if (!ft_strncmp(data->cmd[0], "export", ft_strlen(data->cmd[0])))
 		return (ft_export(data, data->cmd[1]), NULL);
-	if (!ft_strncmp(data->cmd[0], "unset", 5))
+	if (!ft_strncmp(data->cmd[0], "unset", ft_strlen(data->cmd[0])))
 		return (ft_unset(data, data->cmd[1]), NULL);
-	if (!ft_strncmp(data->cmd[0], "env", 4))
+	if (!ft_strncmp(data->cmd[0], "env", ft_strlen(data->cmd[0])))
 		return (ft_print_env(data), NULL);
-	if (!ft_strncmp(data->cmd[0], "exit", 4))
+	if (!ft_strncmp(data->cmd[0], "exit", ft_strlen(data->cmd[0])))
 		exit(1);
 	return (data->cmd[0]);
 }
