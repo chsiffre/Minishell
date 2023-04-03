@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/02 23:55:20 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/03 16:35:48 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ void	ft_print_env(t_data *data)
 	}
 }
 
-void	ft_get_pwd(t_data *data)
+void	ft_get_pwd(void)
 {
-	t_env	*tmp;
+	char	buff[PATH_MAX];
 
-	tmp = data->env;
-	while (tmp)
+	if (getcwd(buff, PATH_MAX) == NULL)
 	{
-		if (!ft_strncmp(tmp->name, "PWD=", 5))
-			printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		printf("ERREUR PWD\n");
+		exit(1);
 	}
+	printf("%s\n", buff);
 }
 
 void	ft_echo(t_data *data)
@@ -47,12 +46,19 @@ void	ft_echo(t_data *data)
 		printf("%s\n", data->cmd[1]);
 }
 
+void	ft_cd(t_data *data)
+{
+	chdir(data->cmd[1]);
+}
+
 char	*ft_builtins(t_data *data)
 {
 	if (!ft_strncmp(data->cmd[0], "echo", ft_strlen(data->cmd[0])))
 		return (ft_echo(data), NULL);
+	if (!ft_strncmp(data->cmd[0], "cd", ft_strlen(data->cmd[0])))
+		return (ft_cd(data), NULL);
 	if (!ft_strncmp(data->cmd[0], "pwd", ft_strlen(data->cmd[0])))
-		return (ft_get_pwd(data), NULL);
+		return (ft_get_pwd(), NULL);
 	if (!ft_strncmp(data->cmd[0], "export", ft_strlen(data->cmd[0])))
 		return (ft_export(data, data->cmd[1]), NULL);
 	if (!ft_strncmp(data->cmd[0], "unset", ft_strlen(data->cmd[0])))
@@ -63,5 +69,3 @@ char	*ft_builtins(t_data *data)
 		exit(1);
 	return (data->cmd[0]);
 }
-
-//TODO les options de export

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/31 10:39:42 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:27:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_unset(t_data *data, char *name)
 		return ;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->name, name, ft_strlen(name) + 1))
+		if (!ft_strncmp(tmp->name, name, ft_strlen(name) - 1))
 		{
 			if (prev == NULL)
 				data->env = tmp->next;

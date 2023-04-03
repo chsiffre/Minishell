@@ -19,6 +19,7 @@ LIST_SRC =	main.c \
 			b_unset.c \
 			b_export.c \
 			init.c \
+			env_utils.c \
 			checks.c \
 
 LIST_INC = minishell.h
