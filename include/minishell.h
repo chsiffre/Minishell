@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 16:51:56 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:07:21 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_lst {
 }	t_lst;
 
 typedef struct s_data {
+	t_lst	*lst;
 	char	*line;
 	char	**env_path;
 	char	*path;
@@ -52,14 +53,14 @@ typedef struct s_data {
 
 //***********parsing***************//
 void	ft_parse(t_data *data);
-t_lst	*ft_lstnew_t(void *content, int type);
+t_lst	*ft_lstnew_t(char **strs, int type, size_t i);
 t_lst	*ft_last(t_lst *lst);
-void	ft_add_lst(t_lst *lst, char *str, int type);
-void	ft_check_redir(char **strs, t_lst *lst);
-ssize_t ft_check_cmd_builtins(char **strs, t_lst *lst);
+void	ft_add_lst(t_data *data, char **strs, int type, size_t i);
+ssize_t ft_check_redir(t_data *data, char **strs, ssize_t i);
+void	ft_check_cmd(t_data *data, ssize_t i);
+ssize_t    ft_check_builtins(t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
-
 void	ft_init_data(t_data *data, char **envp);
 t_env	*ft_envlast(t_env *lst);
 void	ft_envadd_back(t_env **env, t_env *new);

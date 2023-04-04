@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:09:16 by luhumber          #+#    #+#             */
-/*   Updated: 2023/03/30 11:14:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:09:05 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void	ft_init_data(t_data *data, char **envp)
 {
 	data->env_path = envp;
 	data->env = NULL;
+	data->lst = NULL;
 	ft_struct_env(data);
 }
