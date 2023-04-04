@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/04 13:02:47 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/04 17:42:42 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data {
 	char	**cmd;
 	char	**result;
 	t_env	*env;
+	int		signal;
 }	t_data;
 
 //***********prompt***************//
@@ -73,7 +74,7 @@ void	ft_add_var(t_data *data, char *str, int exist);
 t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
-void	ft_unset(t_data *data, char *name);
+int		ft_unset(t_data *data, char *name);
 void	ft_export(t_data *data, char *name);
 int		ft_has_equal(char *str);
 

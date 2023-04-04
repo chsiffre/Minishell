@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/04 15:11:29 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/04 15:44:06 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_cd(t_data *data)
 			perror("Minishell: ");
 	}
 	else
-		ft_printf("Minishell : cd : too many arguments\n");
+		ft_printf("Minishell: cd : too many arguments\n");
 }
 
 char	*ft_builtins(t_data *data)
