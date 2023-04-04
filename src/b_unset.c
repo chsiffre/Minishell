@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/03 16:27:00 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:55:01 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	ft_envdelone(t_env *env)
 	{
 		free(env->name);
 		free(env->value);
-		free (env);
+		free(env);
 	}
 }
 
 int	ft_special_unset(char *name)
 {
-	if (!ft_strncmp(name, "PWD=", 4)
-		|| !ft_strncmp(name, "_=", 2)
-		|| !ft_strncmp(name, "SHLVL=", 6))
+	if (ft_compare_str(name, "PWD=")
+		|| ft_compare_str(name, "_=")
+		|| ft_compare_str(name, "SHLVL="))
 		return (printf("minishell: %s: not a valid identifer\n", name), 1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/03 16:26:42 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/04 13:11:30 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_find_name(char *name, char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	name = malloc(sizeof(char) * (i + 3));
+	if (!name)
+		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
@@ -41,6 +43,8 @@ char	*ft_switch_value(char *val, char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	val = malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (!val)
+		return (NULL);
 	i++;
 	k = 0;
 	while (str[i])
@@ -83,5 +87,7 @@ void	ft_add_var(t_data *data, char *str, int exist)
 		new->name = name;
 		free(new->value);
 		new->value = ft_add_value(str);
+		if (ft_has_equal(new->name))
+			new->equal = 1;
 	}
 }

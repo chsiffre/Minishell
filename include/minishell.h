@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/03 15:41:47 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/04 13:02:47 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_data {
 	t_env	*env;
 }	t_data;
 
-
+//***********prompt***************//
+int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
 void	ft_parse(t_data *data);
@@ -61,6 +62,8 @@ ssize_t	ft_check_cmd_builtins(char **strs, t_lst *lst);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
 
+//***********builtins***************//
+void	ft_echo(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -72,6 +75,7 @@ t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 void	ft_unset(t_data *data, char *name);
 void	ft_export(t_data *data, char *name);
+int		ft_has_equal(char *str);
 
 //***********prompt***************//
 void	ft_init_data(t_data *data, char **envp);
@@ -81,6 +85,5 @@ char	*ft_try_path(t_data *data, char *line, char *cmd);
 void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
-
 
 #endif

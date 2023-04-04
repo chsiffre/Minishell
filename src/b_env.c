@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/03 15:38:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/04 13:10:43 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@ t_env	*ft_new_env(char *str)
 	k = 0;
 	temp = -1;
 	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
 	new->equal = ft_has_equal(str);
 	while (str[k] && str[k] != '=')
 		k++;
 	new->name = malloc(sizeof(char *) * (k + 1));
+	if (!new->name)
+		return (NULL);
 	if (!new->name)
 		return (NULL);
 	while (++temp <= k)
@@ -72,6 +76,8 @@ t_env	*ft_new_env(char *str)
 		while (str[k])
 			k++;
 		new->value = malloc(sizeof(char *) * ((k - temp) + 1));
+		if (!new->value)
+			return (NULL);
 		k = temp;
 		temp = 0;
 		while (str[k])
