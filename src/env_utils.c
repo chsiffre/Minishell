@@ -6,11 +6,25 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/04 13:11:30 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/05 11:46:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_has_equal(char *str)
+{
+	int	k;
+
+	k = 0;
+	while (str[k])
+	{
+		if (str[k] == '=')
+			return (1);
+		k++;
+	}
+	return (0);
+}
 
 char	*ft_find_name(char *name, char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/04 13:10:43 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/05 11:46:35 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,19 @@ void	ft_envadd_back(t_env **env, t_env *new)
 	}
 }
 
-int	ft_has_equal(char *str)
+char	*ft_alloc_val(t_env *new, char *str, int k, int temp)
 {
-	int	k;
-
-	k = 0;
 	while (str[k])
-	{
-		if (str[k] == '=')
-			return (1);
-		k++;
-	}
-	return (0);
+			k++;
+	new->value = malloc(sizeof(char *) * ((k - temp) + 1));
+	if (!new->value)
+		return (NULL);
+	k = temp;
+	temp = 0;
+	while (str[k])
+		new->value[temp++] = str[k++];
+	new->value[temp] = '\0';
+	return (new->value);
 }
 
 t_env	*ft_new_env(char *str)
@@ -66,24 +67,11 @@ t_env	*ft_new_env(char *str)
 	new->name = malloc(sizeof(char *) * (k + 1));
 	if (!new->name)
 		return (NULL);
-	if (!new->name)
-		return (NULL);
 	while (++temp <= k)
 		new->name[temp] = str[temp];
 	new->name[temp] = '\0';
 	if (new->equal == 1)
-	{
-		while (str[k])
-			k++;
-		new->value = malloc(sizeof(char *) * ((k - temp) + 1));
-		if (!new->value)
-			return (NULL);
-		k = temp;
-		temp = 0;
-		while (str[k])
-			new->value[temp++] = str[k++];
-		new->value[temp] = '\0';
-	}
+		ft_alloc_val(new, str, k, temp);
 	else
 		new->value = NULL;
 	new->next = NULL;

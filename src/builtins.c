@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/04 15:44:06 by lucas            ###   ########.fr       */
+/*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
+/*   Updated: 2023/04/05 14:01:22 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -82,6 +81,9 @@ char	*ft_builtins(t_data *data)
 	if (ft_compare_str(data->cmd[0], "env"))
 		return (ft_print_env(data), NULL);
 	if (ft_compare_str(data->cmd[0], "exit"))
+	{
+		printf("exit\n");
 		exit(1);
+	}
 	return (data->cmd[0]);
 }
