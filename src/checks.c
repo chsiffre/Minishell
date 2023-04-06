@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:43:13 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:01:09 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void    ft_check_cmd(t_data *data, ssize_t i)
             while (data->result[i] && data->result[i][0] == '-')
                 i++;
         }
+        else
+            i++;
     }
 }
 

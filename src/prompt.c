@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:54:54 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 14:02:28 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ void	ft_prompt(t_data *data)
 {
 	while (1)
 	{
-		data->line = readline("prompt>");
-		//data->line = "< in ls -l >> out | << in ls -l ";
+		//data->line = readline("prompt>");
+		data->line = "ls";
 		if (data->line)
 			add_history(data->line);
 		ft_parse(data);

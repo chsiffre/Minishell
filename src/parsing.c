@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:55:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 14:04:41 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_parse(t_data *data)
 {
-	ssize_t	i;
-
-	i = 0;
 	data->result = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->result)
 		return ;
@@ -30,16 +27,6 @@ void	ft_parse(t_data *data)
 		if (data->result[data->i])
 			data->i++;
     }
-	i = 0;
-	while (data->lst)
-	{
-		i = 0;
-		while (data->lst->content[i])
-			printf("%s ", data->lst->content[i++]);
-		printf("\n");
-		data->lst = data->lst->next;
-	}
-	exit(1);
 }
 
 void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i)
