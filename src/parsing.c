@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/03/30 21:45:51 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:35:32 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,80 @@
 
 void	ft_parse(t_data *data)
 {
-	t_lst	*lst;
 	ssize_t	i;
-	ssize_t	y;
 
-	lst = NULL;
-	y = 0;
-	i = -1;
+	i = 0;
 	data->result = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->result)
 		return ;
-    while (data->result[++i])
+    while (data->result[data->i])
     {
-        ft_check_redir(data->result, lst);
-        i = ft_check_cmd_builtins(data->result, lst);
-        if (data->result[i][y] == '|')
-            ft_add_lst(lst, data->result[i], 2);
+        ft_check_redir(data, data->result, data->i);
+        ft_check_cmd(data, data->i);
+		data->i = ft_check_builtins(data, data->i);
+        if (data->result[data->i] && data->result[data->i][0] == '|')
+			ft_add_lst(data, data->result, 2, data->i);
+		if (data->result[data->i])
+			data->i++;
     }
+	i = 0;
+	while (data->lst)
+	{
+		i = 0;
+		while (data->lst->content[i])
+			printf("%s ", data->lst->content[i++]);
+		printf("\n");
+		data->lst = data->lst->next;
+	}
+	exit(1);
 }
 
-void    ft_add_lst(t_lst *lst, char *str, int type)
+void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i)
 {
     t_lst  *new;
-    
-    new = ft_lstnew_t(str, type);
+	
+    new = ft_lstnew_t(strs, type, i);
     if (!new)
-        return ;
-    ft_add_back(&lst, new);
+    	return ;
+    ft_add_back(&data->lst, new);
 }
 
-t_lst	*ft_lstnew_t(void *content, int type)
+ssize_t	ft_strs_len(char **strs)
+{
+	size_t	i;
+
+	i = 0;
+	while (strs[i])
+		i++;
+	return (i);
+}
+
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 {
 	t_lst	*ptr;
-
-	ptr = malloc(sizeof(t_list));
+	size_t	y;
+	
+	y = 0;
+	ptr = malloc(sizeof(t_lst));
 	if (!ptr)
 		return (NULL);
+	ptr->content = malloc(sizeof(char *) * ft_strs_len(strs));
+	if (!ptr->content)
+		return (NULL);
 	ptr->type = type;
-	ptr->content = content;
+	if (strs[i][0] == '<' || strs[i][0] == '>')
+	{
+		ptr->content[y++] = ft_strdup(strs[i++]);
+		if (!ptr->content)
+			return (NULL);
+	}
+	ptr->content[y++] = strs[i++];
+	while (strs[i] && strs[i][0] == '-')
+	{
+		ptr->content[y++] = ft_strdup(strs[i++]);
+		if (!ptr->content)
+			return (NULL);
+	}
 	ptr->next = NULL;
 	return (ptr);
 }

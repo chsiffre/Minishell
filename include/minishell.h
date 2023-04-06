@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/05 14:34:43 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:48:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ typedef struct s_lst {
 }	t_lst;
 
 typedef struct s_data {
+	t_lst	*lst;
 	char	*line;
 	char	**env_path;
 	char	*path;
 	char	**split_path;
 	char	**cmd;
 	char	**result;
+	ssize_t	i;
 	t_env	*env;
 	int		signal;
 }	t_data;
@@ -55,14 +57,15 @@ int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
 void	ft_parse(t_data *data);
-t_lst	*ft_lstnew_t(void *content, int type);
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i);
 t_lst	*ft_last(t_lst *lst);
-void	ft_add_lst(t_lst *lst, char *str, int type);
-void	ft_check_redir(char **strs, t_lst *lst);
-ssize_t	ft_check_cmd_builtins(char **strs, t_lst *lst);
+void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i);
+void	ft_check_redir(t_data *data, char **strs, ssize_t i);
+ssize_t	ft_strs_len(char **strs);
+void	ft_check_cmd(t_data *data, ssize_t i);
+ssize_t    ft_check_builtins(t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
-
 //***********builtins***************//
 void	ft_echo(t_data *data);
 
