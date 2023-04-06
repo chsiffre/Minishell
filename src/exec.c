@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/05 15:21:17 by lucas            ###   ########.fr       */
+/*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
+/*   Updated: 2023/04/06 13:43:14 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_ctrl(int signal)
+int	ft_redirection(t_data *data)
 {
-	if (signal == 2)
-	{
-		rl_on_new_line();
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	
 }
 
-int	main(int argc, char **argv, char **envp)
+void	ft_check_cmd(t_data *data)
 {
-	t_data	data;
+	t_lst	tmp;
 
-	(void)argc;
-	(void)**argv;
-	ft_init_data(&data, envp);
-	ft_get_env(&data);
-	signal(SIGINT, ft_ctrl);
-	ft_prompt(&data);
-	return (0);
+	tmp = data->lst;
+	while (tmp)
+	{
+		if (tmp->type == 0)
+			ft_redirection();
+		else if (tmp->type == 1)
+			ft_command();
+		else if (tmp->type == 2)
+			ft_pipe();
+		else if (tmp->type == 3)
+			ft_builtins();
+	}
 }

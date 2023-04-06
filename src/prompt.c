@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/05 14:17:33 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:08:58 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,43 @@ void	ft_get_env(t_data *data)
 	}
 }
 
+int	ft_lsize(t_lst *lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
+}
+
+void	ft_list_to_tab(t_data *data, t_lst *lst)
+{
+	t_lst	*tmp;
+	int		i;
+	int		j;
+
+	tmp = lst;
+	i = 0;
+	data->cmd = malloc(sizeof(char *) * (ft_lsize(tmp) + 1));
+	while (tmp)
+	{
+		j = 0;
+		data->cmd[i] = malloc(sizeof(char) * ft_strlen((*tmp->content)));
+		while (tmp->content[j])
+		{
+			data->cmd[i][j] = (*tmp->content[j]);
+			j++;
+		}
+		i++;
+		tmp = tmp->next;
+	}
+	data->cmd[i] = NULL;
+}
+
 void	ft_prompt(t_data *data)
 {
 	while (1)
@@ -77,6 +114,7 @@ void	ft_prompt(t_data *data)
 		if (data->line)
 			add_history(data->line);
 		//ft_parse(data);
+		//ft_list_to_tab(data, lst);
 		data->cmd = ft_split(data->line, ' ');
 		if (!data->cmd)
 			return ;
