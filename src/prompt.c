@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:50:01 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 13:54:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ void	ft_prompt(t_data *data)
 {
 	while (1)
 	{
-		//data->line = readline("prompt>");
-		data->line = "< in ls -l >> out | << in ls -l ";
+		data->line = readline("prompt>");
+		//data->line = "< in ls -l >> out | << in ls -l ";
 		if (data->line)
 			add_history(data->line);
 		ft_parse(data);
-		return ;
+		//return ;
 		//ft_list_to_tab(data, lst);
 		data->cmd = ft_split(data->line, ' ');
 		if (!data->cmd)

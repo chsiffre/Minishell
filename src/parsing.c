@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:35:32 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:55:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 {
 	t_lst	*ptr;
 	size_t	y;
-	
+
 	y = 0;
 	ptr = malloc(sizeof(t_lst));
 	if (!ptr)
