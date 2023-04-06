@@ -6,34 +6,31 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/04 17:32:48 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:43:13 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-ssize_t ft_check_redir(t_data *data, char **strs, ssize_t i)
+void    ft_check_redir(t_data *data, char **strs, ssize_t i)
 {
-    ssize_t  start;
-    int     check;
 
-    check = 0;
-    start = 0;
     while (strs[i] && strs[i][0] != '|')
     {
         if (strs[i][0] == '<' || strs[i][0] == '>')
-            ft_add_lst(data, strs, 0, i);
-        if (check == 0)
         {
-            start = i;
-            check = 1;
+            ft_add_lst(data, strs, 0, i);
+            if (strs[i][0] == '<')
+            {
+                if (strs[i + 1])
+                    data->i = i + 2;
+            }
+            if (strs[i + 1])
+                i = i + 2;
         }
-        if (strs[i])
+        else
             i++;
     }
-    if (check == 0)
-        start = i;
-    return (start);
 }
 
 ssize_t    ft_check_builtins(t_data *data, ssize_t i)
@@ -59,16 +56,17 @@ void    ft_check_cmd(t_data *data, ssize_t i)
 {
     while (data->result[i] && data->result[i][0] != '|')
     {
-        if (data->result[i][0] == '<' || data->result[i][0] == '>')
+        if ((data->result[i][0] == '<' || data->result[i][0] == '>'))
         {
             if (data->result[i + 1])
                 i = i + 2;
         }
-        if (data->result[i] && data->result[i][0] != '|')
+        
+        if (data->result[i] && data->result[i][0] != '|' 
+            && data->result[i][0] != '-' && !ft_is_builtins(data->result[i]))
         {
-            if (!ft_is_builtins(data->result[i]))
-                ft_add_lst(data, data->result, 1, i);
-            if (data->result[i])
+            ft_add_lst(data, data->result, 1, i++);
+            while (data->result[i] && data->result[i][0] == '-')
                 i++;
         }
     }
