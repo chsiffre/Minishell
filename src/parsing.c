@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 14:04:41 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:33:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ void	ft_parse(t_data *data)
 	data->result = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->result)
 		return ;
-    while (data->result[data->i])
-    {
-        ft_check_redir(data, data->result, data->i);
-        ft_check_cmd(data, data->i);
+	while (data->result[data->i])
+	{
+		ft_check_redir(data, data->result, data->i);
+		ft_check_cmd(data, data->i);
 		data->i = ft_check_builtins(data, data->i);
-        if (data->result[data->i] && data->result[data->i][0] == '|')
+		if (data->result[data->i] && data->result[data->i][0] == '|')
 			ft_add_lst(data, data->result, 2, data->i);
 		if (data->result[data->i])
 			data->i++;
-    }
+	}
 }
 
 void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i)
 {
-    t_lst  *new;
-	
-    new = ft_lstnew_t(strs, type, i);
-    if (!new)
-    	return ;
-    ft_add_back(&data->lst, new);
+	t_lst	*new;
+
+	new = ft_lstnew_t(strs, type, i);
+	if (!new)
+		return ;
+	ft_add_back(&data->lst, new);
 }
 
 ssize_t	ft_strs_len(char **strs)

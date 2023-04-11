@@ -1,7 +1,0 @@
-total 196
-drwxr-xr-x 2 chsiffre 2022_lyon   4096 Mar 30 16:35 include
-drwxr-xr-x 3 chsiffre 2022_lyon   4096 Apr  3 10:56 libft
--rw-r--r-- 1 chsiffre 2022_lyon    928 Apr  4 13:45 Makefile
--rwxr-xr-x 1 chsiffre 2022_lyon 182600 Apr  4 15:36 minishell
--rw-r--r-- 1 chsiffre 2022_lyon      0 Apr  4 15:41 out
-drwxr-xr-x 2 chsiffre 2022_lyon   4096 Apr  3 10:32 src

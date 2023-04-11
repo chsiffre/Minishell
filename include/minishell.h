@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 13:48:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/06 21:55:55 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data {
 	ssize_t	i;
 	t_env	*env;
 	int		signal;
+	int		fd;
 }	t_data;
 
 //***********prompt***************//
@@ -72,7 +73,6 @@ void	ft_echo(t_data *data);
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
 int		ft_has_equal(char *str);
-void	ft_get_env(t_data *prompt);
 void	ft_add_var(t_data *data, char *str, int exist);
 t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
@@ -89,5 +89,7 @@ char	*ft_try_path(t_data *data, char *line, char *cmd);
 void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
+
+void	ft_check_type(t_data *data);
 
 #endif
