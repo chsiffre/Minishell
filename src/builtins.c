@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/05 14:01:22 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 11:12:34 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,24 @@ void	ft_cd(t_data *data)
 		ft_printf("Minishell: cd : too many arguments\n");
 }
 
-char	*ft_builtins(t_data *data)
+int	ft_builtins(t_data *data)
 {
-	if (ft_compare_str(data->cmd[0], "echo"))
-		return (ft_echo(data), NULL);
-	if (ft_compare_str(data->cmd[0], "cd"))
-		return (ft_cd(data), NULL);
-	if (ft_compare_str(data->cmd[0], "pwd"))
-		return (ft_get_pwd(), NULL);
-	if (ft_compare_str(data->cmd[0], "export"))
-		return (ft_export(data, data->cmd[1]), NULL);
-	if (ft_compare_str(data->cmd[0], "unset"))
-		return (ft_unset(data, data->cmd[1]), NULL);
-	if (ft_compare_str(data->cmd[0], "env"))
-		return (ft_print_env(data), NULL);
-	if (ft_compare_str(data->cmd[0], "exit"))
+	if (ft_compare_str(data->result[0], "echo"))
+		return (ft_echo(data), 1);
+	else if (ft_compare_str(data->result[0], "cd"))
+		return (ft_cd(data), 1);
+	else if (ft_compare_str(data->result[0], "pwd"))
+		return (ft_get_pwd(), 1);
+	else if (ft_compare_str(data->result[0], "export"))
+		return (ft_export(data, data->result[1]), 1);
+	else if (ft_compare_str(data->result[0], "unset"))
+		return (ft_unset(data, data->result[1]), 1);
+	else if (ft_compare_str(data->result[0], "env"))
+		return (ft_print_env(data), 1);
+	else if (ft_compare_str(data->result[0], "exit"))
 	{
 		printf("exit\n");
 		exit(1);
 	}
-	return (data->cmd[0]);
+	return (0);
 }

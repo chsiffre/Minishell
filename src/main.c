@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 21:37:21 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 10:50:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_data(&data, envp);
 	data = ft_init_struct(data);
 	ft_get_env(&data);
-	signal(SIGINT, ft_ctrl);
+	//signal(SIGINT, ft_ctrl);
 	ft_prompt(&data);
 	return (0);
 }

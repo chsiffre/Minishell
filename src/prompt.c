@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 10:28:28 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 11:39:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,20 @@ void	ft_list_to_tab(t_data *data, t_lst *lst)
 
 void	ft_prompt(t_data *data)
 {
+	t_lst	*tmp;
+
 	while (1)
 	{
 		data->line = readline("prompt>");
 		if (data->line)
 			add_history(data->line);
 		ft_parse(data);
-		ft_check_type(data);
-		write(2, "OK\n", 3);
-		free(data->line);
-	/*
-		if (data->lst)
+		tmp = data->lst;
+		while (tmp)
 		{
-			data->lst->content = ft_builtins(data);
-			if (data->lst->content != NULL)
-				data->lst->content = ft_try_path(data, data->line, data->cmd[0]);
-			if (data->cmd[0])
-				ft_exec(data, data->cmd);
+			ft_check_type(data, tmp);
+			tmp = tmp->next;
 		}
 		free(data->line);
-	}
-	free(data->line);
-	*/
 	}
 }

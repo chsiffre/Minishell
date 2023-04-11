@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/11 10:33:32 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 11:38:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,32 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	return (tab);
 }
 
-void	ft_execute_cmd(t_data *data, char *content)
+int	ft_execute_cmd(t_data *data, char *content)
 {
 	char	**cmd;
 
+	if (ft_builtins(data) == 1)
+		return (1);
 	cmd = malloc(sizeof(char *) * 10000);
 	cmd[0] = ft_try_path(data, data->line, content);
-	if (cmd[0] == NULL)
-		ft_builtins(data);
-	else
-		ft_exec(data, cmd);
+	ft_exec(data, cmd);
+	return (0);
 }
 
-void	ft_redirection(t_data *data)
+int	ft_redirection(t_data *data)
 {
 	data->fd = open(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (ft_compare_str(data->lst->content[0], ">")
-		&& data->lst->next->type == 1)
-	{
-		if (dup2(data->fd, STDOUT_FILENO) == -1)
-			printf("ERREUR\n");
-		ft_execute_cmd(data, data->lst->next->content[0]);
-		dup2(STDIN_FILENO, STDOUT_FILENO);
-	}
+	if (dup2(data->fd, STDOUT_FILENO) == -1)
+		return (printf("ERREUR\n"), 1);
+	return (0);
 }
 
-void	ft_check_type(t_data *data)
+		//dup2(STDIN_FILENO, STDOUT_FILENO);
+
+void	ft_check_type(t_data *data, t_lst *tmp)
 {
-	if (data->lst->type == 0)
+	if (tmp->type == 0)
 		ft_redirection(data);
-	else if (data->lst->type == 1 && data->lst->next == NULL)
-		ft_execute_cmd(data, data->lst->content[0]);
+	else if (tmp->type == 1)
+		ft_execute_cmd(data, tmp->content[0]);
 }

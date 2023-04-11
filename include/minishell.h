@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 21:55:55 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 11:39:17 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i);
 void	ft_check_redir(t_data *data, char **strs, ssize_t i);
 ssize_t	ft_strs_len(char **strs);
 void	ft_check_cmd(t_data *data, ssize_t i);
-ssize_t    ft_check_builtins(t_data *data, ssize_t i);
+ssize_t	ft_check_builtins(t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
 //***********builtins***************//
@@ -84,12 +84,12 @@ int		ft_has_equal(char *str);
 //***********prompt***************//
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
-char	*ft_builtins(t_data *data);
+int		ft_builtins(t_data *data);
 char	*ft_try_path(t_data *data, char *line, char *cmd);
 void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
 
-void	ft_check_type(t_data *data);
+void	ft_check_type(t_data *data, t_lst *tmp);
 
 #endif
