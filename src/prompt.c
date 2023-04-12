@@ -3,74 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/12 10:57:02 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/12 13:58:39 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_lsize(t_lst *lst)
+void	ft_to_free(t_lst *tmp, t_data *data)
 {
-	int	count;
+	int	i;
 
-	count = 0;
-	while (lst != NULL)
-	{
-		lst = lst->next;
-		count++;
-	}
-	return (count);
-}
-
-void	ft_list_to_tab(t_data *data, t_lst *lst)
-{
-	t_lst	*tmp;
-	int		i;
-	int		j;
-
-	tmp = lst;
-	i = 0;
-	data->cmd = malloc(sizeof(char *) * (ft_lsize(tmp) + 1));
 	while (tmp)
 	{
-		j = 0;
-		data->cmd[i] = malloc(sizeof(char) * ft_strlen((*tmp->content)));
-		while (tmp->content[j])
-		{
-			data->cmd[i][j] = (*tmp->content[j]);
-			j++;
-		}
-		i++;
+		i = 0;
+		while (tmp->content[i])
+			free(tmp->content[i++]);
+		free(tmp->content);
+		free(tmp);
 		tmp = tmp->next;
 	}
-	data->cmd[i] = NULL;
-}
-
-void	ft_lstdelo(t_lst *lst)
-{
-	if (lst)
+	while (data->lst->next != NULL)
 	{
-		free(lst->content);
-		free(lst);
+		i = 0;
+		while (data->lst->content[i])
+			free(data->lst->content[i++]);
+		free(data->lst);
+		data->lst = data->lst->next;
 	}
+	i = 0;
+	while (data->lst->content[i])
+		free(data->lst->content[i++]);
+	free(data->lst);
 }
 
 void	ft_prompt(t_data *data)
 {
+	t_lst	*tmp;
+
 	while (1)
 	{
 		data->line = readline("prompt>");
 		if (data->line)
 			add_history(data->line);
 		ft_parse(data);
-		while (data->lst)
+		tmp = data->lst;
+		printf("%s\n", tmp->content[0]);
+		while (tmp)
 		{
-			ft_check_type(data);
-			data->lst = data->lst->next;
+			ft_check_type(data, tmp);
+			tmp = tmp->next;
 		}
 		free(data->line);
+		ft_to_free(tmp, data);
 	}
 }
