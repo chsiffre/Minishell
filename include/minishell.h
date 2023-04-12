@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 11:39:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:50:25 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
 
-void	ft_check_type(t_data *data, t_lst *tmp);
+void	ft_check_type(t_data *data);
 
 #endif

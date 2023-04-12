@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/11 11:38:57 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:56:08 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 
 	if (ft_builtins(data) == 1)
 		return (1);
-	cmd = malloc(sizeof(char *) * 10000);
+	cmd = malloc(sizeof(char *) * ft_strlen(content));
 	cmd[0] = ft_try_path(data, data->line, content);
 	ft_exec(data, cmd);
 	return (0);
@@ -70,15 +70,18 @@ int	ft_redirection(t_data *data)
 	data->fd = open(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 	if (dup2(data->fd, STDOUT_FILENO) == -1)
 		return (printf("ERREUR\n"), 1);
+	data->lst = data->lst->next;
+	if (data->lst->type == 1)
+		ft_execute_cmd(data, data->lst->content[0]);
+	dup2(STDIN_FILENO, STDOUT_FILENO);
 	return (0);
 }
 
-		//dup2(STDIN_FILENO, STDOUT_FILENO);
 
-void	ft_check_type(t_data *data, t_lst *tmp)
+void	ft_check_type(t_data *data)
 {
-	if (tmp->type == 0)
+	if (data->lst->type == 0)
 		ft_redirection(data);
-	else if (tmp->type == 1)
-		ft_execute_cmd(data, tmp->content[0]);
+	else if (data->lst->type == 1)
+		ft_execute_cmd(data, data->lst->content[0]);
 }

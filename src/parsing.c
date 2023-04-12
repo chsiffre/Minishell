@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 17:33:45 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/11 17:27:14 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 		if (!ptr->content)
 			return (NULL);
 	}
-	ptr->content[y++] = strs[i++];
+	ptr->content[y++] = ft_strdup(strs[i++]);
 	while (strs[i] && strs[i][0] == '-')
 	{
 		ptr->content[y++] = ft_strdup(strs[i++]);

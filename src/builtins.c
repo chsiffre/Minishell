@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/11 11:12:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:52:32 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,19 @@ void	ft_cd(t_data *data)
 
 int	ft_builtins(t_data *data)
 {
-	if (ft_compare_str(data->result[0], "echo"))
+	if (ft_compare_str(data->lst->content[0], "echo"))
 		return (ft_echo(data), 1);
-	else if (ft_compare_str(data->result[0], "cd"))
+	else if (ft_compare_str(data->lst->content[0], "cd"))
 		return (ft_cd(data), 1);
-	else if (ft_compare_str(data->result[0], "pwd"))
+	else if (ft_compare_str(data->lst->content[0], "pwd"))
 		return (ft_get_pwd(), 1);
-	else if (ft_compare_str(data->result[0], "export"))
-		return (ft_export(data, data->result[1]), 1);
-	else if (ft_compare_str(data->result[0], "unset"))
-		return (ft_unset(data, data->result[1]), 1);
-	else if (ft_compare_str(data->result[0], "env"))
+	else if (ft_compare_str(data->lst->content[0], "export"))
+		return (ft_export(data, data->lst->content[1]), 1);
+	else if (ft_compare_str(data->lst->content[0], "unset"))
+		return (ft_unset(data, data->lst->content[1]), 1);
+	else if (ft_compare_str(data->lst->content[0], "env"))
 		return (ft_print_env(data), 1);
-	else if (ft_compare_str(data->result[0], "exit"))
+	else if (ft_compare_str(data->lst->content[0], "exit"))
 	{
 		printf("exit\n");
 		exit(1);
