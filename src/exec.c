@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/12 13:40:03 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:40:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,10 @@ int	ft_execute_cmd(t_data *data, t_lst *tmp, char *content)
 	return (0);
 }
 
-int	ft_redirection(t_data *data, t_lst *tmp)
-{
-	data->fd = open(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (dup2(data->fd, STDOUT_FILENO) == -1)
-		return (printf("ERREUR\n"), 1);
-	tmp = tmp->next;
-	if (tmp->type == 1)
-		ft_execute_cmd(data, tmp, tmp->content[0]);
-	dup2(STDIN_FILENO, STDOUT_FILENO);
-	return (0);
-}
-
-
 void	ft_check_type(t_data *data, t_lst *tmp)
 {
-	if (tmp->type == 0)
+	if (tmp->type == REDIR)
 		ft_redirection(data, tmp);
-	else if (tmp->type == 1)
+	else if (tmp->type == CMD)
 		ft_execute_cmd(data, tmp, tmp->content[0]);
 }

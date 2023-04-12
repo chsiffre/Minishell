@@ -24,6 +24,7 @@ LIST_SRC =	main.c \
 			checks.c \
 			ft_utils.c \
 			exec.c \
+			exec_redir.c \
 
 LIST_INC = minishell.h
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/11 11:52:32 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/12 16:42:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_builtins(t_data *data)
 	else if (ft_compare_str(data->lst->content[0], "pwd"))
 		return (ft_get_pwd(), 1);
 	else if (ft_compare_str(data->lst->content[0], "export"))
-		return (ft_export(data, data->lst->content[1]), 1);
+		return (ft_export(data), 1);
 	else if (ft_compare_str(data->lst->content[0], "unset"))
 		return (ft_unset(data, data->lst->content[1]), 1);
 	else if (ft_compare_str(data->lst->content[0], "env"))

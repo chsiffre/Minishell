@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/12 13:37:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:42:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
+
+# define REDIR 0
+# define CMD 1
+# define PIPE 2
 
 typedef struct s_env {
 	char			*name;
@@ -51,6 +55,7 @@ typedef struct s_data {
 	t_env	*env;
 	int		signal;
 	int		fd;
+	char	*limiter;
 }	t_data;
 
 //***********prompt***************//
@@ -78,7 +83,7 @@ t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_unset(t_data *data, char *name);
-void	ft_export(t_data *data, char *name);
+void	ft_export(t_data *data);
 int		ft_has_equal(char *str);
 
 //***********prompt***************//
@@ -90,6 +95,9 @@ void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
 
+//***********exec***************//
 void	ft_check_type(t_data *data, t_lst *tmp);
+int		ft_redirection(t_data *data, t_lst *tmp);
+int		ft_execute_cmd(t_data *data, t_lst *tmp, char *content);
 
 #endif

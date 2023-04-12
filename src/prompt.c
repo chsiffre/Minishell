@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/12 13:58:39 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:49:27 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_prompt(t_data *data)
 			add_history(data->line);
 		ft_parse(data);
 		tmp = data->lst;
-		printf("%s\n", tmp->content[0]);
 		while (tmp)
 		{
 			ft_check_type(data, tmp);
