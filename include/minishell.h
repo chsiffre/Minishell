@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 11:50:25 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/13 17:02:11 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ typedef struct s_data {
 	char	*path;
 	char	**split_path;
 	char	**cmd;
-	char	**result;
+	char	**res_split;
+	char	**res_parse;
 	ssize_t	i;
+	ssize_t	y;
 	t_env	*env;
 	int		signal;
 	int		fd;
@@ -57,16 +59,23 @@ typedef struct s_data {
 int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
-void	ft_parse(t_data *data);
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i);
+t_lst	*ft_parse(t_data *data);
+char *ft_pre_split(char *str);
+char *ft_str_replace(char *str, char *copy, int new_size);
+int		ft_is_redir(char *str);
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size);
+t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
+int	ft_len_parse(char **strs, int i);
+int ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
-void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i);
-void	ft_check_redir(t_data *data, char **strs, ssize_t i);
+t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size);
+char **ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
-void	ft_check_cmd(t_data *data, ssize_t i);
-ssize_t	ft_check_builtins(t_data *data, ssize_t i);
+char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
+t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
+void    ft_free(t_data *data);
 //***********builtins***************//
 void	ft_echo(t_data *data);
 
@@ -79,7 +88,6 @@ t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_unset(t_data *data, char *name);
 void	ft_export(t_data *data, char *name);
-int		ft_has_equal(char *str);
 
 //***********prompt***************//
 void	ft_init_data(t_data *data, char **envp);

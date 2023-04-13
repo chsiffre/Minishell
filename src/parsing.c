@@ -3,40 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 17:27:14 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/13 16:13:10 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_parse(t_data *data)
+t_lst	*ft_parse(t_data *data)
 {
-	data->result = ft_split_charset(data->line, " \t\n\r\v\f");
-	if (!data->result)
-		return ;
-	while (data->result[data->i])
+	t_lst	*lst;
+	int		i;
+
+	i = 0;
+	lst = NULL;
+	data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
+	if (!data->res_split)
+		return (NULL);
+	data->res_parse = malloc(ft_strs_len(data->res_split) * sizeof(char *));
+	if (!data->res_parse)
+		return (NULL);
+	while (data->res_split[i])
 	{
-		ft_check_redir(data, data->result, data->i);
-		ft_check_cmd(data, data->i);
-		data->i = ft_check_builtins(data, data->i);
-		if (data->result[data->i] && data->result[data->i][0] == '|')
-			ft_add_lst(data, data->result, 2, data->i);
-		if (data->result[data->i])
-			data->i++;
+		data->res_parse = ft_check_redir(data->res_parse, data, data->res_split, i);
+		data->res_parse = ft_check_cmd(data->res_parse, data, data->res_split, i);
+		while (data->res_split[i] && data->res_split[i][0] != '|')
+			i++;
+		if (data->res_split[i])
+			data->res_parse[data->i++] = data->res_split[i++];
 	}
+	lst = ft_convert_in_lst(lst, data);
+	i = 0;
+	while (lst)
+	{
+		i = -1;
+		while (lst->content[++i])
+			printf("[%s] ", lst->content[i]);
+		printf("\n");
+		lst = lst->next;
+	}
+	return (lst);
 }
 
-void	ft_add_lst(t_data *data, char **strs, int type, ssize_t i)
+t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
+{
+	while (data->res_parse[data->y])
+	{
+		if (ft_is_redir(data->res_parse[data->y]))
+		{
+			lst = ft_add_lst(lst, data, 0, 2);
+			data->y = data->y + 2;
+		}
+		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]))
+		{
+			lst = ft_add_lst(lst, data, 0, ft_len_parse(data->res_parse, data->y));
+			while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
+				data->y++;
+			if (data->res_parse[data->y])
+			{
+				lst = ft_add_lst(lst, data, 2, 1);
+				data->y++;
+			}
+		}
+		else
+			data->y++;
+	}
+	return (lst);
+}
+
+int	ft_len_parse(char **strs, int i)
+{
+	int	size;
+
+	size = 0;
+	while (strs[i] && strs[i][0] != '|')
+	{
+		size++;
+		i++;
+	}
+	return (size);
+}
+
+t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size)
 {
 	t_lst	*new;
-
-	new = ft_lstnew_t(strs, type, i);
+	
+	new = ft_lstnew_t(data->res_parse, type, data->y, size);
 	if (!new)
-		return ;
-	ft_add_back(&data->lst, new);
+		return (NULL);
+	ft_add_back(&lst, new);
+	return (lst);
 }
 
 ssize_t	ft_strs_len(char **strs)
@@ -49,7 +107,7 @@ ssize_t	ft_strs_len(char **strs)
 	return (i);
 }
 
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size)
 {
 	t_lst	*ptr;
 	size_t	y;
@@ -58,23 +116,23 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	ptr = malloc(sizeof(t_lst));
 	if (!ptr)
 		return (NULL);
-	ptr->content = malloc(sizeof(char *) * ft_strs_len(strs));
+	ptr->content = malloc(sizeof(char *) * (size + 1));
 	if (!ptr->content)
 		return (NULL);
 	ptr->type = type;
-	if (strs[i][0] == '<' || strs[i][0] == '>')
+	if (strs[i] && ft_is_redir(strs[i]))
 	{
-		ptr->content[y++] = ft_strdup(strs[i++]);
-		if (!ptr->content)
-			return (NULL);
+		ptr->content[y++] = strs[i++];
+		ptr->content[y++] = strs[i++];
 	}
-	ptr->content[y++] = ft_strdup(strs[i++]);
-	while (strs[i] && strs[i][0] == '-')
+	else if (strs[i] && !ft_is_redir(strs[i]) && strs[i][0] != '|')
 	{
-		ptr->content[y++] = ft_strdup(strs[i++]);
-		if (!ptr->content)
-			return (NULL);
+		while (strs[i] && strs[i][0] != '|')
+			ptr->content[y++] = strs[i++];
 	}
+	else
+		ptr->content[y++] = strs[i++];
+	ptr->content[y] = 0;
 	ptr->next = NULL;
 	return (ptr);
 }

@@ -3,73 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/06 17:32:23 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/12 17:21:29 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_check_redir(t_data *data, char **strs, ssize_t i)
+char **ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 {
-
+	int	i;
+	
+	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
-		if (strs[i][0] == '<' || strs[i][0] == '>')
+		if (ft_is_redir(strs[i]))
 		{
-			ft_add_lst(data, strs, 0, i);
-			if (strs[i][0] == '<')
-			{
-				if (strs[i + 1])
-					data->i = i + 2;
-			}
-			if (strs[i + 1])
-				i = i + 2;
+			res_parse[data->i++] = strs[i];
+			i++;
+			res_parse[data->i++] = strs[i];
+			i++;
 		}
 		else
 			i++;
 	}
+	return (res_parse);
 }
 
-ssize_t	ft_check_builtins(t_data *data, ssize_t i)
+int ft_is_redir(char *str)
 {
-	while (data->result[i] && data->result[i][0] != '|')
+	int i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (data->result[i][0] == '<' || data->result[i][0] == '>')
-			if (data->result[i + 1])
-				i = i + 2;
-		if (data->result[i] && data->result[i][0] != '|')
-		{
-			if (ft_is_builtins(data->result[i]))
-				ft_add_lst(data, data->result, 1, i);
-			if (data->result[i])
-				i++;
-		}
+		if (str[i] && str[i] == '<' && !str[i + 1])
+			return (1);
+		else if (str[i] == '>' && !str[i + 1])
+			return (1);
+		else if (str[i] && str[i] == '>' && str[i + 1] == '>')
+			return (1);
+		else if (str[i] && str[i] == '<' && str[i + 1] == '<')
+			return (1);
+		i++;	
 	}
-	return (i);
+	return (0);
 }
 
-void	ft_check_cmd(t_data *data, ssize_t i)
+char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 {
-	while (data->result[i] && data->result[i][0] != '|')
+	int	i;
+
+	i = start;
+	while (strs[i] && strs[i][0] != '|')
 	{
-		if ((data->result[i][0] == '<' || data->result[i][0] == '>'))
+		if (strs[i + 1] && ft_is_redir(strs[i]))
+			i = i + 2;
+		else if (strs[i] && strs[i][0] != '|')
 		{
-			if (data->result[i + 1])
-				i = i + 2;
-		}
-		if (data->result[i] && data->result[i][0] != '|'
-			&& data->result[i][0] != '-' && !ft_is_builtins(data->result[i]))
-		{
-			ft_add_lst(data, data->result, 1, i++);
-			while (data->result[i] && data->result[i][0] == '-')
-				i++;
-		}
-		else
+			res_parse[d->i++] = strs[i];
 			i++;
+		}
 	}
+	return (res_parse);
 }
 
 int	ft_is_builtins(char *str)

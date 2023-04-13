@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/12 10:57:02 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/13 17:04:35 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,23 @@ void	ft_lstdelo(t_lst *lst)
 
 void	ft_prompt(t_data *data)
 {
+	t_lst *list;
+	
+	list = NULL;
 	while (1)
 	{
-		data->line = readline("prompt>");
-		if (data->line)
+		//data->line = readline("prompt>");
+		data->line = " >out2 >in3 > out ls -l -a | >> outtt <in > out cat Makefile";
+		data->line = ft_pre_split(data->line);
+		if (!data->line)
+			return ;
+		else
 			add_history(data->line);
-		ft_parse(data);
-		while (data->lst)
-		{
-			ft_check_type(data);
-			data->lst = data->lst->next;
-		}
-		free(data->line);
+		list = ft_parse(data);
+		exit(1);
+		while (list)
+			list = list->next;	
+		//free(data->line);
+		//ft_free(data);
 	}
 }
