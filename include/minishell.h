@@ -6,13 +6,16 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/12 16:42:55 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:12:32 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define PATH_MAX 256
+# define REDIR 0
+# define CMD 1
+# define PIPE 2
 
 # include <unistd.h>
 # include <stdio.h>
@@ -25,10 +28,6 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
-
-# define REDIR 0
-# define CMD 1
-# define PIPE 2
 
 typedef struct s_env {
 	char			*name;
@@ -43,6 +42,11 @@ typedef struct s_lst {
 	int				type;
 }	t_lst;
 
+typedef struct s_pipe {
+	int	file_out;
+	int	file_in;
+}	t_pipe;
+
 typedef struct s_data {
 	t_lst	*lst;
 	char	*line;
@@ -56,6 +60,7 @@ typedef struct s_data {
 	int		signal;
 	int		fd;
 	char	*limiter;
+	t_pipe	*pipex;
 }	t_data;
 
 //***********prompt***************//
@@ -98,6 +103,7 @@ void	ft_conv_lst(char *line);
 //***********exec***************//
 void	ft_check_type(t_data *data, t_lst *tmp);
 int		ft_redirection(t_data *data, t_lst *tmp);
+int		ft_pipe(t_data *data, t_lst *tmp);
 int		ft_execute_cmd(t_data *data, t_lst *tmp, char *content);
 
 #endif

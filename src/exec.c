@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/12 17:18:48 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:33:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,12 @@ int	ft_execute_cmd(t_data *data, t_lst *tmp, char *content)
 
 	if (ft_builtins(data) == 1)
 		return (1);
+	write(2, "OK\n", 3);
 	i = 0;
 	while (tmp->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * i);
 	cmd = ft_cmd_options(data, tmp, cmd, content);
-	while (cmd[i])
-		printf("%s\n", cmd[i++]);
 	ft_exec(data, cmd);
 	return (0);
 }
@@ -100,6 +99,8 @@ void	ft_check_type(t_data *data, t_lst *tmp)
 {
 	if (tmp->type == REDIR)
 		ft_redirection(data, tmp);
+	else if (tmp->type == CMD && tmp->next->type == PIPE)
+		ft_pipe(data, tmp);
 	else if (tmp->type == CMD)
 		ft_execute_cmd(data, tmp, tmp->content[0]);
 }
