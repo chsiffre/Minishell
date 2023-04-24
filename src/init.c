@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 14:49:55 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/24 11:30:03 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ t_data  ft_init_struct(t_data data)
     data.cmd = NULL;
     data.result = NULL;
     data.i = 0;
+    data.pipex = malloc(sizeof(t_data));
     return (data);
 }

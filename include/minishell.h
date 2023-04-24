@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/13 13:12:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:53:30 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_lst {
 typedef struct s_pipe {
 	int	file_out;
 	int	file_in;
+	int	tab_pid;
 }	t_pipe;
 
 typedef struct s_data {
@@ -105,5 +106,6 @@ void	ft_check_type(t_data *data, t_lst *tmp);
 int		ft_redirection(t_data *data, t_lst *tmp);
 int		ft_pipe(t_data *data, t_lst *tmp);
 int		ft_execute_cmd(t_data *data, t_lst *tmp, char *content);
+char	**ft_cmd_options(t_data *data, t_lst *tmp, char **cmd, char *content);
 
 #endif
