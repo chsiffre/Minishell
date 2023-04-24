@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/24 16:56:10 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:43:46 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	ft_pipe(t_data *data, t_lst *tmp)
 		if (tmp->type == PIPE)
 			tmp = tmp->next;
 		if (tmp->type == REDIR)
+		{
 			ft_redirection(data, tmp);
+			tmp = tmp->next;
+		}
 		close(data->pipex->file_in);
 		close(data->pipex->file_out);
 	}
