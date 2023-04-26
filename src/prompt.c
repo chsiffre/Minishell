@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/13 09:20:00 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/25 11:36:47 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_prompt(t_data *data)
 
 	while (1)
 	{
-		data->line = readline("prompt>");
+		data->line = readline("prompt> ");
 		if (data->line)
 			add_history(data->line);
 		ft_parse(data);
