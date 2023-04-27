@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_exec.c                                       :+:      :+:    :+:   */
+/*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/12 16:25:56 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:05:46 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_redirection(t_data *data, t_lst *tmp)
 {
 	ft_which_redir(data, tmp);
 	tmp = tmp->next;
-	if (tmp->type == 1)
+	if (tmp->type == CMD)
 		ft_execute_cmd(data, tmp, tmp->content[0]);
 	dup2(STDIN_FILENO, STDOUT_FILENO);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/25 11:47:53 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:01:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	ft_pipe(t_data *data, t_lst *tmp)
 		close(data->pipex->file_in);
 		data->pipex->file_in = data->pipex->file_out;
 	}
+	dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
 	return (0);
 }
