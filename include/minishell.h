@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/25 10:58:01 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/01 21:46:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
 
 //***********exec***************//
-void	ft_check_type(t_data *data, t_lst *tmp);
-int		ft_redirection(t_data *data, t_lst *tmp);
-int		ft_pipe(t_data *data, t_lst *tmp);
-int		ft_execute_cmd(t_data *data, t_lst *tmp, char *content);
-char	**ft_cmd_options(t_data *data, t_lst *tmp, char **cmd, char *content);
+int		ft_check_type(t_data *data);
+int		ft_redirection(t_data *data);
+int		ft_pipe(t_data *data);
+int		ft_execute_cmd(t_data *data, char *content);
+char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 #endif

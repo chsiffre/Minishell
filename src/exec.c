@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/27 14:53:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:53:43 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,22 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	return (tab);
 }
 
-char	**ft_cmd_options(t_data *data, t_lst *tmp, char **cmd, char *content)
+char	**ft_cmd_options(t_data *data, char **cmd, char *content)
 {
 	int	i;
-	int	j;
-	int	k;
 
 	cmd[0] = ft_try_path(data, data->line, content);
 	i = 1;
-	while (tmp->content[i])
+	while (data->lst->content[i])
 	{
-		cmd[i] = malloc(sizeof(char) * ft_strlen(tmp->content[i]));
-		j = 0;
-		k = 0;
-		while (tmp->content[i][j])
-		{
-			cmd[i][k] = tmp->content[i][j];
-			j++;
-			k++;
-		}
-		cmd[i][k] = '\0';
+		cmd[i] = ft_strdup(data->lst->content[i]);
 		i++;
 	}
+	cmd[i] = 0;
 	return (cmd);
 }
 
-int	ft_execute_cmd(t_data *data, t_lst *tmp, char *content)
+int	ft_execute_cmd(t_data *data, char *content)
 {
 	char	**cmd;
 	int		i;
@@ -86,21 +76,23 @@ int	ft_execute_cmd(t_data *data, t_lst *tmp, char *content)
 	if (ft_builtins(data) == 1)
 		return (1);
 	i = 0;
-	while (tmp->content[i])
+	while (data->lst->content[i])
 		i++;
-	cmd = malloc(sizeof(char *) * i);
-	cmd = ft_cmd_options(data, tmp, cmd, content);
-	if (ft_exec(data, cmd) == 1)
+	cmd = malloc(sizeof(char *) * (i + 1));
+	cmd = ft_cmd_options(data, cmd, content);
+	if (cmd[0] != NULL && ft_exec(data, cmd) == 1)
 		return (1);
 	return (0);
 }
 
-void	ft_check_type(t_data *data, t_lst *tmp)
+int	ft_check_type(t_data *data)
 {
-	if (tmp->type == REDIR)
-		ft_redirection(data, tmp);
-	else if (tmp->next && tmp->next->type == PIPE)
-		ft_pipe(data, tmp);
-	else if (tmp->type == CMD)
-		ft_execute_cmd(data, tmp, tmp->content[0]);
+	if (data->lst->type == REDIR)
+		return (ft_redirection(data), 0);
+	else if (data->lst->next && data->lst->next->type == PIPE)
+		return (ft_pipe(data), 0);
+	else if (data->lst->type == CMD && !data->lst->next)
+		return (ft_execute_cmd(data, data->lst->content[0]), 0);
+	else
+		return (printf("Error\n"), 1);
 }

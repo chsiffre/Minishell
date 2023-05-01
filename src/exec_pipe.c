@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/27 11:01:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:36:24 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_end(t_data *data)
 	return (0);
 }
 
-int	ft_prepare_pipe(t_data *data, t_lst *tmp, char *content)
+int	ft_prepare_pipe(t_data *data, char *content)
 {
 	char	**cmd;
 	int		i;
@@ -33,20 +33,20 @@ int	ft_prepare_pipe(t_data *data, t_lst *tmp, char *content)
 	if (ft_builtins(data) == 1)
 		return (1);
 	i = 0;
-	while (tmp->content[i])
+	while (data->lst->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * i);
-	cmd = ft_cmd_options(data, tmp, cmd, content);
+	cmd = ft_cmd_options(data, cmd, content);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		return (ft_printf("error execve\n"), 1);
 	return (0);
 }
 
-int	ft_exec_pipe(t_data *data, t_lst *tmp)
+int	ft_exec_pipe(t_data *data)
 {
 	dup2(data->pipex->file_in, STDIN_FILENO);
 	dup2(data->pipex->file_out, STDOUT_FILENO);
-	if (ft_prepare_pipe(data, tmp, tmp->content[0]) == 1)
+	if (ft_prepare_pipe(data, data->lst->content[0]) == 1)
 		exit (1);
 	return (0);
 }
@@ -64,34 +64,35 @@ int	ft_lstlen(t_lst *lst)
 	return (count);
 }
 
-int	ft_pipe(t_data *data, t_lst *tmp)
+int	ft_pipe(t_data *data)
 {
 	int		fd[2];
 	pid_t	pid;
 	int		i;
 
 	i = 0;
-	data->pipex->tab_pid = ft_calloc(ft_lstlen(tmp), sizeof(int));
+	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->file_in = STDIN_FILENO;
-	while (tmp)
+	while (data->lst)
 	{
 		if (pipe(fd) == -1)
 			return (1);
 		pid = fork();
-		data->pipex->file_out = fd[0];
-		if (!tmp->next)
+		data->pipex->file_out = fd[1];
+		data->pipex->file_in = fd[0];
+		if (!data->lst->next)
 			data->pipex->file_out = STDOUT_FILENO;
 		if (pid == -1)
 			return (1);
 		else if (pid == 0)
-			ft_exec_pipe(data, tmp);
-		tmp = tmp->next;
-		if (tmp && tmp->type == PIPE)
-			tmp = tmp->next;
-		if (tmp && tmp->type == REDIR)
+			ft_exec_pipe(data);
+		data->lst = data->lst->next;
+		if (data->lst && data->lst->type == PIPE)
+			data->lst = data->lst->next;
+		if (data->lst && data->lst->type == REDIR)
 		{
-			ft_redirection(data, tmp);
-			tmp = tmp->next;
+			ft_redirection(data);
+			data->lst = data->lst->next;
 		}
 		data->pipex->tab_pid[i] = pid;
 		i++;

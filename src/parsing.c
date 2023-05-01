@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/27 13:24:37 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/04/30 22:11:48 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	ptr = malloc(sizeof(t_lst));
 	if (!ptr)
 		return (NULL);
-	ptr->content = malloc(sizeof(char *) * ft_strs_len(strs));
+	ptr->content = malloc(sizeof(char *) * (ft_strs_len(strs) + 1));
 	if (!ptr->content)
 		return (NULL);
 	ptr->type = type;
@@ -75,6 +75,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 		if (!ptr->content)
 			return (NULL);
 	}
+	ptr->content[y] = NULL;
 	ptr->next = NULL;
 	return (ptr);
 }

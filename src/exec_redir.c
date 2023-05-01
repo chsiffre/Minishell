@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/27 15:05:46 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:11:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,43 @@ int	ft_here_doc(t_data *data)
 	return (0);
 }
 
-int	ft_which_redir(t_data *data, t_lst *tmp)
+int	ft_which_redir(t_data *data)
 {
-	if (ft_compare_str(tmp->content[0], ">"))
+	if (ft_compare_str(data->lst->content[0], ">"))
 	{
-		data->fd = open(tmp->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
+		data->fd = open
+			(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (dup2(data->fd, STDOUT_FILENO) == -1)
 			return (printf("ERREUR\n"), 1);
 	}
-	else if (ft_compare_str(tmp->content[0], "<"))
+	else if (ft_compare_str(data->lst->content[0], "<"))
 	{
-		data->fd = open(tmp->content[1], O_RDONLY, 0644);
+		data->fd = open(data->lst->content[1], O_RDONLY, 0644);
 		if (dup2(data->fd, STDIN_FILENO) == -1)
 			return (printf("ERREUR\n"), 1);
 	}
-	else if (ft_compare_str(tmp->content[0], "<<"))
+	else if (ft_compare_str(data->lst->content[0], "<<"))
 	{
-		data->limiter = tmp->content[1];
+		data->limiter = data->lst->content[1];
 		ft_here_doc(data);
 	}
-	else if (ft_compare_str(tmp->content[0], ">>"))
+	else if (ft_compare_str(data->lst->content[0], ">>"))
 	{
-		data->fd = open(tmp->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
+		data->fd = open
+			(data->lst->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (dup2(data->fd, STDOUT_FILENO) == -1)
 			return (printf("ERREUR\n"), 1);
 	}
 	return (0);
 }
 
-int	ft_redirection(t_data *data, t_lst *tmp)
+int	ft_redirection(t_data *data)
 {
-	ft_which_redir(data, tmp);
-	tmp = tmp->next;
-	if (tmp->type == CMD)
-		ft_execute_cmd(data, tmp, tmp->content[0]);
+	ft_which_redir(data);
+	if (data->lst->next)
+		data->lst = data->lst->next;
+	if (data->lst->type == CMD)
+		ft_execute_cmd(data, data->lst->content[0]);
 	dup2(STDIN_FILENO, STDOUT_FILENO);
 	return (0);
 }
