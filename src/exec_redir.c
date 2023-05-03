@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/01 22:11:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/02 10:11:08 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_here_doc(t_data *data)
 {
 	char	*line;
 
+	data->limiter = data->lst->content[1];
 	while (1)
 	{
 		line = readline("heredoc>");
@@ -43,10 +44,7 @@ int	ft_which_redir(t_data *data)
 			return (printf("ERREUR\n"), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<<"))
-	{
-		data->limiter = data->lst->content[1];
 		ft_here_doc(data);
-	}
 	else if (ft_compare_str(data->lst->content[0], ">>"))
 	{
 		data->fd = open

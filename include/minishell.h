@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/01 21:46:56 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/02 22:43:38 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_lst {
 typedef struct s_pipe {
 	int	file_out;
 	int	file_in;
+	int	prev_fd;
 	int	*tab_pid;
 }	t_pipe;
 

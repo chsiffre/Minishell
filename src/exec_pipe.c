@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/01 16:36:24 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/03 14:39:53 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ int	ft_prepare_pipe(t_data *data, char *content)
 	int		i;
 
 	if (ft_builtins(data) == 1)
-		return (1);
+		return (0);
 	i = 0;
 	while (data->lst->content[i])
 		i++;
-	cmd = malloc(sizeof(char *) * i);
+	cmd = malloc(sizeof(char *) * (i + 1));
 	cmd = ft_cmd_options(data, cmd, content);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		return (ft_printf("error execve\n"), 1);

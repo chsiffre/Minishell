@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/01 22:38:52 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/03 14:52:18 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_prompt(t_data *data)
 		while (data->lst && data->lst->content)
 		{
 			if (ft_check_type(data) == 1)
+				break ;
+			if (data->lst == NULL || data->lst->next == NULL)
 				break ;
 			data->lst = data->lst->next;
 		}
