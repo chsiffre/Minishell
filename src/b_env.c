@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/05 11:46:35 by lucas            ###   ########.fr       */
+/*   Updated: 2023/04/12 11:15:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_envadd_back(t_env **env, t_env *new)
 char	*ft_alloc_val(t_env *new, char *str, int k, int temp)
 {
 	while (str[k])
-			k++;
+		k++;
 	new->value = malloc(sizeof(char *) * ((k - temp) + 1));
 	if (!new->value)
 		return (NULL);

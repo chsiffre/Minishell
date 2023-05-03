@@ -25,6 +25,8 @@ LIST_SRC =	main.c \
 			ft_utils.c \
 			exec.c \
 			ft_pre_split.c \
+			exec_redir.c \
+			exec_pipe.c \
 
 LIST_INC = minishell.h
 

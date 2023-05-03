@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/11 10:50:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:41:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 void	ft_ctrl(int signal)
 {
-	if (signal == 2)
+	if (signal == SIGINT)
 	{
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	else if (signal == SIGTERM)
+	{
+		printf("TEST\n");
+		exit(1);
+	}
+	else
+		return ;
 }
 
 void	ft_get_env(t_data *data)
@@ -48,7 +55,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_data(&data, envp);
 	data = ft_init_struct(data);
 	ft_get_env(&data);
-	//signal(SIGINT, ft_ctrl);
+	signal(SIGINT, ft_ctrl);
+	signal(SIGTERM, ft_ctrl);
+	signal(SIGQUIT, ft_ctrl);
 	ft_prompt(&data);
 	return (0);
 }

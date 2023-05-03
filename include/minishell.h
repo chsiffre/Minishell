@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/13 17:02:11 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:55:41 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define PATH_MAX 256
+# define REDIR 0
+# define CMD 1
+# define PIPE 2
 
 # include <unistd.h>
 # include <stdio.h>
@@ -39,6 +42,13 @@ typedef struct s_lst {
 	int				type;
 }	t_lst;
 
+typedef struct s_pipe {
+	int	file_out;
+	int	file_in;
+	int	prev_fd;
+	int	*tab_pid;
+}	t_pipe;
+
 typedef struct s_data {
 	t_lst	*lst;
 	char	*line;
@@ -53,6 +63,8 @@ typedef struct s_data {
 	t_env	*env;
 	int		signal;
 	int		fd;
+	char	*limiter;
+	t_pipe	*pipex;
 }	t_data;
 
 //***********prompt***************//
@@ -87,7 +99,8 @@ t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_unset(t_data *data, char *name);
-void	ft_export(t_data *data, char *name);
+void	ft_export(t_data *data);
+int		ft_has_equal(char *str);
 
 //***********prompt***************//
 void	ft_init_data(t_data *data, char **envp);
@@ -98,6 +111,11 @@ void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
 
-void	ft_check_type(t_data *data);
+//***********exec***************//
+int		ft_check_type(t_data *data);
+int		ft_redirection(t_data *data);
+int		ft_pipe(t_data *data);
+int		ft_execute_cmd(t_data *data, char *content);
+char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 #endif
