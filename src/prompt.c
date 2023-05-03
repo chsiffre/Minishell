@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/13 17:04:35 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:51:03 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,25 @@ void	ft_prompt(t_data *data)
 	t_lst *list;
 	
 	list = NULL;
+	int i = 0;
 	while (1)
 	{
 		//data->line = readline("prompt>");
-		data->line = " >out2 >in3 > out ls -l -a | >> outtt <in > out cat Makefile";
-		data->line = ft_pre_split(data->line);
+		data->line = "cat Makefile | ls > out";
 		if (!data->line)
 			return ;
 		else
 			add_history(data->line);
+		data->line = ft_pre_split(data->line);
+		data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
 		list = ft_parse(data);
-		exit(1);
 		while (list)
-			list = list->next;	
+		{
+			printf("[%s]", list->content[i++]);
+			printf("\n");
+			list = list->next;
+		}
+		exit(1);
 		//free(data->line);
 		//ft_free(data);
 	}

@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/13 17:02:36 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:15:24 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ char *ft_str_replace(char *str, char *copy, int new_size)
         i++;
     }
     str[i] = '\0';
-    return (str);
+    return (free(copy), str);
 }
