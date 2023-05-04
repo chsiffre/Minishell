@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/04 10:35:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/04 10:43:38 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ void	ft_to_free(t_data *data)
 
 void	ft_prompt(t_data *data)
 {
-	data->lst = NULL;
 	while (1)
 	{
 		data->line = readline("prompt>");
-		//data->line = " >out2 >in3 > out ls -l -a | >> outtt <in > out cat Makefile";
-		data->line = ft_pre_split(data->line);
+		//data->line = "cat Makefile | ls > out";
 		if (!data->line)
 			return ;
 		else
