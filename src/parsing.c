@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/03 14:56:53 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:47:03 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_lst	*ft_parse(t_data *data)
 			data->res_parse[data->i++] = data->res_split[i++];
 	}
 	lst = ft_convert_in_lst(lst, data);
+	/*
 	i = 0;
 	while (lst)
 	{
@@ -43,7 +44,7 @@ t_lst	*ft_parse(t_data *data)
 			printf("[%s] ", lst->content[i]);
 		printf("\n");
 		lst = lst->next;
-	}
+	}*/
 	return (lst);
 }
 
@@ -89,7 +90,7 @@ int	ft_len_parse(char **strs, int i)
 t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size)
 {
 	t_lst	*new;
-	
+
 	new = ft_lstnew_t(data->res_parse, type, data->y, size);
 	if (!new)
 		return (NULL);
