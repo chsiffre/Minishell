@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/04 11:18:48 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/04 16:01:29 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_to_free(t_data *data)
 
 void	ft_prompt(t_data *data)
 {
-	int i = 0;
 	while (1)
 	{
 		data->line = readline("prompt>");
@@ -51,6 +50,6 @@ void	ft_prompt(t_data *data)
 			data->lst = data->lst->next;
 		}
 		free(data->line);
-		ft_free(data);
+		ft_to_free(data);
 	}
 }
