@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/04 10:43:38 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/04 11:18:48 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_to_free(t_data *data)
 
 void	ft_prompt(t_data *data)
 {
+	int i = 0;
 	while (1)
 	{
 		data->line = readline("prompt>");
@@ -41,7 +42,6 @@ void	ft_prompt(t_data *data)
 		else
 			add_history(data->line);
 		data->lst = ft_parse(data);
-		printf("%d\n", data->lst->type);
 		while (data->lst && data->lst->content)
 		{
 			if (ft_check_type(data) == 1)

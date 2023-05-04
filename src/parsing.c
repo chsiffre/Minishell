@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/03 16:47:03 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/04 11:18:06 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 	{
 		if (ft_is_redir(data->res_parse[data->y]))
 		{
-			lst = ft_add_lst(lst, data, 0, 2);
+			lst = ft_add_lst(lst, data, REDIR, 2);
 			data->y = data->y + 2;
 		}
 		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]))
 		{
-			lst = ft_add_lst(lst, data, 0, ft_len_parse(data->res_parse, data->y));
+			lst = ft_add_lst(lst, data, CMD, ft_len_parse(data->res_parse, data->y));
 			while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
 				data->y++;
 			if (data->res_parse[data->y])
 			{
-				lst = ft_add_lst(lst, data, 2, 1);
+				lst = ft_add_lst(lst, data, PIPE, 1);
 				data->y++;
 			}
 		}
