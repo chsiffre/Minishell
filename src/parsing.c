@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 11:37:55 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:59:53 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_lst	*ft_parse(t_data *data)
 	data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->res_split)
 		return (NULL);
-	data->res_parse = malloc(ft_strs_len(data->res_split) * sizeof(char *));
+	data->res_parse = malloc((ft_strs_len(data->res_split) + 1) * sizeof(char *));
 	if (!data->res_parse)
 		return (NULL);
 	while (data->res_split[i])
