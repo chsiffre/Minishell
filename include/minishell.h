@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 13:48:47 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:15:49 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ void	ft_export(t_data *data);
 int		ft_has_equal(char *str);
 
 //***********prompt***************//
-void	ft_init_struct(t_data *data, char **envp);
+void	ft_init_data(t_data *data, char **envp);
+t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);
 char	*ft_try_path(t_data *data, char *line, char *cmd);
 void	ft_prompt(t_data *data);

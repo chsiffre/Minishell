@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/09 14:03:05 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:16:04 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_lst	*ft_parse(t_data *data)
 	{
 		data->res_parse = ft_check_redir(data->res_parse, data, data->res_split, i);
 		data->res_parse = ft_check_cmd(data->res_parse, data, data->res_split, i);
-		printf("OUIOUI\n");
 		while (data->res_split[i] && data->res_split[i][0] != '|')
 			i++;
 		if (data->res_split[i])

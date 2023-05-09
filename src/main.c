@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 13:59:57 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:14:59 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	ft_get_env(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data	data;
 
 	(void)argc;
 	(void)**argv;
-	data = malloc(sizeof(t_data *));
-	ft_init_struct(data, envp);
-	//ft_get_env(data);
+	ft_init_data(&data, envp);
+	data = ft_init_struct(data);
+	ft_get_env(&data);
 	signal(SIGINT, ft_ctrl);
 	signal(SIGTERM, ft_ctrl);
 	signal(SIGQUIT, ft_ctrl);
-	ft_prompt(data);
+	ft_prompt(&data);
 	return (0);
 }

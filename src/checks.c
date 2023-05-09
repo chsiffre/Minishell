@@ -6,16 +6,16 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 14:14:31 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 15:17:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char **ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
+char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 {
 	int	i;
-	
+
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
@@ -32,9 +32,9 @@ char **ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 	return (res_parse);
 }
 
-int ft_is_redir(char *str)
+int	ft_is_redir(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -47,12 +47,12 @@ int ft_is_redir(char *str)
 			return (1);
 		else if (str[i] && str[i] == '<' && str[i + 1] == '<')
 			return (1);
-		i++;	
+		i++;
 	}
 	return (0);
 }
 
-char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
+char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 {
 	int	i;
 
