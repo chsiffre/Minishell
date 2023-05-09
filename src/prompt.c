@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 11:36:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:44:43 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_prompt(t_data *data)
 {
 	while (1)
 	{
-		data->line = readline("prompt>");
+		data->line = readline("prompt> ");
 		//data->line = "cat Makefile | ls > out";
 		if (!data->line)
 			return ;

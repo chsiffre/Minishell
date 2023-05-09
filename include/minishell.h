@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/03 17:01:51 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 12:50:19 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_pipe {
 	int	file_out;
 	int	file_in;
 	int	prev_fd;
+	int	*tab_fd;
 	int	*tab_pid;
 }	t_pipe;
 
