@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 11:46:45 by lucas            ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/05/09 14:03:05 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -22,13 +23,14 @@ t_lst	*ft_parse(t_data *data)
 	data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->res_split)
 		return (NULL);
-	data->res_parse = malloc(ft_strs_len(data->res_split) * sizeof(char *));
+	data->res_parse = malloc((ft_strs_len(data->res_split) + 1) * sizeof(char *));
 	if (!data->res_parse)
 		return (NULL);
 	while (data->res_split[i])
 	{
 		data->res_parse = ft_check_redir(data->res_parse, data, data->res_split, i);
 		data->res_parse = ft_check_cmd(data->res_parse, data, data->res_split, i);
+		printf("OUIOUI\n");
 		while (data->res_split[i] && data->res_split[i][0] != '|')
 			i++;
 		if (data->res_split[i])

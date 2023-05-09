@@ -14,7 +14,6 @@ LIST_SRC =	main.c \
 			parsing.c \
 			prompt.c \
 			builtins.c \
-			init_struct.c \
 			b_env.c \
 			b_unset.c \
 			b_export.c \
