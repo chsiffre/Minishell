@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/09 12:58:52 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 16:22:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_lstlen(t_lst *lst)
 	return (count);
 }
 
-int	ft_pipe(t_data *data)
+void	ft_pipe(t_data *data)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -84,7 +84,7 @@ int	ft_pipe(t_data *data)
 	while (data->lst)
 	{
 		if (pipe(fd) == -1)
-			return (1);
+			exit (1);
 		pid = fork();
 		if (i == 0)
 			data->pipex->prev_fd = fd[0];
@@ -92,7 +92,7 @@ int	ft_pipe(t_data *data)
 		if (!data->lst->next)
 			data->pipex->file_out = STDOUT_FILENO;
 		if (pid == -1)
-			return (1);
+			exit (1);
 		else if (pid == 0)
 			ft_exec_pipe(data);
 		data->pipex->tab_fd[i] = data->pipex->prev_fd;
@@ -111,5 +111,5 @@ int	ft_pipe(t_data *data)
 	dup2(STDIN_FILENO, data->pipex->prev_fd);
 	dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
-	return (0);
+	return ;
 }

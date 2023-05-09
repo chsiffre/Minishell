@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 15:15:49 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 16:05:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_conv_lst(char *line);
 //***********exec***************//
 int		ft_check_type(t_data *data);
 int		ft_redirection(t_data *data);
-int		ft_pipe(t_data *data);
+void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
