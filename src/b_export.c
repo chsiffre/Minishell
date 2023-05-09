@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/12 16:45:14 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:01:25 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	ft_export(t_data *data)
 {
 	if (!data->lst->content[1])
 		ft_print_export(data);
-	else if (data->cmd[1]
+	else if (data->lst->content[1]
 		&& ft_check_exist(data->env, data->lst->content[1]) == 0)
 		ft_add_var(data, data->lst->content[1], 0);
-	else if (data->cmd[1]
+	else if (data->lst->content[1]
 		&& ft_check_exist(data->env, data->lst->content[1]) == 1)
 		ft_add_var(data, data->lst->content[1], 1);
 }

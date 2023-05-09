@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/04 16:01:29 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/04 18:52:48 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_to_free(t_data *data)
 		data->lst = next;
 	}
 	data->i = 0;
+	data->y = 0;
 }
 
 void	ft_prompt(t_data *data)

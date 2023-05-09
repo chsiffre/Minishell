@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/03 17:00:39 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/08 13:15:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ int	ft_prepare_pipe(t_data *data, char *content)
 
 int	ft_exec_pipe(t_data *data)
 {
-	dup2(data->pipex->file_in, STDIN_FILENO);
-	dup2(data->pipex->file_out, STDOUT_FILENO);
+	if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
+		return (printf("ERREUR : DUP2\n"), 1);
+	close(data->pipex->prev_fd);
+	if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
+		return (printf("ERREUR : DUP2\n"), 1);
+	close(data->pipex->file_out);
 	if (ft_prepare_pipe(data, data->lst->content[0]) == 1)
 		exit (1);
 	return (0);
@@ -72,20 +76,22 @@ int	ft_pipe(t_data *data)
 
 	i = 0;
 	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
-	data->pipex->file_in = STDIN_FILENO;
 	while (data->lst)
 	{
 		if (pipe(fd) == -1)
 			return (1);
 		pid = fork();
+		data->pipex->prev_fd = fd[0];
 		data->pipex->file_out = fd[1];
-		data->pipex->file_in = fd[0];
-		if (!data->lst->next)
-			data->pipex->file_out = STDOUT_FILENO;
+		//data->pipex->prev_fd = fd[0];
+		//if (!data->lst->next)
+		//	data->pipex->file_out = STDOUT_FILENO;
 		if (pid == -1)
 			return (1);
 		else if (pid == 0)
 			ft_exec_pipe(data);
+		data->pipex->tab_pid[i] = pid;
+		i++;
 		data->lst = data->lst->next;
 		if (data->lst && data->lst->type == PIPE)
 			data->lst = data->lst->next;
@@ -94,11 +100,8 @@ int	ft_pipe(t_data *data)
 			ft_redirection(data);
 			data->lst = data->lst->next;
 		}
-		data->pipex->tab_pid[i] = pid;
-		i++;
-		close(data->pipex->file_in);
-		data->pipex->file_in = data->pipex->file_out;
 	}
+	dup2(STDIN_FILENO, data->pipex->prev_fd);
 	dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
 	return (0);
