@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/09 16:22:56 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 17:01:20 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,24 @@ int	ft_end(t_data *data)
 	return (0);
 }
 
-int	ft_prepare_pipe(t_data *data, char *content)
+int	ft_exec_pipe(t_data *data)
 {
 	char	**cmd;
 	int		i;
 
-	if (ft_builtins(data) == 1)
-		return (0);
 	i = 0;
-	while (data->lst->content[i])
-		i++;
-	cmd = malloc(sizeof(char *) * (i + 1));
-	cmd = ft_cmd_options(data, cmd, content);
-	if (execve(cmd[0], cmd, data->env_path) == -1)
-		return (ft_printf("error execve\n"), 1);
-	return (0);
-}
-
-int	ft_exec_pipe(t_data *data)
-{
 	if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
 		return (write(2, "ERREUR : DUP2\n", 15), 1);
 	if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
 		return (write(2, "ERREUR : DUP2\n", 15), 1);
-	if (ft_prepare_pipe(data, data->lst->content[0]) == 1)
-		exit (1);
+	if (ft_builtins(data) == 1)
+		return (0);
+	while (data->lst->content[i])
+		i++;
+	cmd = malloc(sizeof(char *) * (i + 1));
+	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
+	if (execve(cmd[0], cmd, data->env_path) == -1)
+		return (ft_printf("error execve\n"), 1);
 	return (0);
 }
 
@@ -97,6 +90,7 @@ void	ft_pipe(t_data *data)
 			ft_exec_pipe(data);
 		data->pipex->tab_fd[i] = data->pipex->prev_fd;
 		data->pipex->prev_fd = fd[0];
+		close (fd[1]);
 		data->pipex->tab_pid[i] = pid;
 		i++;
 		data->lst = data->lst->next;
