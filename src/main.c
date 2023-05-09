@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/01 22:41:57 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 10:47:18 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	ft_ctrl(int signal)
 		rl_redisplay();
 	}
 	else if (signal == SIGTERM)
-	{
-		printf("TEST\n");
-		exit(1);
-	}
+		exit (1);
 	else
 		return ;
 }

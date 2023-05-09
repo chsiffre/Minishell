@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/04 18:54:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 11:37:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_lst	*ft_parse(t_data *data)
 		if (data->res_split[i])
 			data->res_parse[data->i++] = data->res_split[i++];
 	}
+	data->res_parse[i] = '\0';
 	lst = ft_convert_in_lst(lst, data);
 	/*
 	i = 0;
