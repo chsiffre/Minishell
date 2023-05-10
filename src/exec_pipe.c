@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/10 11:37:26 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:54:49 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ void	ft_pipe(t_data *data)
 			exit (1);
 		else if (pid == 0)
 			ft_exec_pipe(data);
+		data->pipex->tab_pid[i] = pid;
 		data->pipex->tab_fd[i] = data->pipex->prev_fd;
 		data->pipex->prev_fd = fd[0];
 		close (fd[1]);
-		data->pipex->tab_pid[i] = pid;
 		i++;
 		data->lst = data->lst->next;
 		if (data->lst && data->lst->type == PIPE)
@@ -103,8 +103,9 @@ void	ft_pipe(t_data *data)
 			data->lst = data->lst->next;
 		}
 	}
-	dup2(STDIN_FILENO, data->pipex->prev_fd);
-	dup2(STDOUT_FILENO, data->pipex->file_out);
+	close (data->pipex->prev_fd);
+	//dup2(STDIN_FILENO, data->pipex->prev_fd);
+	//dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
 	return ;
 }
