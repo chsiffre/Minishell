@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/10 12:54:49 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:32:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ int	ft_end(t_data *data)
 		i++;
 	while (i--)
 	{
-		waitpid(data->pipex->tab_pid[i], NULL, 0);
+		waitpid(data->pipex->tab_pid[i], NULL, -1);
 		if (i >= 1)
+		{
+			printf("close -> %d\n", data->pipex->tab_fd[i]);
 			close(data->pipex->tab_fd[i]);
+
+		}
 	}
 	free(data->pipex->tab_pid);
 	free(data->pipex->tab_fd);
@@ -79,20 +83,26 @@ void	ft_pipe(t_data *data)
 	{
 		if (pipe(fd) == -1)
 			exit (1);
-		pid = fork();
 		if (i == 0)
-			data->pipex->prev_fd = fd[0];
+			data->pipex->prev_fd = 0;
 		data->pipex->file_out = fd[1];
 		if (!data->lst->next)
 			data->pipex->file_out = STDOUT_FILENO;
+		printf("fd0 = %d && fd1 = %d\n", fd[0], fd[1]);
+		printf("prev = %d && out = %d\n", data->pipex->prev_fd, data->pipex->file_out);
+		pid = fork();
 		if (pid == -1)
 			exit (1);
 		else if (pid == 0)
 			ft_exec_pipe(data);
-		data->pipex->tab_pid[i] = pid;
-		data->pipex->tab_fd[i] = data->pipex->prev_fd;
-		data->pipex->prev_fd = fd[0];
+		printf("CLOSE = %d\n", fd[1]);
 		close (fd[1]);
+		data->pipex->tab_pid[i] = pid;
+		//printf("pid -> %d\n", pid);
+		data->pipex->tab_fd[i] = data->pipex->prev_fd;
+		//printf("prev -> %d\n", data->pipex->prev_fd);
+		data->pipex->prev_fd = fd[0];
+
 		i++;
 		data->lst = data->lst->next;
 		if (data->lst && data->lst->type == PIPE)
@@ -103,9 +113,6 @@ void	ft_pipe(t_data *data)
 			data->lst = data->lst->next;
 		}
 	}
-	close (data->pipex->prev_fd);
-	//dup2(STDIN_FILENO, data->pipex->prev_fd);
-	//dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
 	return ;
 }

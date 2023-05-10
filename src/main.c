@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 12:55:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:06:59 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_ctrl(int signal)
 		rl_redisplay();
 	}
 	else if (signal == SIGTERM)
-		exit (1);
+		exit (0);
 	else
 		return ;
 }
