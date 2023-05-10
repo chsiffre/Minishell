@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 12:59:40 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:46:47 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
+		strs[i] = is_quote(strs[i]);
+		if (!strs[i])
+			return (NULL);
 		if (ft_is_redir(strs[i]))
 		{
 			res_parse[data->i++] = strs[i];
@@ -81,4 +84,47 @@ int	ft_is_builtins(char *str)
 	else if (!ft_strncmp(str, "export", ft_strlen(str)))
 		return (1);
 	return (0);
+}
+
+char *is_quote(char *str)
+{
+	int	i;
+	int	y;
+	char *ret;
+
+	ret = malloc(sizeof(char) * (ft_strlen(str) - ft_nb_quote(str)));
+	i = 0;
+	y = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			i++;
+			if (str[i] == ' ')
+				i++;
+			ret[y++] = str[i++];
+		}
+		else
+			ret[y++] = str[i++];
+	}
+	ret[y] = 0;
+	free(str);
+	return (ret);
+}
+
+
+int ft_nb_quote(char *str)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+			count++;
+		i++;
+	}
+	return (count);
 }
