@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 14:08:10 by charles           #+#    #+#             */
-/*   Updated: 2023/03/29 13:51:04 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:39:23 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			**ft_split(char const *s, char c);
 char			**ft_split_charset(char *str, char *charset);
+char			*copy_str(int *index, char *str, int len, char *ret);
+int				check_quote(char *str, int *index, char *charset);
+int				ft_charset(char c, char *charset);
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
 void			ft_lstadd_front(t_list **lst, t_list *new);

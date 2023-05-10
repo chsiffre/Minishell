@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 12:53:43 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:04:46 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
+char *copy_str(int *index, char *str, int len, char *ret);
+
 void    ft_free(t_data *data);
 //***********builtins***************//
 void	ft_echo(t_data *data);
