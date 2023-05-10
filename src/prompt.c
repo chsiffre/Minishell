@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/10 12:40:33 by luhumber         ###   ########.fr       */
+/*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
+/*   Updated: 2023/05/10 12:59:16 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_prompt(t_data *data)
 			return ;
 		else
 			add_history(data->line);
+		data->line = ft_pre_split(data->line);
+		data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
 		data->lst = ft_parse(data);
 		while (data->lst && data->lst->content)
 		{

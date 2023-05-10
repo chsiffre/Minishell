@@ -6,11 +6,12 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/04/25 10:47:36 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:51:22 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	ft_charset(char c, char *charset)
 {
@@ -39,6 +40,12 @@ int	get_ac(char *str, char *charset)
 			i++;
 		if (!ft_charset(str[i], charset) && str[i])
 		{
+			if (str[i] && str[i] == '\"')
+			{
+				i++;
+				while (str[i] && str[i] != '\"')
+					i++;
+			}
 			count++;
 			while (!ft_charset(str[i], charset) && str[i])
 				i++;
@@ -51,25 +58,17 @@ char	*give_memory(char *str, char *charset, int *index)
 {
 	int		len;
 	char	*ret;
-	int		i;
+	ret = NULL;
 
 	len = 0;
-	i = 0;
 	while (ft_charset(str[*index], charset))
 		(*index)++;
+	len = check_quote(str, index, charset);
+	if (len != 0)
+		return (copy_str(index, str, len, ret));
 	while (!ft_charset(str[*index + len], charset) && str[*index + len])
 		len++;
-	ret = malloc((len + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	while (i < len)
-	{
-		ret[i] = str[*index];
-		i++;
-		(*index)++;
-	}
-	ret[i] = 0;
-	return (ret);
+	return (copy_str(index, str, len, ret));
 }
 
 char	**ft_split_charset(char *str, char *charset)
