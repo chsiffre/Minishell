@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 16:05:20 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:00:06 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
@@ -89,6 +91,7 @@ t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
 void    ft_free(t_data *data);
+
 //***********builtins***************//
 void	ft_echo(t_data *data);
 
@@ -104,6 +107,8 @@ void	ft_export(t_data *data);
 int		ft_has_equal(char *str);
 
 //***********prompt***************//
+void	ft_ctrl(int signal);
+void	ft_ctrl_fork(int signal);
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);
@@ -118,5 +123,8 @@ int		ft_redirection(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
+
+//***********error***************//
+int	ft_print_error(char	*str);
 
 #endif

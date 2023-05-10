@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/09 17:01:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:37:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ int	ft_end(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->pipex->tab_fd[i])
-		i++;
-	while (i--)
-		close(data->pipex->tab_fd[i]);
-	i = 0;
 	while (data->pipex->tab_pid[i])
 		i++;
 	while (i--)
+	{
 		waitpid(data->pipex->tab_pid[i], NULL, 0);
+		if (i >= 1)
+			close(data->pipex->tab_fd[i]);
+	}
 	free(data->pipex->tab_pid);
 	free(data->pipex->tab_fd);
 	return (0);
@@ -42,13 +41,15 @@ int	ft_exec_pipe(t_data *data)
 	if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
 		return (write(2, "ERREUR : DUP2\n", 15), 1);
 	if (ft_builtins(data) == 1)
-		return (0);
+		exit (0);
 	while (data->lst->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
+	if (cmd[0] == NULL)
+		exit (1);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
-		return (ft_printf("error execve\n"), 1);
+		return (ft_print_error("exec"), 1);
 	return (0);
 }
 

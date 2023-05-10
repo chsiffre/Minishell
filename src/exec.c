@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/03 17:04:53 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/10 11:00:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
-		return (ft_printf("bash : command not found: %s\n", line), NULL);
+		return (ft_print_error(line), NULL);
 	return (tab);
 }
 
@@ -73,6 +73,9 @@ int	ft_execute_cmd(t_data *data, char *content)
 	char	**cmd;
 	int		i;
 
+	signal(SIGINT, ft_ctrl_fork);
+	signal(SIGTERM, ft_ctrl_fork);
+	signal(SIGQUIT, ft_ctrl_fork);
 	if (ft_builtins(data) == 1)
 		return (1);
 	i = 0;
