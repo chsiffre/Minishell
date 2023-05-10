@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/03 17:04:53 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 22:10:34 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_try_path(t_data *data, char *line, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
-		return (ft_printf("bash : command not found: %s\n", line), NULL);
+		return (ft_print_error(line), NULL);
 	return (tab);
 }
 

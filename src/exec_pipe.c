@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/09 17:01:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:20:51 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int	ft_exec_pipe(t_data *data)
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
+	if (cmd[0] == NULL)
+		exit (1);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
-		return (ft_printf("error execve\n"), 1);
+		return (ft_print_error("exec"), 1);
 	return (0);
 }
 

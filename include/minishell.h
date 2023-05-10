@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 16:05:20 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/09 21:49:08 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
@@ -118,5 +120,8 @@ int		ft_redirection(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
+
+//***********error***************//
+int	ft_print_error(char	*str);
 
 #endif
