@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 16:51:27 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:54:52 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int check_quote(char *str, int *index, char *charset)
 
     i = (*index);
 	size = 0;
-	while (!ft_charset(str[(*index)], charset))
+	while (!ft_charset(str[*index], charset) && str[(*index)])
 	{
 		if (str[(*index)] && str[(*index)] == '\"')
 		{

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/10 13:22:41 by luhumber         ###   ########.fr       */
+/*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
+/*   Updated: 2023/05/15 17:30:25 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_prompt(t_data *data)
 	while (1)
 	{
 		data->line = readline("prompt> ");
-		//data->line = "cat Makefile | ls > out";
+		//data->line = "ls > out| wc -l";
 		if (!data->line)
 			return ;
 		else
