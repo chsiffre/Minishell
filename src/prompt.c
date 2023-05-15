@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/12 13:17:04 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/15 13:15:11 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ void	ft_prompt(t_data *data)
 		data->lst = ft_parse(data);
 		while (data->lst && data->lst->content)
 		{
-			if (data->is_redir == 1)
+			if (data->in_redir == 1 || data->out_redir == 1)
 			{
 				ft_check_type(data);
 				data->fd = 0;
 				dup2(data->fd, STDOUT_FILENO);
-				data->is_redir = 0;
+				data->in_redir = 0;
+				data->out_redir = 0;
 			}
 			else if (ft_check_type(data) == 1)
 				break ;

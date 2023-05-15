@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/12 13:17:25 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/15 11:13:54 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_data {
 	char	*limiter;
 	t_pipe	*pipex;
 	int		is_redir;
+	int		in_redir;
+	int		out_redir;
 }	t_data;
 
 //***********prompt***************//
@@ -76,24 +78,24 @@ int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
 t_lst	*ft_parse(t_data *data);
-char *ft_pre_split(char *str);
-char *ft_str_replace(char *str, char *copy, int new_size);
+char	*ft_pre_split(char *str);
+char	*ft_str_replace(char *str, char *copy, int new_size);
 int		ft_is_redir(char *str);
 t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size);
 t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
-int	ft_len_parse(char **strs, int i);
-int ft_is_redir(char *str);
+int		ft_len_parse(char **strs, int i);
+int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
-t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size);
-char **ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
+t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
+char	**ft_check_redir(char **res_parse,
+			t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
-char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
+char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
-char 	*copy_str(int *index, char *str, int len, char *ret);
-
-void    ft_free(t_data *data);
+char	*copy_str(int *index, char *str, int len, char *ret);
+void	ft_free(t_data *data);
 
 //***********builtins***************//
 void	ft_echo(t_data *data);
@@ -129,6 +131,6 @@ int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 //***********error***************//
-int	ft_print_error(char	*str);
+int		ft_print_error(char	*str);
 
 #endif

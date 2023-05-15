@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/12 13:10:11 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/15 11:23:51 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	list_progress(t_data *data)
 		ft_redirection(data);
 		data->lst = data->lst->next;
 	}
-	return (0);	
+	return (0);
 }
 
 int	ft_exec_pipe(t_data *data, int fd[2])
@@ -50,10 +50,18 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 
 	i = 0;
 	close(fd[0]);
-	if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
-		return (write(2, "ERREUR : DUP2\n", 15), 1);
-	if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
-		return (write(2, "ERREUR : DUP2\n", 15), 1);
+	if (data->in_redir == 1 || data->out_redir == 1)
+	{
+		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
+	else if (data->is_redir != 1)
+	{
+		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+		if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
 	if (ft_builtins(data) == 1)
 		exit (0);
 	while (data->lst->content[i])
@@ -107,6 +115,14 @@ void	ft_pipe(t_data *data)
 			exit (1);
 		else if (pid == 0)
 			ft_exec_pipe(data, fd);
+		if (data->in_redir == 1 || data->out_redir == 1)
+		{
+			data->fd = 0;
+			dup2(data->fd, STDOUT_FILENO);
+
+			data->in_redir = 0;
+			data->out_redir = 0;
+		}
 		data->pipex->tab_pid[i] = pid;
 		data->pipex->tab_fd[i] = data->pipex->prev_fd;
 		data->pipex->prev_fd = fd[0];
