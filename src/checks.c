@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 13:46:47 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:56:26 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char *is_quote(char *str)
 	int	y;
 	char *ret;
 
-	ret = malloc(sizeof(char) * (ft_strlen(str) - ft_nb_quote(str)));
+	ret = malloc(sizeof(char) * (ft_strlen(str) - ft_nb_quote(str)) + 1);
 	i = 0;
 	y = 0;
 	while (str[i])
@@ -100,16 +100,14 @@ char *is_quote(char *str)
 		if (str[i] == '\"' || str[i] == '\'')
 		{
 			i++;
-			if (str[i] == ' ')
-				i++;
-			ret[y++] = str[i++];
+			while (str[i] && str[i] != '\"')
+				ret[y++] = str[i++];
+			ret[y] = '\0';
+			return (ret);
 		}
-		else
-			ret[y++] = str[i++];
+		i++;
 	}
-	ret[y] = 0;
-	free(str);
-	return (ret);
+	return (str);
 }
 
 

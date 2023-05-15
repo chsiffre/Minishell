@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 13:19:48 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:53:51 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ char	*give_memory(char *str, char *charset, int *index)
 	ret = NULL;
 
 	len = 0;
+	while (ft_charset(str[*index], charset))
+		(*index)++;
 	len = check_quote(str, index, charset);
 	if (len != 0)
 		return (copy_str(index, str, len, ret));
 	while (ft_charset(str[*index], charset))
 		(*index)++;
-	//printf("ok\n");
 	while (!ft_charset(str[*index + len], charset) && str[*index + len])
 		len++;
-	//printf("ok\n");
 	return (copy_str(index, str, len, ret));
 }
 

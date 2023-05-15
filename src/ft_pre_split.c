@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/09 13:27:58 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:23:19 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ char *ft_pre_split(char *str)
             if (str[i - 1] && str[i - 1] != ' ')
                 new_size++; 
         }
+        if (str[i] && str[i] == '|' && str[i - 1] != ' ')
+            new_size++;
+        if (str[i] && str[i] == '|' && str[i + 1] && str[i + 1] != ' ')
+            new_size++;
     }
     str = malloc((new_size + 1) * sizeof(char));
     return (ft_str_replace(str, copy, new_size));
@@ -49,7 +53,7 @@ char *ft_str_replace(char *str, char *copy, int new_size)
     {
         if (copy[i] == '<' || copy[i] == '>')
         {
-            if (copy[i - 1] && copy[i - 1] != ' ')
+            if (copy[i - 1] && copy[i - 1] != ' ' && copy[i - 1] != '<' && copy[i - 1] != '>')
             {
                 str[y++] = ' ';
                 if (copy[i])
@@ -64,6 +68,12 @@ char *ft_str_replace(char *str, char *copy, int new_size)
                 if (copy[i + 1])
                     str[y++] = copy[i++ + 1];
             }
+        }
+        else if ((copy[i] != ' ' && copy[i + 1] == '|') || (copy[i] == '|' && copy[i + 1] != ' '))
+        {
+            if (copy[i])
+                str[y++] = copy[i];
+            str[y++] = ' ';
         }
         else
             str[y++] = copy[i];

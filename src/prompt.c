@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 13:20:22 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:26:38 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, ft_ctrl);
 		data->line = readline("prompt> ");
-		//data->line = "ls";
+		//data->line = "ls > out| wc -l";
 		if (!data->line)
 			return ;
 		else
 			add_history(data->line);
-		data->line = ft_pre_split(data->line);
 		data->lst = ft_parse(data);
 		while (data->lst && data->lst->content)
 		{
