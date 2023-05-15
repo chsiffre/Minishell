@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/10 12:40:30 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:18:19 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,17 @@ int	ft_execute_cmd(t_data *data, char *content)
 
 int	ft_check_type(t_data *data)
 {
+	t_lst	*tmp;
+
+	tmp = data->lst;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			return (ft_pipe(data), 0);
+		tmp = tmp->next;
+	}
 	if (data->lst->type == REDIR)
 		return (ft_redirection(data), 0);
-	else if (data->lst->next && data->lst->next->type == PIPE)
-		return (ft_pipe(data), 0);
 	else if (data->lst->type == CMD && !data->lst->next)
 		return (ft_execute_cmd(data, data->lst->content[0]), 0);
 	else

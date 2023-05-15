@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/03 16:51:29 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/12 13:23:10 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	ft_which_redir(t_data *data)
 		data->fd = open
 			(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (dup2(data->fd, STDOUT_FILENO) == -1)
-			return (printf("ERREUR\n"), 1);
+			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<"))
 	{
 		data->fd = open(data->lst->content[1], O_RDONLY, 0644);
 		if (dup2(data->fd, STDIN_FILENO) == -1)
-			return (printf("ERREUR\n"), 1);
+			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<<"))
 		ft_here_doc(data);
@@ -50,7 +50,7 @@ int	ft_which_redir(t_data *data)
 		data->fd = open
 			(data->lst->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (dup2(data->fd, STDOUT_FILENO) == -1)
-			return (printf("ERREUR\n"), 1);
+			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	return (0);
 }
@@ -58,10 +58,11 @@ int	ft_which_redir(t_data *data)
 int	ft_redirection(t_data *data)
 {
 	ft_which_redir(data);
-	if (data->lst->next)
+	data->is_redir = 1;
+	/*if (data->lst->next)
 		data->lst = data->lst->next;
 	if (data->lst->type == CMD)
 		ft_execute_cmd(data, data->lst->content[0]);
-	dup2(STDIN_FILENO, STDOUT_FILENO);
+	dup2(STDIN_FILENO, STDOUT_FILENO);*/
 	return (0);
 }

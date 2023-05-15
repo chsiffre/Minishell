@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 12:59:26 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:17:25 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_data {
 	int		fd;
 	char	*limiter;
 	t_pipe	*pipex;
+	int		is_redir;
 }	t_data;
 
 //***********prompt***************//
@@ -90,7 +91,7 @@ char **ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
-char *copy_str(int *index, char *str, int len, char *ret);
+char 	*copy_str(int *index, char *str, int len, char *ret);
 
 void    ft_free(t_data *data);
 
@@ -122,6 +123,7 @@ void	ft_conv_lst(char *line);
 //***********exec***************//
 int		ft_check_type(t_data *data);
 int		ft_redirection(t_data *data);
+int		ft_which_redir(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
