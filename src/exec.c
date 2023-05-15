@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/10 12:40:30 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:56:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_exec(t_data *prompt, char **cmd)
 
 	pid = fork();
 	if (pid == -1)
-		return (ft_printf("bash error\n"));
+		return (write(2, "bash: fork error\n", 18), 1);
 	else if (pid == 0)
 	{
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
-			return (ft_printf("error execve\n"), 1);
+			return (write(2, "bash: execve error\n", 20), 1);
 	}
 	waitpid(pid, NULL, 0);
 	return (0);
@@ -90,10 +90,17 @@ int	ft_execute_cmd(t_data *data, char *content)
 
 int	ft_check_type(t_data *data)
 {
+	t_lst	*tmp;
+
+	tmp = data->lst;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			return (ft_pipe(data), 0);
+		tmp = tmp->next;
+	}
 	if (data->lst->type == REDIR)
 		return (ft_redirection(data), 0);
-	else if (data->lst->next && data->lst->next->type == PIPE)
-		return (ft_pipe(data), 0);
 	else if (data->lst->type == CMD && !data->lst->next)
 		return (ft_execute_cmd(data, data->lst->content[0]), 0);
 	else

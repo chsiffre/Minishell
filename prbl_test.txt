@@ -1,0 +1,15 @@
+ls -la >out     puis          <infile cat >out          
+
+
+ls > out| wc                ==           creer |out sans rien faire
+
+export chiffre,lettre 
+export =salut
+export chiffre / export chiffre=value
+boucle export et unset 
+
+exev(path, char**, env)
+
+
+
+peut etre close les files des redir

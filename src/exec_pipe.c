@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/10 12:54:49 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:11:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_end(t_data *data)
 	while (i--)
 	{
 		waitpid(data->pipex->tab_pid[i], NULL, 0);
-		if (i >= 1)
+		if (i > 0)
 			close(data->pipex->tab_fd[i]);
 	}
 	free(data->pipex->tab_pid);
@@ -30,16 +30,43 @@ int	ft_end(t_data *data)
 	return (0);
 }
 
-int	ft_exec_pipe(t_data *data)
+int	list_progress(t_data *data)
+{
+	data->lst = data->lst->next;
+	if (data->lst && data->lst->type == PIPE)
+		data->lst = data->lst->next;
+	if (data->lst && data->lst->type == REDIR)
+	{
+		ft_redirection(data);
+		data->lst = data->lst->next;
+	}
+	return (0);
+}
+
+int	ft_exec_pipe(t_data *data, int fd[2])
 {
 	char	**cmd;
 	int		i;
 
 	i = 0;
-	if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
-		return (write(2, "ERREUR : DUP2\n", 15), 1);
-	if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
-		return (write(2, "ERREUR : DUP2\n", 15), 1);
+	close(fd[0]);
+	if (data->in_redir > 0 && data->out_redir == 0)
+	{
+		if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
+	else if (data->out_redir > 0 && data->in_redir == 0)
+	{
+		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
+	else if (data->in_redir == 0 && data->out_redir == 0)
+	{
+		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+		if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
 	if (ft_builtins(data) == 1)
 		exit (0);
 	while (data->lst->content[i])
@@ -49,7 +76,7 @@ int	ft_exec_pipe(t_data *data)
 	if (cmd[0] == NULL)
 		exit (1);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
-		return (ft_print_error("exec"), 1);
+		return (ft_print_error("error execve"), 1);
 	return (0);
 }
 
@@ -75,37 +102,42 @@ void	ft_pipe(t_data *data)
 	i = 0;
 	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->tab_fd = ft_calloc(ft_lstlen(data->lst), sizeof(int));
+	data->pipex->prev_fd = 0;
+	if (data->lst->type == REDIR)
+	{
+		ft_redirection(data);
+		data->lst = data->lst->next;
+	}
 	while (data->lst)
 	{
 		if (pipe(fd) == -1)
 			exit (1);
-		pid = fork();
-		if (i == 0)
-			data->pipex->prev_fd = fd[0];
 		data->pipex->file_out = fd[1];
 		if (!data->lst->next)
 			data->pipex->file_out = STDOUT_FILENO;
+		pid = fork();
 		if (pid == -1)
 			exit (1);
 		else if (pid == 0)
-			ft_exec_pipe(data);
+			if (ft_exec_pipe(data, fd) == 1)
+				exit (1);
+		if (data->in_redir > 0)
+		{
+			dup2(data->savestdin, STDIN_FILENO);
+			data->in_redir = 0;
+		}
+		if (data->out_redir > 0)
+		{
+			dup2(data->savestdout, STDOUT_FILENO);
+			data->out_redir = 0;
+		}
 		data->pipex->tab_pid[i] = pid;
 		data->pipex->tab_fd[i] = data->pipex->prev_fd;
 		data->pipex->prev_fd = fd[0];
-		close (fd[1]);
+		close(fd[1]);
 		i++;
-		data->lst = data->lst->next;
-		if (data->lst && data->lst->type == PIPE)
-			data->lst = data->lst->next;
-		if (data->lst && data->lst->type == REDIR)
-		{
-			ft_redirection(data);
-			data->lst = data->lst->next;
-		}
+		list_progress(data);
 	}
-	close (data->pipex->prev_fd);
-	//dup2(STDIN_FILENO, data->pipex->prev_fd);
-	//dup2(STDOUT_FILENO, data->pipex->file_out);
 	ft_end(data);
 	return ;
 }
