@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/12 12:18:19 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/15 16:56:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_exec(t_data *prompt, char **cmd)
 
 	pid = fork();
 	if (pid == -1)
-		return (ft_printf("bash error\n"));
+		return (write(2, "bash: fork error\n", 18), 1);
 	else if (pid == 0)
 	{
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
-			return (ft_printf("error execve\n"), 1);
+			return (write(2, "bash: execve error\n", 20), 1);
 	}
 	waitpid(pid, NULL, 0);
 	return (0);

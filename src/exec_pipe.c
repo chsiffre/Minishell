@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/15 11:23:51 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:11:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,17 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 
 	i = 0;
 	close(fd[0]);
-	if (data->in_redir == 1 || data->out_redir == 1)
+	if (data->in_redir > 0 && data->out_redir == 0)
+	{
+		if (dup2(data->pipex->file_out, STDOUT_FILENO) == -1)
+			return (write(2, "ERREUR : DUP2\n", 15), 1);
+	}
+	else if (data->out_redir > 0 && data->in_redir == 0)
 	{
 		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
 			return (write(2, "ERREUR : DUP2\n", 15), 1);
 	}
-	else if (data->is_redir != 1)
+	else if (data->in_redir == 0 && data->out_redir == 0)
 	{
 		if (dup2(data->pipex->prev_fd, STDIN_FILENO) == -1)
 			return (write(2, "ERREUR : DUP2\n", 15), 1);
@@ -71,7 +76,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	if (cmd[0] == NULL)
 		exit (1);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
-		return (ft_print_error("exec"), 1);
+		return (ft_print_error("error execve"), 1);
 	return (0);
 }
 
@@ -114,13 +119,16 @@ void	ft_pipe(t_data *data)
 		if (pid == -1)
 			exit (1);
 		else if (pid == 0)
-			ft_exec_pipe(data, fd);
-		if (data->in_redir == 1 || data->out_redir == 1)
+			if (ft_exec_pipe(data, fd) == 1)
+				exit (1);
+		if (data->in_redir > 0)
 		{
-			data->fd = 0;
-			dup2(data->fd, STDOUT_FILENO);
-
+			dup2(data->savestdin, STDIN_FILENO);
 			data->in_redir = 0;
+		}
+		if (data->out_redir > 0)
+		{
+			dup2(data->savestdout, STDOUT_FILENO);
 			data->out_redir = 0;
 		}
 		data->pipex->tab_pid[i] = pid;

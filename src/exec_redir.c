@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/15 12:52:06 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:44:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,16 @@ int	ft_which_redir(t_data *data)
 {
 	if (ft_compare_str(data->lst->content[0], ">"))
 	{
-		data->out_redir = 1;
-		data->fd = open
+		data->out_redir = open
 			(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
-		if (dup2(data->fd, STDOUT_FILENO) == -1)
+		if (dup2(data->out_redir, STDOUT_FILENO) == -1)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<"))
 	{
-		data->in_redir = 1;
-		data->fd = open(data->lst->content[1], O_RDONLY, 0644);
-		if (dup2(data->fd, STDIN_FILENO) == -1)
+		data->in_redir = open
+			(data->lst->content[1], O_RDONLY, 0644);
+		if (dup2(data->in_redir, STDIN_FILENO) == -1)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<<"))

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 13:15:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:44:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	ft_to_free(t_data *data)
 		free(data->lst);
 		data->lst = next;
 	}
+	if (data->in_redir > 0)
+		dup2(data->savestdin, STDIN_FILENO);
+	if (data->out_redir > 0)
+		dup2(data->savestdout, STDOUT_FILENO);
+	data->in_redir = 0;
+	data->out_redir = 0;
 	data->i = 0;
 	data->y = 0;
 }
@@ -48,15 +54,7 @@ void	ft_prompt(t_data *data)
 		data->lst = ft_parse(data);
 		while (data->lst && data->lst->content)
 		{
-			if (data->in_redir == 1 || data->out_redir == 1)
-			{
-				ft_check_type(data);
-				data->fd = 0;
-				dup2(data->fd, STDOUT_FILENO);
-				data->in_redir = 0;
-				data->out_redir = 0;
-			}
-			else if (ft_check_type(data) == 1)
+			if (ft_check_type(data) == 1)
 				break ;
 			if (data->lst == NULL || data->lst->next == NULL)
 				break ;

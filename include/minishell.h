@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 11:13:54 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:42:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_data {
 	char	*path;
 	char	**split_path;
 	char	**cmd;
+	int		savestdin;
+	int		savestdout;
 	char	**res_split;
 	char	**res_parse;
 	ssize_t	i;
