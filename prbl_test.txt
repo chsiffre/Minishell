@@ -5,4 +5,6 @@ boucle export et unset
 
 exev(path, char**, env)x
 
+heredoc | heredoc 
+
 peut etre close les files des redir

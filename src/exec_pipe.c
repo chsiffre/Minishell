@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/16 15:07:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:16:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_end(t_data *data)
 
 int	list_progress(t_data *data)
 {
-	data->lst = data->lst->next;
 	if (data->lst && data->lst->type == PIPE)
 		data->lst = data->lst->next;
 	if (data->lst && data->lst->type == REDIR)
@@ -103,11 +102,7 @@ void	ft_pipe(t_data *data)
 	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->tab_fd = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->prev_fd = 0;
-	if (data->lst->type == REDIR)
-	{
-		ft_redirection(data);
-		data->lst = data->lst->next;
-	}
+	list_progress(data);
 	while (data->lst)
 	{
 		if (pipe(fd) == -1)
@@ -136,6 +131,7 @@ void	ft_pipe(t_data *data)
 		data->pipex->prev_fd = fd[0];
 		close(fd[1]);
 		i++;
+		data->lst = data->lst->next;
 		list_progress(data);
 	}
 	ft_end(data);
