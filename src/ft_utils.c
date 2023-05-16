@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/12 11:37:18 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:57:32 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_list_to_tab(t_data *data, t_lst *lst)
 	tmp = lst;
 	i = 0;
 	data->cmd = malloc(sizeof(char *) * (ft_lsize(tmp) + 1));
+	if (data->cmd == NULL)
+		return ;
 	while (tmp)
 	{
 		j = 0;

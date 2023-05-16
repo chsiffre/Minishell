@@ -6,18 +6,28 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/15 16:52:55 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:48:39 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_print_error(char	*str)
+int	ft_print_error(char *str)
 {
 	char	*join;
 
 	join = ft_strjoin("bash : ", str);
 	perror(join);
+	free(join);
+	return (1);
+}
+
+int	ft_cmd_error(char *str)
+{
+	char	*join;
+
+	join = ft_strjoin(str, ": command not found\n");
+	write(2, join, ft_strlen(join));
 	free(join);
 	return (1);
 }

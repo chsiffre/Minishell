@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 14:44:33 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:12:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_init_data(t_data *data, char **envp)
 	data->env_path = envp;
 	data->env = NULL;
 	data->lst = NULL;
+	data->in_redir = 0;
+	data->out_redir = 0;
 	data->savestdin = dup(0);
 	data->savestdout = dup(1);
 	ft_struct_env(data);

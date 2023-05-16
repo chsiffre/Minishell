@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 17:34:06 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:11:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, ft_ctrl);
 		data->line = readline("prompt> ");
-		//data->line = "ls > out| wc -l";
+		//data->line = "ls | wc";
 		if (!data->line)
 			return ;
 		else if (data->line[0] != '\0')

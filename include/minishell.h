@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 17:32:44 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:53:58 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_ctrl_fork(int signal);
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);
-char	*ft_try_path(t_data *data, char *line, char *cmd);
+char	*ft_try_path(t_data *data, char *cmd);
 void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
@@ -135,5 +135,6 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 //***********error***************//
 int		ft_print_error(char	*str);
+int		ft_cmd_error(char	*str);
 
 #endif
