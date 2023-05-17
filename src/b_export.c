@@ -12,6 +12,19 @@
 
 #include "../include/minishell.h"
 
+int	ft_check_isOK(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isdigit(str[0]))
+		return (1);
+	while (str[i])
+	{
+	
+	}
+}
+
 int	ft_check_exist(t_env *env, char *str)
 {
 	t_env	*tmp;

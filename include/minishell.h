@@ -31,6 +31,8 @@
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
 
+extern int	g_error_last;
+
 typedef struct s_env {
 	char			*name;
 	char			*value;
@@ -127,7 +129,6 @@ void	ft_conv_lst(char *line);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
-int		ft_redirection(t_data *data);
 int		ft_which_redir(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);

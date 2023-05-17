@@ -32,12 +32,15 @@ int	ft_end(t_data *data)
 
 int	list_progress(t_data *data)
 {
-	if (data->lst && data->lst->type == PIPE)
-		data->lst = data->lst->next;
-	if (data->lst && data->lst->type == REDIR)
+	while (data->lst && data->lst->type != CMD)
 	{
-		ft_redirection(data);
-		data->lst = data->lst->next;
+		if (data->lst && data->lst->type == PIPE)
+			data->lst = data->lst->next;
+		if (data->lst && data->lst->type == REDIR)
+		{
+			ft_which_redir(data);
+			data->lst = data->lst->next;
+		}
 	}
 	return (0);
 }

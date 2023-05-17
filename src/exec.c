@@ -49,7 +49,10 @@ char	*ft_try_path(t_data *data, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
+	{
+		g_error_last = 127;	
 		return (ft_cmd_error(data->lst->content[0]), NULL);
+	}
 	return (tab);
 }
 
@@ -82,6 +85,8 @@ int	ft_execute_cmd(t_data *data, char *content)
 	while (data->lst->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
+	if (!cmd)
+		return (-1);
 	cmd = ft_cmd_options(data, cmd, content);
 	if (cmd[0] != NULL && ft_exec(data, cmd) == 1)
 		return (1);
@@ -100,7 +105,11 @@ int	ft_check_type(t_data *data)
 		tmp = tmp->next;
 	}
 	if (data->lst->type == REDIR)
-		return (ft_redirection(data), 0);
+	{
+		if (ft_which_redir(data) == 1)
+			return (1);
+		return (0);
+	}
 	else if (data->lst->type == CMD && !data->lst->next)
 		return (ft_execute_cmd(data, data->lst->content[0]), 0);
 	else
