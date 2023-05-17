@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/05 11:30:49 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/17 21:46:55 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*ft_find_name(char *name, char *str)
 		name[i] = str[i];
 		i++;
 	}
-	name[i] = '=';
+	if (str[i + 1])
+		name[i] = '=';
 	i++;
 	name[i] = '\0';
 	return (name);

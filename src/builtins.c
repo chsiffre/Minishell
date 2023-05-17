@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/04/12 16:42:42 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:26:04 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_cd(t_data *data)
 
 	args = 0;
 	tmp = data->env;
-	while (data->cmd[args])
+	while (data->lst->content[args])
 		args++;
 	if (args == 1)
 	{
@@ -59,7 +59,7 @@ void	ft_cd(t_data *data)
 	}
 	else if (args == 2)
 	{
-		if (chdir(data->cmd[1]) == -1)
+		if (chdir(data->lst->content[1]) == -1)
 			perror("Minishell: ");
 	}
 	else
@@ -75,9 +75,13 @@ int	ft_builtins(t_data *data)
 	else if (ft_compare_str(data->lst->content[0], "pwd"))
 		return (ft_get_pwd(), 1);
 	else if (ft_compare_str(data->lst->content[0], "export"))
-		return (ft_export(data), 1);
+	{
+		if (ft_export(data) == 0)
+			return (1);
+		return (-1);
+	}
 	else if (ft_compare_str(data->lst->content[0], "unset"))
-		return (ft_unset(data, data->lst->content[1]), 1);
+		return (ft_unset(data), 1);
 	else if (ft_compare_str(data->lst->content[0], "env"))
 		return (ft_print_env(data), 1);
 	else if (ft_compare_str(data->lst->content[0], "exit"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/16 15:03:13 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:49:16 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ int	ft_execute_cmd(t_data *data, char *content)
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
 	signal(SIGQUIT, ft_ctrl_fork);
-	if (ft_builtins(data) == 1)
+	i = ft_builtins(data);
+	if (i == -1 || i == 1)
 		return (1);
 	i = 0;
+	if (ft_special_char(data->lst->content[0]) == 1)
+		return (1);
 	while (data->lst->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
@@ -111,7 +114,11 @@ int	ft_check_type(t_data *data)
 		return (0);
 	}
 	else if (data->lst->type == CMD && !data->lst->next)
-		return (ft_execute_cmd(data, data->lst->content[0]), 0);
+	{
+		if (ft_execute_cmd(data, data->lst->content[0]) == 0)
+			return (0);
+		return (1);
+	}
 	else
 		return (printf("Error\n"), 1);
 }

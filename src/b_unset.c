@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/04/05 12:00:12 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/18 00:18:13 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,25 @@ int	ft_find_var(t_data *data, t_env *tmp, char *n_equal, char *name)
 	return (1);
 }
 
-int	ft_unset(t_data *data, char *name)
+int	ft_unset(t_data *data)
 {
 	t_env	*tmp;
 	char	*n_equal;
+	int		len;
 	int		i;
 
-	i = ft_strlen(name);
 	tmp = data->env;
-	if (ft_special_unset(name))
-		return (1);
-	if (name[i - 1] == '=')
-		return (printf("minishell: %s: not a valid identifer\n", name), 1);
-	n_equal = ft_strjoin(name, "=");
-	if (ft_find_var(data, tmp, n_equal, name) == 0)
-		return (0);
-	return (1);
+	i = 1;
+	while (data->lst->content[i])
+	{
+		len = ft_strlen(data->lst->content[i]);
+		if (ft_special_unset(data->lst->content[i]))
+			return (1);
+		if (data->lst->content[i][len - 1] == '=')
+			printf("minishell: %s: not a valid identifer\n", data->lst->content[i]);
+		n_equal = ft_strjoin(data->lst->content[i], "=");
+		ft_find_var(data, tmp, n_equal, data->lst->content[i]);
+		i++;
+	}
+	return (0);
 }

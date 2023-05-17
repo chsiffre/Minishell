@@ -1,10 +1,5 @@
-export chiffre,lettre 
-export =salut
-export chiffre / export chiffre=value
-boucle export et unset 
-
-exev(path, char**, env)x
+cd = changer le pwd et le oldpwd 
 
 heredoc | heredoc 
 
-peut etre close les files des redir
+.. . / § qui error execve
