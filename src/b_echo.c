@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/15 10:58:27 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:37:56 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,24 @@ char	*ft_echo_env(t_data *data, char *str)
 
 void	ft_echo(t_data *data)
 {
-	if (ft_compare_str(data->lst->content[1], "-n"))
+	char *ret;
+	int i;
+	i = 0;
+	ret = NULL;
+	while (data->lst->content[i])
+		ret = ft_strjoin(ret, data->lst->content[i++]);
+	if (ft_compare_str(ret, "-n"))
 	{
 		// if (data->cmd[2][0] == '$')
 		// 	printf("%s", ft_echo_env(data, data->cmd[2]));
 		// else
-		printf("%s", data->lst->content[2]);
+		printf("%s", ret);
 	}
 	else
 	{
 		// if (data->cmd[1][0] == '$')
 		// 	printf("%s\n", ft_echo_env(data, data->cmd[1]));
 		// else
-		printf("%s\n", data->lst->content[1]);
+		printf("%s\n", ret);
 	}
 }

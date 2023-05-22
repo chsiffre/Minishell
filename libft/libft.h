@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 14:08:10 by charles           #+#    #+#             */
-/*   Updated: 2023/05/09 16:39:23 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:50:49 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char			**ft_split(char const *s, char c);
 char			**ft_split_charset(char *str, char *charset);
 char			*copy_str(int *index, char *str, int len, char *ret);
 int				check_quote(char *str, int *index, char *charset);
+int				skipping_quote(char c, char *str, int *i);
 int				ft_charset(char c, char *charset);
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);

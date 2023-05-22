@@ -1,7 +1,7 @@
 .PHONY : clean fclean re bonus 
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS = 	ft_memset.c \
 		ft_bzero.c \
@@ -44,8 +44,7 @@ SRCS = 	ft_memset.c \
 		ft_printf_utils.c \
 		ft_printf_utils_2.c \
 		get_next_line_bonus.c \
-		get_next_line_utils_bonus.c
-
+		get_next_line_utils_bonus.c \
 		
 
 SRCS_BONUS = ft_lstnew_bonus.c \

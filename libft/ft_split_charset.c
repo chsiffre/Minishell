@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 17:33:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:04:46 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	get_ac(char *str, char *charset)
 			i++;
 		if (!ft_charset(str[i], charset) && str[i])
 		{
-			if (str[i] && str[i] == '\"')
-			{
-				i++;
-				while (str[i] && str[i] != '\"')
+			if (str[i++] && str[i] == '\"')
+				while (str[i] != '\"')
 					i++;
-			}
+			if (str[i] && str[i] == '\'')
+				while (str[i] != '\'')
+					i++;
 			count++;
 			while (!ft_charset(str[i], charset) && str[i])
 				i++;
@@ -68,7 +68,6 @@ char	*give_memory(char *str, char *charset, int *index)
 		(*index)++;
 	while (!ft_charset(str[*index + len], charset) && str[*index + len])
 		len++;
-	//printf("ok\n");
 	return (copy_str(index, str, len, ret));
 }
 

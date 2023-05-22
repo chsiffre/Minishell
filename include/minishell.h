@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/16 14:53:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:21:40 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
 char	*copy_str(int *index, char *str, int len, char *ret);char *is_quote(char *str);
 int ft_nb_quote(char *str);
+char *del_quote(char *str,char *ret, int i, char c);
 void	ft_free(t_data *data);
 
 //***********builtins***************//
