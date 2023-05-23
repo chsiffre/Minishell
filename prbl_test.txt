@@ -16,3 +16,5 @@ toutes les redirections qui segfault seules
 
 gerer exit
 : Undefined error: 0 sur des malloc NULL avec ft_error()
+
+$?   ----->   command not found

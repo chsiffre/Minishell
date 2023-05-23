@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/22 22:08:10 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:50:50 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ft_which_redir(t_data *data)
 	if (data->lst->content[1] == NULL)
 	{
 		g_error_last = 2;
-		return (ft_print_error("syntax error near unexpected token `newline'\n"), 1);
+		return (ft_print_error
+			("syntax error near unexpected token `newline'\n"), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], ">"))
 	{

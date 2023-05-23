@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/22 22:11:07 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:56:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ int	ft_pipe(t_data *data)
 	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->tab_fd = ft_calloc(ft_lstlen(data->lst), sizeof(int));
 	data->pipex->prev_fd = 0;
+	signal(SIGINT, ft_ctrl_fork);
+	signal(SIGTERM, ft_ctrl_fork);
+	signal(SIGQUIT, ft_ctrl_fork);
 	if (list_progress(data) == 1)
 		return (1);
 	while (data->lst)
@@ -129,7 +132,7 @@ int	ft_pipe(t_data *data)
 		if (data->in_redir > 0)
 		{
 			if (dup2(data->savestdin, STDIN_FILENO) == -1)
-				ft_error(data, "dup error\n", 1);				
+				ft_error(data, "dup error\n", 1);
 			data->in_redir = 0;
 		}
 		if (data->out_redir > 0)

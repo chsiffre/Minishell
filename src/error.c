@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/22 22:29:16 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:46:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_cmd_error(char *str)
 {
 	char	*join;
 
+	g_error_last = 127;
 	join = ft_strjoin(str, ": command not found\n");
 	write(2, join, ft_strlen(join));
 	free(join);

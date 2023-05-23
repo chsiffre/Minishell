@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/22 22:18:30 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:46:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ char	*ft_try_path(t_data *data, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
-	{
-		g_error_last = 127;	
 		return (ft_cmd_error(data->lst->content[0]), NULL);
-	}
 	return (tab);
 }
 
