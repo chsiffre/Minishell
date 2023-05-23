@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/23 10:39:54 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 11:44:58 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_cd(t_data *data)
 {
 	t_env	*tmp;
 	int		args;
-	
+
 	args = 0;
 	tmp = data->env;
 	while (data->lst->content[args])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:57:17 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 15:14:50 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,24 @@ void	ft_to_free(t_data *data)
 
 void	ft_prompt(t_data *data)
 {
+	int	i;
+
 	while (1)
 	{
+		i = 0;
 		signal(SIGINT, ft_ctrl);
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, ft_ctrl);
 		data->line = readline("prompt> ");
+		while (data->line[i++])
+			if (!ft_isascii(data->line[i]))
+				ft_error(data, "non printable\n", 1);
 		//data->line = "export TEST TEST2 TEST3";
 		if (!data->line)
+		{
+			printf("exit\n");
 			return ;
+		}
 		else if (data->line[0] != '\0')
 			add_history(data->line);
 		data->line = ft_pre_split(data->line);

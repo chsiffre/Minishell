@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/10 14:06:59 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:17:33 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_ctrl_fork(int signal)
 		rl_replace_line("", 0);
 	}
 	else if (signal == SIGTERM)
-		exit (1);
+		exit (0);
 	else
 		return ;
 }
@@ -65,6 +65,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)**argv;
+	if (!envp || !envp[0])
+		return (write(2, "bash: envp error\n", 18), 1);
 	ft_init_data(&data, envp);
 	data = ft_init_struct(data);
 	ft_get_env(&data);

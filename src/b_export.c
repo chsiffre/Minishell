@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/23 11:03:22 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:57:22 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_export_error(char *str)
 	return (1);
 }
 
-int	ft_check_isOK(char *str)
+int	ft_check_isok(char *str)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 
 	tmp = env;
 	i = 0;
-	if (ft_check_isOK(str) == 1)
+	if (ft_check_isok(str) == 1)
 		return (-1);
 	while (str[i] && str[i + 1] != '=')
 		i++;
@@ -79,7 +79,7 @@ void	ft_print_export(t_data *data)
 	{
 		printf("declare -x %s", tmp->name);
 		if (tmp->value)
-			printf("%s", tmp->value);
+			printf("\"%s\"", tmp->value);
 		printf("\n");
 		tmp = tmp->next;
 	}
@@ -96,13 +96,13 @@ int	ft_export(t_data *data)
 	{
 		if (data->lst->content[i]
 			&& ft_check_exist(data, data->env, data->lst->content[i]) == -1)
-				ft_export_error(data->lst->content[i]);
+			ft_export_error(data->lst->content[i]);
 		else if (data->lst->content[i]
 			&& ft_check_exist(data, data->env, data->lst->content[i]) == 0)
-				ft_add_var(data, data->lst->content[i], 0);
+			ft_add_var(data, data->lst->content[i], 0);
 		else if (data->lst->content[i]
 			&& ft_check_exist(data, data->env, data->lst->content[i]) == 1)
-				ft_add_var(data, data->lst->content[i], 1);
+			ft_add_var(data, data->lst->content[i], 1);
 		else
 			return (1);
 		i++;

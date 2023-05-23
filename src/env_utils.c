@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/22 22:31:33 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/23 16:02:06 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*ft_find_name(char *name, char *str)
 		name[i] = str[i];
 		i++;
 	}
-	if (str[i + 1])
-		name[i] = '=';
+	name[i] = '=';
 	i++;
 	name[i] = '\0';
 	return (name);

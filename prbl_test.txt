@@ -1,20 +1,14 @@
-cd = changer le pwd et le oldpwd 
-Penser a changer les pwd a chaque cd
-
-gerer si on supprime l'env
-
-heredoc | heredoc
-    -> le PIPE est considéré comme une CMD (type 1) et pas comme un pipe (type 2)
-
-cat << heredoc > out       qui fait le heredoc puis cat a part
+toutes les redirections qui segfault seules
+$?   ----->   command not found
+ls |>?>     ------>   bash: syntax   +    :Success    double free    puis abort  ===== Sort du parsing mais prblm lst du parsing
+ls >?>      ------>   segfault            =======    sort pas du parsing
+                                                            ----------------> SUREMENT A CAUSE REDIR SEULE
 
 ./" qui ne fait rien ??
 
-gestion erreur pwd
-
-toutes les redirections qui segfault seules
-
+TEST=V   quand export TEST
 gerer exit
-: Undefined error: 0 sur des malloc NULL avec ft_error()
+cd = changer le pwd et le oldpwd
+Penser a changer les pwd a chaque cd
 
-$?   ----->   command not found
+< Makefile cat > out | < out wc   -----> fonctionne mais ne fonctionne pas dans bash

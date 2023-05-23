@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/23 10:50:50 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:39:30 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_here_doc(t_data *data)
 		line = readline("heredoc> ");
 		if (ft_compare_str(line, data->limiter))
 			break ;
+		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n", 2);
 		free(line);
 	}
 	free(line);

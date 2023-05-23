@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/23 10:46:00 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:42:34 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_error(t_data *data, char *str, int exit_code)
 	char	*join;
 
 	join = ft_strjoin("bash: ", str);
-	perror(join);
+	write(2, join, ft_strlen(join));
 	free(join);
 	ft_to_free(data);
 	g_error_last = exit_code;
