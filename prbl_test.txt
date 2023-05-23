@@ -1,6 +1,6 @@
 toutes les redirections qui segfault seules
 $?   ----->   command not found
-ls |>?>     ------>   bash: syntax   +    :Success    double free    puis abort  ===== Sort du parsing mais prblm lst du parsing
+ls |>?>     ------>   bash: syntax   +    double free    puis abort  ===== Sort du parsing mais prblm lst du parsing
 ls >?>      ------>   segfault            =======    sort pas du parsing
                                                             ----------------> SUREMENT A CAUSE REDIR SEULE
 
