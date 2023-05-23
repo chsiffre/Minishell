@@ -8,3 +8,5 @@ exev(path, char**, env)x
 heredoc | heredoc 
 
 peut etre close les files des redir
+
+export qui fait un no asscii
