@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/17 21:46:55 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/22 22:31:33 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*ft_add_value(char *str)
 
 	val = NULL;
 	val = ft_switch_value(val, str);
+	if (!val)
+		return (NULL);
 	return (val);
 }
 
@@ -96,12 +98,16 @@ void	ft_add_var(t_data *data, char *str, int exist)
 	{
 		name = NULL;
 		name = ft_find_name(name, str);
+		if (name == NULL)
+			ft_error(data, "malloc error\n", 1);
 		while (ft_strncmp(new->name, name, ft_strlen(name) - 1))
 			new = new->next;
 		free(new->name);
 		new->name = name;
 		free(new->value);
 		new->value = ft_add_value(str);
+		if (!new->value)
+			ft_error(data, "malloc error\n", 1);
 		if (ft_has_equal(new->name))
 			new->equal = 1;
 	}

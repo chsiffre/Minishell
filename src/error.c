@@ -6,11 +6,23 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/18 00:53:53 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/22 22:29:16 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_error(t_data *data, char *str, int exit_code)
+{
+	char	*join;
+
+	join = ft_strjoin("bash: ", str);
+	perror(join);
+	free(join);
+	ft_to_free(data);
+	g_error_last = exit_code;
+	exit(g_error_last);
+}
 
 int	ft_print_error(char *str)
 {

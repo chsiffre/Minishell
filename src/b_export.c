@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/17 21:42:53 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/22 23:29:13 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_check_isOK(char *str)
 	return (0);
 }
 
-int	ft_check_exist(t_env *env, char *str)
+int	ft_check_exist(t_data *data, t_env *env, char *str)
 {
 	t_env	*tmp;
 	int		i;
@@ -54,7 +54,7 @@ int	ft_check_exist(t_env *env, char *str)
 		i++;
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
-		return (1);
+		ft_error(data, "malloc error\n", 1);
 	i++;
 	name[i] = '\0';
 	ft_strlcpy(name, str, i + 1);
@@ -95,13 +95,13 @@ int	ft_export(t_data *data)
 	while (data->lst->content[i])
 	{
 		if (data->lst->content[i]
-			&& ft_check_exist(data->env, data->lst->content[i]) == -1)
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == -1)
 				ft_export_error(data->lst->content[i]);
 		else if (data->lst->content[i]
-			&& ft_check_exist(data->env, data->lst->content[i]) == 0)
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == 0)
 				ft_add_var(data, data->lst->content[i], 0);
 		else if (data->lst->content[i]
-			&& ft_check_exist(data->env, data->lst->content[i]) == 1)
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == 1)
 				ft_add_var(data, data->lst->content[i], 1);
 		else
 			return (1);

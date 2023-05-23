@@ -1,5 +1,18 @@
 cd = changer le pwd et le oldpwd 
+Penser a changer les pwd a chaque cd
 
-heredoc | heredoc 
+gerer si on supprime l'env
 
-.. . / § qui error execve
+heredoc | heredoc
+    -> le PIPE est considéré comme une CMD (type 1) et pas comme un pipe (type 2)
+
+cat << heredoc > out       qui fait le heredoc puis cat a part
+
+./" qui ne fait rien ??
+
+gestion erreur pwd
+
+toutes les redirections qui segfault seules
+
+gerer exit
+: Undefined error: 0 sur des malloc NULL avec ft_error()
