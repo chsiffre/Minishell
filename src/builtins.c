@@ -83,7 +83,7 @@ int	ft_builtins(t_data *data)
 	else if (ft_compare_str(data->lst->content[0], "exit"))
 	{
 		printf("exit\n");
-		exit(1);
+		exit(g_error_last);
 	}
 	return (0);
 }

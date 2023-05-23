@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/16 14:53:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:21:40 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
 # include "../libft/get_next_line_bonus.h"
+
+extern int	g_error_last;
 
 typedef struct s_env {
 	char			*name;
@@ -98,6 +100,7 @@ void	ft_add_back(t_lst **lst, t_lst *new);
 int		ft_is_builtins(char *str);
 char	*copy_str(int *index, char *str, int len, char *ret);char *is_quote(char *str);
 int ft_nb_quote(char *str);
+char *del_quote(char *str,char *ret, int i, char c);
 void	ft_free(t_data *data);
 
 //***********builtins***************//
@@ -127,7 +130,6 @@ void	ft_conv_lst(char *line);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
-int		ft_redirection(t_data *data);
 int		ft_which_redir(t_data *data);
 void	ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);

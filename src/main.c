@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+int	g_error_last;
+
 void	ft_ctrl(int signal)
 {
 	if (signal == SIGINT)

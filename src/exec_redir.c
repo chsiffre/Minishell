@@ -41,6 +41,8 @@ int	ft_which_redir(t_data *data)
 	{
 		data->in_redir = open
 			(data->lst->content[1], O_RDONLY, 0644);
+		if (data->in_redir == -1)
+			return (ft_print_error(data->lst->content[1]), 1);
 		if (dup2(data->in_redir, STDIN_FILENO) == -1)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
@@ -53,11 +55,5 @@ int	ft_which_redir(t_data *data)
 		if (dup2(data->fd, STDOUT_FILENO) == -1)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
-	return (0);
-}
-
-int	ft_redirection(t_data *data)
-{
-	ft_which_redir(data);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/16 11:02:02 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:24:15 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,30 @@ int	ft_is_builtins(char *str)
 char *is_quote(char *str)
 {
 	int	i;
-	int	y;
 	char *ret;
 
 	ret = malloc(sizeof(char) * (ft_strlen(str) - ft_nb_quote(str)) + 1);
 	i = 0;
-	y = 0;
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
-		{
-			i++;
-			while (str[i] && str[i] != '\"')
-				ret[y++] = str[i++];
-			ret[y] = '\0';
-			return (ret);
-		}
+			return (del_quote(str, ret, i, str[i]));
 		i++;
 	}
 	return (str);
 }
 
+char *del_quote(char *str,char *ret, int i, char c)
+{
+	int y;
+
+	y = 0;
+	i++;
+	while (str[i] && str[i] != c)
+		ret[y++] = str[i++];
+	ret[y] = '\0';
+	return (ret);
+}
 
 int ft_nb_quote(char *str)
 {
