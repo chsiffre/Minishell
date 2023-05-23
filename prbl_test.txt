@@ -7,7 +7,5 @@ ls >?>      ------>   segfault            =======    sort pas du parsing
 ./" qui ne fait rien ??
 
 gerer exit
-cd = changer le pwd et le oldpwd
-Penser a changer les pwd a chaque cd
 
 < Makefile cat > out | < out wc   -----> fonctionne mais ne fonctionne pas dans bash

@@ -34,17 +34,27 @@ void	ft_get_pwd(t_data *data)
 	printf("%s\n", buff);
 }
 
+int	ft_pwd(t_data *data)
+{
+	char	buff[PATH_MAX];
+	char	*str;
+
+	if (getcwd(buff, PATH_MAX) == NULL)
+		ft_error(data, "PWD error\n", 1);
+	str = ft_strjoin("PWD=", buff);
+	ft_add_var(data, str, 1);
+	return (0);
+}
+
 int	ft_old_pwd(t_data *data)
 {
-	t_env	*tmp;
-	char	*pwd;
+	char	buff[PATH_MAX];
+	char	*str;
 
-	tmp = data->env;
-	while (tmp && ft_compare_str("PWD=", tmp->name))
-		tmp = tmp->next;
-	while (tmp && ft_compare_str("OLDPWD=", tmp->name))
-		tmp = tmp->next;
-	tmp->value = ft_switch_value(tmp->value, pwd);
+	if (getcwd(buff, PATH_MAX) == NULL)
+		ft_error(data, "PWD error\n", 1);
+	str = ft_strjoin("OLDPWD=", buff);
+	ft_add_var(data, str, 1);
 	return (0);
 }
 
@@ -63,9 +73,10 @@ void	ft_cd(t_data *data)
 		{
 			if (ft_compare_str(tmp->name, "HOME="))
 			{
+				ft_old_pwd(data);
 				if (chdir(tmp->value) == -1)
 					perror("bash: ");
-				ft_old_pwd(data);
+				ft_pwd(data);
 			}
 			tmp = tmp->next;
 		}
@@ -73,9 +84,10 @@ void	ft_cd(t_data *data)
 	}
 	else if (args == 2)
 	{
+		ft_old_pwd(data);
 		if (chdir(data->lst->content[1]) == -1)
 			perror("bash: ");
-		ft_old_pwd(data);
+		ft_pwd(data);
 	}
 	else
 		ft_printf("bash: cd: too many arguments\n");
