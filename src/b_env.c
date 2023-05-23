@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/09 15:21:35 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/22 23:27:38 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	ft_struct_env(t_data *data)
 	while (data->env_path[i])
 	{
 		new = ft_new_env(data->env_path[i]);
+		if (!new)
+			ft_error(data, "malloc error\n", 1);
 		ft_envadd_back(&data->env, new);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/16 10:57:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:21:58 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ void	ft_list_to_tab(t_data *data, t_lst *lst)
 	i = 0;
 	data->cmd = malloc(sizeof(char *) * (ft_lsize(tmp) + 1));
 	if (data->cmd == NULL)
-		return ;
+		ft_error(data, "malloc error\n", 1);
 	while (tmp)
 	{
 		j = 0;
 		data->cmd[i] = malloc(sizeof(char) * ft_strlen((*tmp->content)));
+		if (data->cmd[i])
+			ft_error(data, "malloc error\n", 1);
 		while (tmp->content[j])
 		{
 			data->cmd[i][j] = (*tmp->content[j]);

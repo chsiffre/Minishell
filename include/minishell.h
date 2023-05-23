@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:21:40 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:03:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,24 +97,25 @@ ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
-int		ft_is_builtins(char *str);
 char	*copy_str(int *index, char *str, int len, char *ret);char *is_quote(char *str);
-int ft_nb_quote(char *str);
+int		ft_nb_quote(char *str);
 char *del_quote(char *str,char *ret, int i, char c);
 void	ft_free(t_data *data);
 
 //***********builtins***************//
+int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
+int		ft_unset(t_data *data);
+int		ft_export(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
 int		ft_has_equal(char *str);
 void	ft_add_var(t_data *data, char *str, int exist);
+char	*ft_switch_value(char *val, char *str);
 t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
-int		ft_unset(t_data *data, char *name);
-void	ft_export(t_data *data);
 int		ft_has_equal(char *str);
 
 //***********prompt***************//
@@ -131,12 +132,16 @@ void	ft_conv_lst(char *line);
 //***********exec***************//
 int		ft_check_type(t_data *data);
 int		ft_which_redir(t_data *data);
-void	ft_pipe(t_data *data);
+int		ft_make_dup(t_data *data);
+int		ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 //***********error***************//
+void	ft_to_free(t_data *data);
 int		ft_print_error(char	*str);
 int		ft_cmd_error(char	*str);
+void	ft_error(t_data *data, char *str, int exit_code);
+int		ft_special_char(char *cmd);
 
 #endif

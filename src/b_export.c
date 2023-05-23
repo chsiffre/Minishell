@@ -3,30 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/22 12:25:38 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:03:22 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_export_error(char *str)
+{
+	char	*join;
+
+	join = ft_strjoin("bash: export: '", str);
+	join = ft_strjoin(join, "' not a valid indentifier\n");
+	write(2, join, ft_strlen(join));
+	free(join);
+	return (1);
+}
 
 int	ft_check_isOK(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!ft_isdigit(str[0]))
+	if (ft_isalpha(str[0]) == 0 && str[i] != '_')
 		return (1);
-	while (str[i])
+	while (str[i] && str[i + 1] != '=')
 	{
-	
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-int	ft_check_exist(t_env *env, char *str)
+int	ft_check_exist(t_data *data, t_env *env, char *str)
 {
 	t_env	*tmp;
 	int		i;
@@ -35,11 +48,13 @@ int	ft_check_exist(t_env *env, char *str)
 
 	tmp = env;
 	i = 0;
+	if (ft_check_isOK(str) == 1)
+		return (-1);
 	while (str[i] && str[i + 1] != '=')
 		i++;
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
-		return (1);
+		ft_error(data, "malloc error\n", 1);
 	i++;
 	name[i] = '\0';
 	ft_strlcpy(name, str, i + 1);
@@ -70,14 +85,27 @@ void	ft_print_export(t_data *data)
 	}
 }
 
-void	ft_export(t_data *data)
+int	ft_export(t_data *data)
 {
-	if (!data->lst->content[1])
-		ft_print_export(data);
-	else if (data->lst->content[1]
-		&& ft_check_exist(data->env, data->lst->content[1]) == 0)
-		ft_add_var(data, data->lst->content[1], 0);
-	else if (data->lst->content[1]
-		&& ft_check_exist(data->env, data->lst->content[1]) == 1)
-		ft_add_var(data, data->lst->content[1], 1);
+	int	i;
+
+	i = 1;
+	if (!data->lst->content[i])
+		return (ft_print_export(data), 0);
+	while (data->lst->content[i])
+	{
+		if (data->lst->content[i]
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == -1)
+				ft_export_error(data->lst->content[i]);
+		else if (data->lst->content[i]
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == 0)
+				ft_add_var(data, data->lst->content[i], 0);
+		else if (data->lst->content[i]
+			&& ft_check_exist(data, data->env, data->lst->content[i]) == 1)
+				ft_add_var(data, data->lst->content[i], 1);
+		else
+			return (1);
+		i++;
+	}
+	return (1);
 }
