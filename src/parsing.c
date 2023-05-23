@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/23 11:03:36 by luhumber         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/05/23 11:04:32 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "../include/minishell.h"
@@ -69,7 +70,7 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 			lst = ft_add_lst(lst, data, REDIR, 2);
 			data->y = data->y + 2;
 		}
-		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]))
+		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]) && data->res_parse[data->y][0] != '|')
 		{
 			lst = ft_add_lst(lst, data, CMD, ft_len_parse(data->res_parse, data->y));
 			while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
