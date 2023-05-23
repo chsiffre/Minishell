@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/23 11:44:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:16:01 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	ft_old_pwd(t_data *data)
 	tmp = data->env;
 	while (tmp && ft_compare_str("PWD=", tmp->name))
 		tmp = tmp->next;
-	pwd = tmp->value;
 	while (tmp && ft_compare_str("OLDPWD=", tmp->name))
 		tmp = tmp->next;
 	tmp->value = ft_switch_value(tmp->value, pwd);
@@ -66,7 +65,7 @@ void	ft_cd(t_data *data)
 			{
 				if (chdir(tmp->value) == -1)
 					perror("bash: ");
-			//ft_old_pwd(data);
+				ft_old_pwd(data);
 			}
 			tmp = tmp->next;
 		}
@@ -76,7 +75,7 @@ void	ft_cd(t_data *data)
 	{
 		if (chdir(data->lst->content[1]) == -1)
 			perror("bash: ");
-		//ft_old_pwd(data);
+		ft_old_pwd(data);
 	}
 	else
 		ft_printf("bash: cd: too many arguments\n");

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/23 11:30:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:24:23 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ int	list_progress(t_data *data)
 	while (data->lst && data->lst->type != CMD)
 	{
 		if (data->lst->type == PIPE)
+		{
 			data->lst = data->lst->next;
+			if (data->lst->type == PIPE)
+				ft_print_error("bash: syntax error near unexpected token `||'");
+		}
 		if (data->lst->type == REDIR)
 		{
 			if (ft_which_redir(data) == 1)
