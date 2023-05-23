@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:08:51 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:15:14 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/23 10:58:54 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 			lst = ft_add_lst(lst, data, REDIR, 2);
 			data->y = data->y + 2;
 		}
-		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]))
+		else if (data->res_parse[data->y] && !ft_is_redir(data->res_parse[data->y]) && data->res_parse[data->y][0] != '|')
 		{
 			lst = ft_add_lst(lst, data, CMD, ft_len_parse(data->res_parse, data->y));
 			while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
