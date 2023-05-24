@@ -1,9 +1,3 @@
-toutes les redirections qui segfault seules
-ls |>?>     ------>   bash: syntax   +    double free    puis abort  ===== Sort du parsing mais prblm lst du parsing
-ls >?>      ------>   segfault            =======    sort pas du parsing
-                                                            ----------------> SUREMENT A CAUSE REDIR SEULE
-ls ||||||||||||||||||| wc       ----> fonctionne comme si un seul pipe
-
 ./" qui ne fait rien ??
 
 echo a faire
@@ -13,3 +7,5 @@ variable d'environnement
 $? a faire
 
 LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
+
+< cat Makefile   mauvaise erreur

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 15:38:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:05:44 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_print_error(char *str)
 	char	*join;
 
 	join = ft_strjoin("bash: ", str);
-	perror(join);
+	write(2, join, ft_strlen(join));
+	write(2, "\n", 2);
 	free(join);
 	return (1);
 }
