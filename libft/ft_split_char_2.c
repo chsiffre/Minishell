@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_char_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:11:58 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/23 15:23:35 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,21 @@ int check_quote(char *str, int *index, char *charset)
 
     i = (*index);
 	size = 0;
-	while (!ft_charset(str[*index], charset) && str[(*index)])
+	while (str[(*index)])
 	{
+		while (str[*index] && ft_charset(str[*index], charset))
+			(*index)++;
 		if (str[(*index)] && (str[(*index)] == '\"' || str[(*index)] == '\''))
 		{
-			size = skipping_quote(str[i], str, index);
+			size = skipping_quote(str[*index], str, index);
             (*index) = i;
-		    return (size + 3);
+		    return (size + 2);
         }
-        if (str[(*index)])
-            (*index)++;
+		else
+		{
+			(*index) = i;
+			return (0);
+		}
 	}
     (*index) = i;
 	return (0);
@@ -61,7 +66,7 @@ int skipping_quote(char c, char *str, int *i)
 	
 	size = 0;
 	(*i)++;
-	while (str[*i] && str[*i] != c)
+	while (str[*i] != c && str[*i])
 	{
 		(*i)++;
 		size++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/23 11:04:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:21:22 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ t_lst	*ft_parse(t_data *data)
 	data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
 	if (!data->res_split)
 		return (NULL);
+	while (data->res_split[i])
+		printf("%s\n", data->res_split[i++]);
+	exit(1);
 	data->res_parse = malloc((ft_strs_len(data->res_split) + 1) * sizeof(char *));
 	if (!data->res_parse)
 		return (NULL);
@@ -48,16 +51,16 @@ t_lst	*ft_parse(t_data *data)
 	// 	lst = lst->next;
 	// }
 	// exit(1);
-	// i = 0;
-	// while (lst)
-	// {
-	// 	i = -1;
-	// 	while (lst->content[++i])
-	// 		printf("[%s] ", lst->content[i]);
-	// 	printf("\n");
-	// 	lst = lst->next;
-	// }
-	// exit(1);
+	// // i = 0;
+	// // while (lst)
+	// // {
+	// // 	i = -1;
+	// // 	while (lst->content[++i])
+	// // 		printf("[%s] ", lst->content[i]);
+	// // 	printf("\n");
+	// // 	lst = lst->next;
+	// // }
+	// // exit(1);
 	return (lst);
 }
 
