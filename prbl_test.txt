@@ -6,12 +6,10 @@ ls ||||||||||||||||||| wc       ----> fonctionne comme si un seul pipe
 
 ./" qui ne fait rien ??
 
-
-< Makefile cat > out | < out wc   -----> fonctionne mais ne fonctionne pas dans bash
-
 echo a faire
 gerer exit
 
-
 variable d'environnement
 $? a faire
+
+LEAKS ==========  "> out" "< Makefile cat " "<< EOF"

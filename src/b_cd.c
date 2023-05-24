@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:07:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/24 14:14:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:12:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,13 @@ void	ft_cd(t_data *data)
 		while (tmp)
 		{
 			if (ft_compare_str(tmp->name, "HOME="))
+			{
 				ft_algo_cd(data, tmp->value);
+				return ;
+			}
 			tmp = tmp->next;
 		}
+		write(2, "bash: cd: HOME not set\n", 24);
 	}
 	else if (args == 2)
 		ft_algo_cd(data, data->lst->content[1]);
