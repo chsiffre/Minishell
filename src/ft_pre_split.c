@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/15 17:23:19 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:13:27 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ char *ft_str_replace(char *str, char *copy, int new_size)
     
     y = 0;
     i = 0;
+    
+    if (check_pipe(copy) == 0)
+        return (NULL);
     while (i < new_size)
     {
         if (copy[i] == '<' || copy[i] == '>')
@@ -81,4 +84,18 @@ char *ft_str_replace(char *str, char *copy, int new_size)
     }
     str[i] = '\0';
     return (free(copy), str);
+}
+
+int check_pipe(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] && str[i + 1] && (str[i] == '|' && str[i + 1] == '|'))
+            return (0);
+        i++;
+    }
+    return (1);
 }

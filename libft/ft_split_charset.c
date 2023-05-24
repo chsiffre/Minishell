@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/23 15:21:02 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:09:56 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,16 @@ char	*give_memory(char *str, char *charset, int *index)
 {
 	int		len;
 	char	*ret;
-	ret = NULL;
 
+	ret = NULL;
 	len = 0;
+	len = check_space(str, index, charset);
+	if (len != 0)
+	{
+		while (ft_charset(str[*index], charset))
+		(*index)++;
+		return (copy_str(index, str, len ,ret));
+	}
 	len = check_quote(str, index, charset);
 	if (len != 0)
 		return (copy_str(index, str, len, ret));

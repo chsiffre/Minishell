@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:07:10 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:57:17 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/24 16:17:26 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,24 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, ft_ctrl);
 		data->line = readline("prompt> ");
-		//data->line = "export TEST TEST2 TEST3";
+		//data->line = "echo \"okok\" \'ok\' ";
 		if (!data->line)
 			return ;
 		else if (data->line[0] != '\0')
 			add_history(data->line);
 		data->line = ft_pre_split(data->line);
+		if (!data->line)
+		{
+			printf("2 pipes\n");
+			free(data->line);
+			ft_to_free(data);
+		}
 		data->lst = ft_parse(data);
+		if (!data->lst)
+		{
+			printf("ok pb resolu\n");
+			return ;
+		}
 		while (data->lst && data->lst->content)
 		{
 			if (ft_check_type(data) == 1)

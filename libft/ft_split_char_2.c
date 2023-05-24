@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_char_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/23 15:23:35 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:25:39 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
+#include "../include/minishell.h"
 
 int check_quote(char *str, int *index, char *charset)
 {
@@ -41,6 +42,35 @@ int check_quote(char *str, int *index, char *charset)
 	return (0);
 }
 
+int check_space(char *str, int *index, char *charset)
+{
+	int	i;
+	int len;
+	char c;
+
+	c = 0;
+	i = *index;
+	len = 0;
+	while (str[i])
+	{
+		while (ft_charset(str[i], charset))
+			i++;
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			c = str[i];
+			i++;
+			while (str[i++] != c)
+				len++;
+			if (ft_charset(str[i], charset))
+				return (len + 3);
+			else
+				return (len + 2);
+		}
+		else
+			return (0);
+	}
+	return (0);
+}
 
 char *copy_str(int *index, char *str, int len, char *ret)
 {
@@ -50,6 +80,9 @@ char *copy_str(int *index, char *str, int len, char *ret)
     ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
+	if (str[*index] == ' ' && str[*index - 1] 
+		&& str[*index - 1] != '\'' && str[*index - 1] != '\"')
+		(*index)++;
 	while (i < len)
 	{
 		ret[i] = str[*index];
