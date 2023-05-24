@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:04:46 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/24 16:09:56 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	get_ac(char *str, char *charset)
 {
 	int	i;
 	int	count;
+	char c;
 
+	c = 0;
 	count = 0;
 	i = 0;
 	while (str[i])
@@ -40,14 +42,16 @@ int	get_ac(char *str, char *charset)
 			i++;
 		if (!ft_charset(str[i], charset) && str[i])
 		{
-			if (str[i++] && str[i] == '\"')
-				while (str[i] != '\"')
+			if (str[i] == '\"' || str[i] == '\'')
+			{
+				c = str[i];
+				i++;
+				while (str[i] && str[i] != c)
 					i++;
-			if (str[i] && str[i] == '\'')
-				while (str[i] != '\'')
-					i++;
+				i++;
+			}
 			count++;
-			while (!ft_charset(str[i], charset) && str[i])
+			while (!ft_charset(str[i], charset) && str[i] && str[i] != '\"' && str[i] != '\'')
 				i++;
 		}
 	}
@@ -58,9 +62,16 @@ char	*give_memory(char *str, char *charset, int *index)
 {
 	int		len;
 	char	*ret;
-	ret = NULL;
 
+	ret = NULL;
 	len = 0;
+	len = check_space(str, index, charset);
+	if (len != 0)
+	{
+		while (ft_charset(str[*index], charset))
+		(*index)++;
+		return (copy_str(index, str, len ,ret));
+	}
 	len = check_quote(str, index, charset);
 	if (len != 0)
 		return (copy_str(index, str, len, ret));

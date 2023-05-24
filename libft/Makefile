@@ -1,7 +1,7 @@
 .PHONY : clean fclean re bonus 
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra 
 
 SRCS = 	ft_memset.c \
 		ft_bzero.c \

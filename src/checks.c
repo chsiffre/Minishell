@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/22 14:24:15 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/24 16:22:44 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 		{
 			res_parse[data->i++] = strs[i];
 			i++;
+			if (!strs[i])
+				return (NULL);
 			res_parse[data->i++] = strs[i];
 			i++;
 		}
@@ -109,6 +111,8 @@ char *del_quote(char *str,char *ret, int i, char c)
 	y = 0;
 	i++;
 	while (str[i] && str[i] != c)
+		ret[y++] = str[i++];
+	if (str[i++ + 1] == ' ')
 		ret[y++] = str[i++];
 	ret[y] = '\0';
 	return (ret);

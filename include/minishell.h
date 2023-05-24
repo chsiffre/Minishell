@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 14:46:07 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:33:25 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,18 @@ int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
 char	**ft_check_redir(char **res_parse,
-			t_data *data, char **strs, int start);
+t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
+
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
 char	*del_quote(char *str, char *ret, int i, char c);
 void	ft_free(t_data *data);
-
+int check_pipe(char *str);
 //***********builtins***************//
 int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
