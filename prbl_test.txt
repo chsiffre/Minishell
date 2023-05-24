@@ -1,11 +1,17 @@
 toutes les redirections qui segfault seules
-$?   ----->   command not found
 ls |>?>     ------>   bash: syntax   +    double free    puis abort  ===== Sort du parsing mais prblm lst du parsing
 ls >?>      ------>   segfault            =======    sort pas du parsing
                                                             ----------------> SUREMENT A CAUSE REDIR SEULE
+ls ||||||||||||||||||| wc       ----> fonctionne comme si un seul pipe
 
 ./" qui ne fait rien ??
 
-gerer exit
 
 < Makefile cat > out | < out wc   -----> fonctionne mais ne fonctionne pas dans bash
+
+echo a faire
+gerer exit
+
+
+variable d'environnement
+$? a faire

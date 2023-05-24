@@ -18,6 +18,7 @@ LIST_SRC =	main.c \
 			b_unset.c \
 			b_export.c \
 			b_echo.c \
+			b_cd.c \
 			init.c \
 			env_utils.c \
 			checks.c \

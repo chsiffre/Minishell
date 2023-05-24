@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/16 15:12:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:57:23 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_init_data(t_data *data, char **envp)
 {
+
 	data->env_path = envp;
 	data->env = NULL;
 	data->lst = NULL;
@@ -35,5 +36,7 @@ t_data	ft_init_struct(t_data data)
 	data.i = 0;
 	data.y = 0;
 	data.pipex = malloc(sizeof(t_pipe));
+	if (!data.pipex)
+		exit(1);
 	return (data);
 }

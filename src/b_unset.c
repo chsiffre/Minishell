@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/18 00:18:13 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/24 13:51:01 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ int	ft_unset(t_data *data)
 	while (data->lst->content[i])
 	{
 		len = ft_strlen(data->lst->content[i]);
-		if (ft_special_unset(data->lst->content[i]))
-			return (1);
 		if (data->lst->content[i][len - 1] == '=')
-			printf("minishell: %s: not a valid identifer\n", data->lst->content[i]);
+			printf
+			("minishell: %s: not a valid identifer\n", data->lst->content[i]);
 		n_equal = ft_strjoin(data->lst->content[i], "=");
 		ft_find_var(data, tmp, n_equal, data->lst->content[i]);
 		i++;

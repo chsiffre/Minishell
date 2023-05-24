@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/23 11:03:13 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:46:07 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_pipe {
 
 typedef struct s_data {
 	t_lst	*lst;
+	char	**fake_envp;
 	char	*line;
 	char	**env_path;
 	char	*path;
@@ -97,9 +98,10 @@ ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
-char	*copy_str(int *index, char *str, int len, char *ret);char *is_quote(char *str);
+char	*copy_str(int *index, char *str, int len, char *ret);
+char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
-char *del_quote(char *str,char *ret, int i, char c);
+char	*del_quote(char *str, char *ret, int i, char c);
 void	ft_free(t_data *data);
 
 //***********builtins***************//
@@ -107,6 +109,7 @@ int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
 int		ft_unset(t_data *data);
 int		ft_export(t_data *data);
+void	ft_cd(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -117,6 +120,7 @@ t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_has_equal(char *str);
+int		ft_check_exist(t_data *data, t_env *env, char *str);
 
 //***********prompt***************//
 void	ft_ctrl(int signal);
@@ -142,6 +146,7 @@ void	ft_to_free(t_data *data);
 int		ft_print_error(char	*str);
 int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);
+int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
 
 #endif

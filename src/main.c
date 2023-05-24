@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/23 12:17:33 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:30:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_ctrl(int signal)
 	}
 	else if (signal == SIGTERM)
 		exit (0);
-	else
-		return ;
 }
 
 void	ft_ctrl_fork(int signal)
@@ -40,12 +38,15 @@ void	ft_ctrl_fork(int signal)
 	else if (signal == SIGTERM)
 		exit (0);
 	else
+	{
+		write(2, "Quit (core dumped)\n", 20);
 		return ;
+	}
 }
 
 void	ft_get_env(t_data *data)
 {
-	while (data->env_path)
+	while (*data->env_path)
 	{
 		if (ft_strnstr(*data->env_path, "PATH", 5))
 		{
@@ -59,15 +60,36 @@ void	ft_get_env(t_data *data)
 	}
 }
 
+char	**ft_no_env(char **envp)
+{
+	char	buff[PATH_MAX];
+
+	if (getcwd(buff, PATH_MAX) == NULL)
+		exit(1);
+	envp = malloc(sizeof(char **) * 5);
+	envp[0] = ft_strdup("OLDPWD");
+	envp[1] = ft_strdup("SHLVL=1");
+	envp[2] = ft_strdup("_=/usr/bin/env");
+	envp[3] = ft_strjoin("PWD=", buff);
+	envp[4] = NULL;
+	return (envp);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	char	**fake_envp;
 
 	(void)argc;
 	(void)**argv;
+	fake_envp = NULL;
 	if (!envp || !envp[0])
-		return (write(2, "bash: envp error\n", 18), 1);
-	ft_init_data(&data, envp);
+	{
+		fake_envp = ft_no_env(fake_envp);
+		ft_init_data(&data, fake_envp);
+	}
+	else
+		ft_init_data(&data, envp);
 	data = ft_init_struct(data);
 	ft_get_env(&data);
 	ft_prompt(&data);
