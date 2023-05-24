@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/24 16:32:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:58:25 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
-		//data->line = "echo \"okok\" \'ok\' ";
 		if (!data->line)
 		{
 			ft_to_free(data);
@@ -65,17 +64,11 @@ void	ft_prompt(t_data *data)
 				ft_error(data, "non printable\n", 1);
 		data->line = ft_pre_split(data->line);
 		if (!data->line)
-		{
-			printf("2 pipes\n");
-			free(data->line);
-			ft_to_free(data);
-		}
+			ft_print_error("bash: syntax error near unexpected token `||'");
 		data->lst = ft_parse(data);
-		if (!data->lst)
-		{
-			printf("ok pb resolu\n");
-			return ;
-		}
+		if (data->line && !data->lst)
+			ft_print_error
+				("bash: syntax error near unexpected token `newline'");
 		while (data->lst && data->lst->content)
 		{
 			if (ft_check_type(data) == 1)
