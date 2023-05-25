@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 15:35:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:07:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_try_path(t_data *data, char *cmd)
 
 	i = 0;
 	if (access(cmd, X_OK) != -1)
-		return (cmd);
+		return (NULL);
 	tmp = ft_strjoin("/", cmd);
 	tab = NULL;
 	while (data->split_path && data->split_path[i])
@@ -78,6 +78,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
 	signal(SIGQUIT, ft_ctrl_fork);
+
 	i = ft_builtins(data);
 	if (i == -1 || i == 1)
 		return (1);

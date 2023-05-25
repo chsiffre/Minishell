@@ -10,3 +10,8 @@ $? a faire
 LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
 
 "|" mauvais message
+chaine vide avec espace qui affiche message erreur
+
+
+utiliser stat pour les cmd files 
+/bin/ls

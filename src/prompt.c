@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/24 22:29:32 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/25 10:42:14 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_prompt(t_data *data)
 			data->lst = ft_parse(data);
 			if (data->line && !data->lst)
 				ft_write_error
-					("bash: syntax error near unexpected token `newline'");
+					("syntax error near unexpected token `newline'");
 			while (data->lst && data->lst->content)
 			{
 				if (ft_check_type(data) == 1)
