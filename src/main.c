@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 15:30:26 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:09:31 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	ft_get_env(t_data *data)
 
 char	**ft_no_env(char **envp)
 {
-	char	buff[PATH_MAX];
+	char	buff[REP_MAX];
 
-	if (getcwd(buff, PATH_MAX) == NULL)
+	if (getcwd(buff, REP_MAX) == NULL)
 		exit(1);
 	envp = malloc(sizeof(char **) * 5);
 	envp[0] = ft_strdup("OLDPWD");

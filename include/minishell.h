@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 16:33:25 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:51:52 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define PATH_MAX 256
+# define REP_MAX 256
 # define REDIR 0
 # define CMD 1
 # define PIPE 2
@@ -111,6 +111,7 @@ void	ft_echo(t_data *data);
 int		ft_unset(t_data *data);
 int		ft_export(t_data *data);
 void	ft_cd(t_data *data);
+int 	ft_exit(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -145,6 +146,7 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 //***********error***************//
 void	ft_to_free(t_data *data);
 int		ft_print_error(char	*str);
+int		ft_write_error(char *str);
 int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);
 int		ft_free_for_end(t_data *data);

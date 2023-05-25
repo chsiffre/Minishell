@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 15:38:38 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 23:03:10 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	ft_print_env(t_data *data)
 
 void	ft_get_pwd(t_data *data)
 {
-	char	buff[PATH_MAX];
+	char	buff[REP_MAX];
 
-	if (getcwd(buff, PATH_MAX) == NULL)
+	if (getcwd(buff, REP_MAX) == NULL)
 		ft_error(data, "PWD error\n", 1);
 	printf("%s\n", buff);
 }
@@ -53,11 +53,6 @@ int	ft_builtins(t_data *data)
 	else if (ft_compare_str(data->lst->content[0], "env"))
 		return (ft_print_env(data), 1);
 	else if (ft_compare_str(data->lst->content[0], "exit"))
-	{
-		ft_to_free(data);
-		ft_free_for_end(data);
-		printf("exit\n");
-		exit(g_error_last);
-	}
+		return (ft_exit(data), 1);
 	return (0);
 }

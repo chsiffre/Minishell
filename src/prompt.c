@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/24 16:58:25 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:29:32 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,23 @@ void	ft_prompt(t_data *data)
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
 				ft_error(data, "non printable\n", 1);
-		data->line = ft_pre_split(data->line);
-		if (!data->line)
-			ft_print_error("bash: syntax error near unexpected token `||'");
-		data->lst = ft_parse(data);
-		if (data->line && !data->lst)
-			ft_print_error
-				("bash: syntax error near unexpected token `newline'");
-		while (data->lst && data->lst->content)
+		if (data->line[0] != '\0')
 		{
-			if (ft_check_type(data) == 1)
-				break ;
-			if (data->lst == NULL || data->lst->next == NULL)
-				break ;
-			data->lst = data->lst->next;
+			data->line = ft_pre_split(data->line);
+			if (!data->line)
+				ft_write_error("bash: syntax error near unexpected token `||'");
+			data->lst = ft_parse(data);
+			if (data->line && !data->lst)
+				ft_write_error
+					("bash: syntax error near unexpected token `newline'");
+			while (data->lst && data->lst->content)
+			{
+				if (ft_check_type(data) == 1)
+					break ;
+				if (data->lst == NULL || data->lst->next == NULL)
+					break ;
+				data->lst = data->lst->next;
+			}
 		}
 		free(data->line);
 		ft_to_free(data);
