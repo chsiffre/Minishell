@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/25 11:07:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:39:26 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_try_path(t_data *data, char *cmd)
 
 	i = 0;
 	if (access(cmd, X_OK) != -1)
-		return (NULL);
+		return (cmd);
 	tmp = ft_strjoin("/", cmd);
 	tab = NULL;
 	while (data->split_path && data->split_path[i])

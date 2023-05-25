@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 23:28:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/25 12:17:42 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int ft_exit(t_data *data)
             return (1);
 		}
         if (ft_is_valid_num(data->lst->content[1]))
-			ft_exit_pack(data, ft_atoi(data->lst->next->content[1]) % 256);
+			ft_exit_pack(data, ft_atoi(data->lst->content[1]) % 256);
 		else
 		{
 			g_error_last = 2;
