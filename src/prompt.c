@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/24 22:29:32 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/25 13:36:27 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
+		//data->line = "ls";
 		if (!data->line)
 		{
 			ft_to_free(data);
