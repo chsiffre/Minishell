@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 22:17:58 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/25 13:26:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_error(t_data *data, char *str, int exit_code)
 int	ft_print_error(char *str)
 {
 	char	*join;
+
 	join = ft_strjoin("bash: ", str);
 	perror(join);
 	free(join);

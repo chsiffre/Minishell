@@ -1,8 +1,4 @@
-./" qui ne fait rien ??
-
 echo a faire
-gerer exit
-    ----> prblm exit avec un nbr "exit 12" par exemple
 
 variable d'environnement
 $? a faire
@@ -12,9 +8,23 @@ LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
 "|" mauvais message
 chaine vide avec espace qui affiche message erreur
 
+./" qui ne fait rien ??
 ' seule qui segfault
 " apres avoir deja fait " segfault
 
-
 utiliser stat pour les cmd files 
 /bin/ls
+
+code exit des signaux
+ctrl + d qui ne fonctionne pas si ecrit dans prompt
+;' qui ne fait rien
+
+
+--------------------------------------------------------
+prompt> '
+''[1]    466789 segmentation fault (core dumped)  ./minishell
+--------------------------------------------------------
+QUOTES SEULES
+
+
+;':|}  segfault

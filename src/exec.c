@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/25 13:12:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:28:20 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,11 @@ int	ft_exec(t_data *prompt, char **cmd)
 	else if (pid == 0)
 	{
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
-			ft_error(prompt, "execve error\n", 1);
+			ft_error(prompt, "Is a directory\n", 1);
 	}
 	if (waitpid(pid, NULL, 0) == -1)
 		ft_error(prompt, "waitpid error\n", 1);
 	return (0);
-}
-
-int		ft_is_directory(char *cmd)
-{
-	struct stat	*buf;
-
-	buf = malloc(sizeof(struct stat));
-	if (stat(cmd, buf) == -1)
-		return (1);
-	else
-		return (0);
 }
 
 char	*ft_try_path(t_data *data, char *cmd)
@@ -49,8 +38,6 @@ char	*ft_try_path(t_data *data, char *cmd)
 	i = 0;
 	if (access(cmd, X_OK) != -1)
 	{
-		if (ft_is_directory(cmd) == 1)
-			return (NULL);
 		tab = ft_strdup(cmd);
 		return (tab);
 	}
