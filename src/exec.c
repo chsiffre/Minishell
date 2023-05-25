@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/25 12:39:26 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/25 13:12:20 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ int	ft_exec(t_data *prompt, char **cmd)
 	return (0);
 }
 
+int		ft_is_directory(char *cmd)
+{
+	struct stat	*buf;
+
+	buf = malloc(sizeof(struct stat));
+	if (stat(cmd, buf) == -1)
+		return (1);
+	else
+		return (0);
+}
+
 char	*ft_try_path(t_data *data, char *cmd)
 {
 	int		i;
@@ -37,7 +48,12 @@ char	*ft_try_path(t_data *data, char *cmd)
 
 	i = 0;
 	if (access(cmd, X_OK) != -1)
-		return (cmd);
+	{
+		if (ft_is_directory(cmd) == 1)
+			return (NULL);
+		tab = ft_strdup(cmd);
+		return (tab);
+	}
 	tmp = ft_strjoin("/", cmd);
 	tab = NULL;
 	while (data->split_path && data->split_path[i])

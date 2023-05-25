@@ -12,6 +12,9 @@ LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
 "|" mauvais message
 chaine vide avec espace qui affiche message erreur
 
+' seule qui segfault
+" apres avoir deja fait " segfault
+
 
 utiliser stat pour les cmd files 
 /bin/ls
