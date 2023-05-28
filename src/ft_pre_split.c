@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/25 16:08:11 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:17:59 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 			return (free (copy), NULL);
 	}
 	str[i] = '\0';
-	printf("%s\n", str);
 	return (free(copy), str);
 }
 
@@ -71,19 +70,23 @@ char *check_chevron(char *str, char *copy, int *i, int *y)
 			str[(*y)++] = ' ';
 			if (copy[*i])
 				str[(*y)++] = copy[(*i)++];
+			if (copy[*i] && copy[*i] != '<' && copy[*i] != '>' && copy[*i] != ' ')
+			{
+				str[(*y)++] = ' ';
+				str[(*y)++] = copy[(*i)++];
+			}
+			return (str);
 		}
 		else if (copy[*i + 1] && copy[*i + 1] != '<' && copy[*i + 1] != '>' && copy[*i + 1] != ' ')
 		{
-			printf("%c\n", copy[*i]);
-			str[(*y)++] = ' ';
-			if (copy[*i + 1])
-				str[(*y)++] = copy[((*i)++ + 1)];
-		}
-		else
 			str[(*y)++] = copy[(*i)++];
+			str[(*y)++] = ' ';
+			str[(*y)++] = copy[(*i)++];
+		}
 	}
 	return (str);
 }
+
 
 char *check_pipes(char *str, char *copy, int *i, int *y)
 {
@@ -92,11 +95,10 @@ char *check_pipes(char *str, char *copy, int *i, int *y)
 	if ((copy[*i] != ' ' && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
 	{
 		if (copy[*i])
-			str[(*y)++] = copy[*i];
+			str[(*y)++] = copy[(*i)++];
 		str[(*y)++] = ' ';
 	}
 	else
 		str[(*y)++] = copy[(*i)++];
-		
 	return (str);
 }
