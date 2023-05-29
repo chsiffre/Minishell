@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/28 20:17:59 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/29 10:42:25 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char *ft_pre_split(char *str)
 	return (ft_str_replace(str, copy, new_size));
 }
 
-
 char *ft_str_replace(char *str, char *copy, int new_size)
 {
 	int i;
@@ -59,7 +58,6 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 	str[i] = '\0';
 	return (free(copy), str);
 }
-
 
 char *check_chevron(char *str, char *copy, int *i, int *y)
 {
@@ -86,7 +84,6 @@ char *check_chevron(char *str, char *copy, int *i, int *y)
 	}
 	return (str);
 }
-
 
 char *check_pipes(char *str, char *copy, int *i, int *y)
 {

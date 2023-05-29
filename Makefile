@@ -29,6 +29,7 @@ LIST_SRC =	main.c \
 			exec_redir.c \
 			exec_pipe.c \
 			error.c \
+			add_to_lst.c \
 
 LIST_INC = minishell.h
 

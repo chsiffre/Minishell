@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/25 13:10:36 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:43:36 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
 char *check_pipes(char *str, char *copy, int *i, int *y);
 char *check_chevron(char *str, char *copy, int *i, int *y);
+
+//***********parsing***************//
+
+char *ft_expand(char *str, t_data *data);
 
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);

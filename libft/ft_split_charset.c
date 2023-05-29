@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 16:09:56 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/29 09:53:55 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	*give_memory(char *str, char *charset, int *index)
 	len = check_space(str, index, charset);
 	if (len != 0)
 	{
-		while (ft_charset(str[*index], charset))
+		while (ft_charset(str[*index], charset) 
+			&& str[*index + 1] != '\"' && str[*index + 1] != '\'')
 		(*index)++;
 		return (copy_str(index, str, len ,ret));
 	}
@@ -77,7 +78,8 @@ char	*give_memory(char *str, char *charset, int *index)
 		return (copy_str(index, str, len, ret));
 	while (ft_charset(str[*index], charset))
 		(*index)++;
-	while (!ft_charset(str[*index + len], charset) && str[*index + len])
+	while (!ft_charset(str[*index + len], charset) && str[*index + len] &&
+	str[*index + len] != '\'' && str[*index + len] != '\"')
 		len++;
 	return (copy_str(index, str, len, ret));
 }
