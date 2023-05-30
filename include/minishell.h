@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 13:43:24 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:03:16 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ char *check_chevron(char *str, char *copy, int *i, int *y);
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
-int		var_exist(char *str, t_data *data);
-int		ft_compare_var(char *s1, char *s2);
-char	*replace_var(char *str, char *ret, int i, t_data *data)
+int var_exist(char *str, int *i, t_data *data);
+int	ft_compare_var(char *s1, char *s2, int i);
+char *replace_var(char *str, char *ret, t_data *data);
+char	*resize_str(char *str, char *ret, t_data *data, int *new_size);
 
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
