@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 13:48:18 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:53:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int		ft_check_exist(t_data *data, t_env *env, char *str);
 //***********prompt***************//
 void	ft_ctrl(int signal);
 void	ft_ctrl_fork(int signal);
+void	ft_here_sig(int signal);
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);

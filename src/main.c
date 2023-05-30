@@ -6,43 +6,13 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 13:27:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:51:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_error_last;
-
-void	ft_ctrl(int signal)
-{
-	if (signal == SIGINT)
-	{
-		rl_on_new_line();
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (signal == SIGTERM)
-		exit (0);
-}
-
-void	ft_ctrl_fork(int signal)
-{
-	if (signal == SIGINT)
-	{
-		rl_on_new_line();
-		printf("\n");
-		rl_replace_line("", 0);
-	}
-	else if (signal == SIGTERM)
-		exit (0);
-	else
-	{
-		write(2, "Quit (core dumped)\n", 20);
-		return ;
-	}
-}
 
 void	ft_get_env(t_data *data)
 {

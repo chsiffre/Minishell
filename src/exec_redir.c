@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 13:30:30 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:11:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,23 @@ int	ft_here_doc(t_data *data)
 {
 	char	*line;
 	int		fd[2];
+	pid_t	pid;
 
 	if (pipe(fd) == -1)
 		ft_error(data, "pipe error\n", 1);
+	signal(SIGINT, SIG_IGN);
+	pid = fork();
+	if (pid == -1)
+		ft_error(data, "fork error\n", 1);
 	data->limiter = data->lst->content[1];
+	signal(SIGINT, ft_here_sig);
 	while (1)
 	{
 		line = readline("heredoc> ");
 		if (line == NULL)
 		{
 			ft_write_error
-				("warning: here-document at line 3 delimited by end-of-file");
+				("warning: here-document delimited by end-of-file");
 			break ;
 		}
 		if (ft_compare_str(line, data->limiter))
