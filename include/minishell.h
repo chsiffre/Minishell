@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/29 10:43:36 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:43:24 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,12 @@ char	*copy_str(int *index, char *str, int len, char *ret);
 char *check_pipes(char *str, char *copy, int *i, int *y);
 char *check_chevron(char *str, char *copy, int *i, int *y);
 
-//***********parsing***************//
+//***********expand***************//
 
-char *ft_expand(char *str, t_data *data);
+char	*ft_expand(char *str, t_data *data);
+int		var_exist(char *str, t_data *data);
+int		ft_compare_var(char *s1, char *s2);
+char	*replace_var(char *str, char *ret, int i, t_data *data)
 
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
