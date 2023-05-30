@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 15:29:54 by lucas            ###   ########.fr       */
+/*   Updated: 2023/05/30 17:25:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_here_doc(t_data *data)
 	int		fd[2];
 	int		exit_status;
 	pid_t	pid;
+	char	*res;
+	int		i;
 
 	if (pipe(fd) == -1)
 		ft_error(data, "pipe error\n", 1);
@@ -41,9 +43,15 @@ int	ft_here_doc(t_data *data)
 			}
 			if (ft_compare_str(line, data->limiter))
 				break ;
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], "\n", 2);
+			res = malloc(sizeof(char) * ft_strlen(line) + 2);
+			i = -1;
+			while (line[++i])
+				res[i] = line[i];
+			res[i++] = '\n';
+			res[i] = '\0';
+			write(fd[1], res, ft_strlen(res));
 			free(line);
+			free(res);
 		}
 		free(line);
 		close(fd[1]);
