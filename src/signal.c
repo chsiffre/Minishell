@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:51:04 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:49 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:20:08 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void	ft_here_sig(int signal)
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
-		exit(0);
+		exit(1);
 	}
 }

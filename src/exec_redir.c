@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:29:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_here_doc(t_data *data)
 {
 	char	*line;
 	int		fd[2];
+	int		exit_status;
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
@@ -24,26 +25,35 @@ int	ft_here_doc(t_data *data)
 	pid = fork();
 	if (pid == -1)
 		ft_error(data, "fork error\n", 1);
-	data->limiter = data->lst->content[1];
-	signal(SIGINT, ft_here_sig);
-	while (1)
+	else if (pid == 0)
 	{
-		line = readline("heredoc> ");
-		if (line == NULL)
+		close(fd[0]);
+		data->limiter = data->lst->content[1];
+		signal(SIGINT, ft_here_sig);
+		while (1)
 		{
-			ft_write_error
-				("warning: here-document delimited by end-of-file");
-			break ;
+			line = readline("heredoc> ");
+			if (line == NULL)
+			{
+				ft_write_error
+					("warning: here-document delimited by end-of-file");
+				break ;
+			}
+			if (ft_compare_str(line, data->limiter))
+				break ;
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 2);
+			free(line);
 		}
-		if (ft_compare_str(line, data->limiter))
-			break ;
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 2);
 		free(line);
+		close(fd[1]);
+		exit(0);
 	}
-	free(line);
-	data->in_redir = fd[0];
+	waitpid(pid, &exit_status, 2);
+	if (WEXITSTATUS(exit_status) == 1)
+		return (1);
 	close(fd[1]);
+	data->in_redir = fd[0];
 	return (0);
 }
 
@@ -70,7 +80,10 @@ int	ft_which_redir(t_data *data)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<<"))
-		ft_here_doc(data);
+	{	
+		if (ft_here_doc(data) == 1)
+			return (1);
+	}
 	else if (ft_compare_str(data->lst->content[0], ">>"))
 	{
 		data->out_redir = open
