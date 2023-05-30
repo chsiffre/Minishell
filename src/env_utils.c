@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/23 16:02:06 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:50:41 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,10 @@ char	*ft_find_name(char *name, char *str)
 	return (name);
 }
 
-char	*ft_switch_value(char *val, char *str)
+char	*ft_switch_value(char *val, char *str, int i)
 {
-	int	i;
 	int	k;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
 	val = malloc(sizeof(char) * (ft_strlen(str) - i));
 	if (!val)
 		return (NULL);
@@ -71,12 +67,12 @@ char	*ft_switch_value(char *val, char *str)
 	return (val);
 }
 
-char	*ft_add_value(char *str)
+char	*ft_add_value(char *str, int i)
 {
 	char	*val;
 
 	val = NULL;
-	val = ft_switch_value(val, str);
+	val = ft_switch_value(val, str, i);
 	if (!val)
 		return (NULL);
 	return (val);
@@ -86,6 +82,7 @@ void	ft_add_var(t_data *data, char *str, int exist)
 {
 	t_env	*new;
 	char	*name;
+	int		i;
 
 	new = data->env;
 	if (exist == 0)
@@ -95,6 +92,7 @@ void	ft_add_var(t_data *data, char *str, int exist)
 	}
 	else if (exist == 1)
 	{
+		i = 0;
 		name = NULL;
 		name = ft_find_name(name, str);
 		if (name == NULL)
@@ -103,11 +101,16 @@ void	ft_add_var(t_data *data, char *str, int exist)
 			new = new->next;
 		free(new->name);
 		new->name = name;
-		free(new->value);
-		new->value = ft_add_value(str);
-		if (!new->value)
-			ft_error(data, "malloc error\n", 1);
-		if (ft_has_equal(new->name))
-			new->equal = 1;
+		while (str[i] && str[i] != '=')
+			i++;
+		if (str[i] == '=')
+		{
+			free(new->value);
+			new->value = ft_add_value(str, i);
+			if (!new->value)
+				ft_error(data, "malloc error\n", 1);
+			if (ft_has_equal(new->name))
+				new->equal = 1;
+		}
 	}
 }

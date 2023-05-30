@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/25 11:00:03 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:48:18 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int 	ft_exit(t_data *data);
 void	ft_struct_env(t_data *data);
 int		ft_has_equal(char *str);
 void	ft_add_var(t_data *data, char *str, int exist);
-char	*ft_switch_value(char *val, char *str);
+char	*ft_switch_value(char *val, char *str, int i);
 t_env	*ft_envlast(t_env *lst);
 t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);

@@ -3,7 +3,7 @@ echo a faire
 variable d'environnement
 $? a faire
 
-LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
+LEAKS ==========>       "> out"       "< Makefile cat "       "<< EOF"
 
 "|" mauvais message
 chaine vide avec espace qui affiche message erreur
@@ -28,3 +28,5 @@ QUOTES SEULES
 
 
 ;':|}  segfault
+
+export ne pas supprimer la value si "export TEST=bonjour" faire "export TEST" ne fait rien
