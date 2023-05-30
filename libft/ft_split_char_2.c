@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 16:25:39 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/29 09:55:24 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int check_space(char *str, int *index, char *charset)
 			i++;
 		if (str[i] == '\"' || str[i] == '\'')
 		{
+			if (str[i - 1] == ' ')
+				len++;
 			c = str[i];
 			i++;
 			while (str[i++] != c)
@@ -80,9 +82,9 @@ char *copy_str(int *index, char *str, int len, char *ret)
     ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
-	if (str[*index] == ' ' && str[*index - 1] 
-		&& str[*index - 1] != '\'' && str[*index - 1] != '\"')
-		(*index)++;
+	// if (str[*index] == ' ' && str[*index - 1] 
+	// 	&& str[*index - 1] != '\'' && str[*index - 1] != '\"')
+	// 	(*index)++;
 	while (i < len)
 	{
 		ret[i] = str[*index];

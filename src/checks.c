@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 16:22:44 by charles          ###   ########.fr       */
+/*   Updated: 2023/05/29 10:44:14 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
-		strs[i] = is_quote(strs[i]);
 		if (!strs[i])
 			return (NULL);
 		if (ft_is_redir(strs[i]))
@@ -64,6 +63,9 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
+		strs[i] = ft_expand(strs[i], d);
+		if (!strs[i])
+			return (NULL);
 		if (strs[i + 1] && ft_is_redir(strs[i]))
 			i = i + 2;
 		else if (strs[i] && strs[i][0] != '|')
@@ -109,6 +111,8 @@ char *del_quote(char *str,char *ret, int i, char c)
 	int y;
 
 	y = 0;
+	if (str[i - 1] == ' ')
+		ret[y++] = str[i - 1];
 	i++;
 	while (str[i] && str[i] != c)
 		ret[y++] = str[i++];

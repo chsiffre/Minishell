@@ -6,9 +6,10 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/25 12:51:16 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:57:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -50,6 +51,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
+		//data->line = "ls";
 		if (!data->line)
 		{
 			ft_to_free(data);

@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 13:48:18 by luhumber         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/05/30 13:57:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -100,6 +101,15 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
+char *check_pipes(char *str, char *copy, int *i, int *y);
+char *check_chevron(char *str, char *copy, int *i, int *y);
+
+//***********expand***************//
+
+char	*ft_expand(char *str, t_data *data);
+int		var_exist(char *str, t_data *data);
+int		ft_compare_var(char *s1, char *s2);
+char	*replace_var(char *str, char *ret, int i, t_data *data);
 
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);

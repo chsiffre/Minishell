@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/24 16:45:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:42:25 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char *ft_pre_split(char *str)
 	return (ft_str_replace(str, copy, new_size));
 }
 
-
 char *ft_str_replace(char *str, char *copy, int new_size)
 {
 	int i;
@@ -49,53 +48,54 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 	
 	y = 0;
 	i = 0;
-	
-	if (check_pipe(copy) == 0)
-		return (NULL);
 	while (i < new_size)
 	{
-		if (copy[i] == '<' || copy[i] == '>')
-		{
-			if (copy[i - 1] && copy[i - 1] != ' ' && copy[i - 1] != '<' && copy[i - 1] != '>')
-			{
-				str[y++] = ' ';
-				if (copy[i])
-					str[y++] = copy[i];
-			}
-			else 
-				str[y++] = copy[i];
-			if (copy[i + 1] && copy[i + 1] != '<' && copy[i + 1] != '>' && copy[i + 1] != ' ')
-			{
-				str[y] = ' ';
-				y++;
-				if (copy[i + 1])
-					str[y++] = copy[i++ + 1];
-			}
-		}
-		else if ((copy[i] != ' ' && copy[i + 1] == '|') || (copy[i] == '|' && copy[i + 1] != ' '))
-		{
-			if (copy[i])
-				str[y++] = copy[i];
-			str[y++] = ' ';
-		}
-		else
-			str[y++] = copy[i];
-		i++;
+		str = check_chevron(str, copy, &i, &y);
+		str = check_pipes(str, copy , &i, &y);
+		if (!str)
+			return (free (copy), NULL);
 	}
 	str[i] = '\0';
 	return (free(copy), str);
 }
 
-int check_pipe(char *str)
+char *check_chevron(char *str, char *copy, int *i, int *y)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
+	if (copy[*i] && (copy[*i] == '<' || copy[*i] == '>'))
 	{
-		if (str[i] && str[i + 1] && (str[i] == '|' && str[i + 1] == '|'))
-			return (0);
-		i++;
+		if (copy[*i - 1] && copy[*i - 1] != ' ' && copy[*i - 1] != '<' && copy[*i - 1] != '>')
+		{
+			str[(*y)++] = ' ';
+			if (copy[*i])
+				str[(*y)++] = copy[(*i)++];
+			if (copy[*i] && copy[*i] != '<' && copy[*i] != '>' && copy[*i] != ' ')
+			{
+				str[(*y)++] = ' ';
+				str[(*y)++] = copy[(*i)++];
+			}
+			return (str);
+		}
+		else if (copy[*i + 1] && copy[*i + 1] != '<' && copy[*i + 1] != '>' && copy[*i + 1] != ' ')
+		{
+			str[(*y)++] = copy[(*i)++];
+			str[(*y)++] = ' ';
+			str[(*y)++] = copy[(*i)++];
+		}
 	}
-	return (1);
+	return (str);
+}
+
+char *check_pipes(char *str, char *copy, int *i, int *y)
+{
+	if (copy[*i] && copy[*i + 1] && (copy[*i] == '|' && copy[*i + 1] == '|'))
+		return (NULL);
+	if ((copy[*i] != ' ' && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
+	{
+		if (copy[*i])
+			str[(*y)++] = copy[(*i)++];
+		str[(*y)++] = ' ';
+	}
+	else
+		str[(*y)++] = copy[(*i)++];
+	return (str);
 }
