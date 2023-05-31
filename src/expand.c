@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 17:23:13 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:24:24 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char *ft_expand(char *str, t_data *data)
             i++;
             if (var_exist(str, &i, data))
                 ret = resize_str(str, ret, data, &new_size);
-            return (ret);
         }
         else
             ret[i] = str[i];

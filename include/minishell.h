@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 17:03:16 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:49:34 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*resize_str(char *str, char *ret, t_data *data, int *new_size);
 
 char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
-char	*del_quote(char *str, char *ret, int i, char c);
+char *del_quote(char *str,char *ret);
 void	ft_free(t_data *data);
 int check_pipe(char *str);
 //***********builtins***************//

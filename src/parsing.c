@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/30 16:23:27 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:15:00 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_lst	*ft_parse(t_data *data)
 			data->res_parse[data->i++] = data->res_split[i++];
 	}
 	data->res_parse[i] = NULL;
+	data->res_parse = check_quote(data->res_parse, data);
 	lst = ft_convert_in_lst(lst, data);
 	if (!lst)
 		return (NULL);
