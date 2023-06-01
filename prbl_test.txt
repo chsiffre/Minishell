@@ -28,3 +28,7 @@ QUOTES SEULES
 
 
 ;':|}  segfault
+
+
+truc chelou = "cat << ok > out | sleep 2"  
+        ============> cara NULL;
