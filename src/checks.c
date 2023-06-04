@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/31 14:12:10 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/01 12:38:56 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
-		strs[i] = ft_expand(strs[i], d);
 		if (!strs[i])
 			return (NULL);
 		if (strs[i + 1] && ft_is_redir(strs[i]))

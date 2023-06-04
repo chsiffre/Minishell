@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/29 09:53:55 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/04 18:54:51 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,63 @@ int	get_ac(char *str, char *charset)
 	i = 0;
 	while (str[i])
 	{
-		while (ft_charset(str[i], charset))
+		while (ft_charset(str[i], charset) && str[i])
 			i++;
-		if (!ft_charset(str[i], charset) && str[i])
+		if (!str[i])
+			break;
+		if (str[i] == '\"' || str[i] == '\'')
 		{
-			if (str[i] == '\"' || str[i] == '\'')
-			{
-				c = str[i];
+			c = str[i++];
+			while (str[i] && str[i] != c)
 				i++;
-				while (str[i] && str[i] != c)
-					i++;
-				i++;
-			}
+			i++;
 			count++;
-			while (!ft_charset(str[i], charset) && str[i] && str[i] != '\"' && str[i] != '\'')
-				i++;
 		}
+		else
+			count++;
+		skiping_next(str, charset, &i, &count);
 	}
 	return (count + 1);
 }
 
-char	*give_memory(char *str, char *charset, int *index)
+void	skiping_next(char *str, char *charset, int *i, int *count)
+{
+	char c;
+
+	c = 0;
+	if (str[*i] == '\'' || str[*i] == '\"')
+	{
+		c = str[(*i)++];
+		while (str[(*i)] != c && str[*i])
+			(*i)++;
+		(*i)++;
+		(*count)++;
+	}
+	else
+	{
+		while (!ft_charset(str[*i], charset) && str[*i] && str[*i] != '\"' && str[*i] != '\'')
+			(*i)++;
+		if (str[*i + 1] && !ft_charset(str[*i], charset))
+			(*count)++;
+	}
+}
+
+char	*give_memory(char *str, char *charset, int *index, int i_str)
 {
 	int		len;
 	char	*ret;
 
 	ret = NULL;
 	len = 0;
-	len = check_space(str, index, charset);
+	len = check_space(str, index, charset, i_str);
 	if (len != 0)
 	{
-		while (ft_charset(str[*index], charset) 
-			&& str[*index + 1] != '\"' && str[*index + 1] != '\'')
-		(*index)++;
+		if (i_str == 1)
+			while (ft_charset(str[*index], charset))
+				(*index)++;
+		else
+			while (ft_charset(str[*index], charset) && str[(*index) + 1] != '\"' && str[(*index) + 1] != '\'')
+				(*index)++;
 		return (copy_str(index, str, len ,ret));
 	}
 	len = check_quote(str, index, charset);
@@ -101,7 +125,7 @@ char	**ft_split_charset(char *str, char *charset)
 		return (NULL);
 	while (i < (nb_str - 1))
 	{
-		strs[i] = give_memory(str, charset, &j);
+		strs[i] = give_memory(str, charset, &j, i);
 		i++;
 	}
 	strs[i] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/30 17:03:34 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:06:51 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_to_free(t_data *data)
 	data->out_redir = 0;
 	data->i = 0;
 	data->y = 0;
+	data->ind = 0;
 }
 
 void	ft_prompt(t_data *data)

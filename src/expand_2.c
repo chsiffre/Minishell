@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 17:15:10 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:59:04 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,36 @@ int var_exist(char *str, int *i, t_data *data)
     t_env *tmp;
 
     tmp = data->env;
+    if (str[*i] == '$')
+        (*i)++;
     while (tmp)
     {
         if (ft_compare_var(str, tmp->name, *i))
         {
-            //printf("first char key : %c , value :%s\n", str[*i], tmp->value);
-            return (ft_strlen(tmp->value));
+            while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
+                (*i)++;
+            (*i)++;
+            return ((int) ft_strlen(tmp->value));
+        }
+        tmp = tmp->next;
+    }
+    return (0);
+}
+
+int is_var(char *str, int i, t_data *data)
+{
+    t_env *tmp;
+
+    tmp = data->env;
+    if (str[i] == '$')
+        (i)++;
+    while (tmp)
+    {
+        if (ft_compare_var(str, tmp->name, i))
+        {
+            while (str[i] && str[i] != '\'' && str[i] != '\"')
+                (i)++;
+            return ((int) ft_strlen(tmp->value));
         }
         tmp = tmp->next;
     }
@@ -36,10 +60,38 @@ int	ft_compare_var(char *s1, char *s2, int i)
     y = 0;
 	while (s1[i] && s2[y])
 	{
-		if ((s1[i] != s2[y]))
+		if ((s1[i] != s2[y]) && s2[y] != '=')
 			return (0);
 		i++;
         y++;
 	}
 	return (1);
+}
+
+int if_expand(char *str)
+{
+    int ind;
+    char quote;
+    char f_quote;
+
+    f_quote = 0;
+    quote = 0;
+    ind = -1;
+    while (str[++ind])
+    {
+        if (str[ind] == '\"' || str[ind] == '\'')
+        {
+            if (f_quote == 0)
+                f_quote = str[ind];
+            quote = str[ind];
+            while (str[++ind] != quote)
+            {
+                if (str[ind] == '$' && f_quote == '\"')
+                    return (1);
+            }
+        }
+        else if (str[ind] == '$')
+            return (1);
+    }
+    return (0);
 }

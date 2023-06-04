@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 14:08:10 by charles           #+#    #+#             */
-/*   Updated: 2023/05/24 14:49:38 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/04 15:29:21 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			**ft_split(char const *s, char c);
 char			**ft_split_charset(char *str, char *charset);
 char			*copy_str(int *index, char *str, int len, char *ret);
+void			skiping_next(char *str, char *charset, int *i, int *count);
 int				check_quote(char *str, int *index, char *charset);
 int				skipping_quote(char c, char *str, int *i);
-int				check_space(char *str, int *index, char *charset);
+int				check_space(char *str, int *index, char *charset, int i_str);
 int				ft_charset(char c, char *charset);
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);

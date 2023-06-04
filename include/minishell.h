@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/31 14:49:34 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/04 19:28:43 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ typedef struct s_data {
 	int		is_redir;
 	int		in_redir;
 	int		out_redir;
+	int		ind;
+    char	f_quote;
+    char	s_quote;
+    char	quote;
 }	t_data;
 
 //***********prompt***************//
@@ -105,16 +109,21 @@ char *check_chevron(char *str, char *copy, int *i, int *y);
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
-int var_exist(char *str, int *i, t_data *data);
-int	ft_compare_var(char *s1, char *s2, int i);
-char *replace_var(char *str, char *ret, t_data *data);
+int		if_expand(char *str);
+int		var_exist(char *str, int *i, t_data *data);
+int		is_var(char *str, int i, t_data *data);
+int		ft_compare_var(char *s1, char *s2, int i);
+char *replace_var(char *str, char *ret, int *i, t_data *data);
 char	*resize_str(char *str, char *ret, t_data *data, int *new_size);
-
-char	*is_quote(char *str);
+char	*resize_quote(char *str, t_data *data);
+char	*is_quote(char *str, t_data *data);
+char	*resize_var(char *str, t_data *data);
 int		ft_nb_quote(char *str);
-char *del_quote(char *str,char *ret);
+char	**check_quotes(char **strs, t_data *data);
+char *del_quote(char *str, char *ret, t_data *data);
 void	ft_free(t_data *data);
-int check_pipe(char *str);
+int		check_pipe(char *str);
+
 //***********builtins***************//
 int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
