@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 21:18:29 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/01 18:55:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_which_redir(t_data *data)
 	{
 		data->out_redir = open
 			(data->lst->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
-		if (data->in_redir == -1)
+		if (data->out_redir == -1)
 			return (ft_print_error(data->lst->content[1]), 1);
 	}
 	return (0);

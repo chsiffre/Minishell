@@ -32,3 +32,7 @@ QUOTES SEULES
 
 truc chelou = "cat << ok > out | sleep 2"  
         ============> cara NULL;
+
+
+">>" resultat s'affiche apres exit du shell
+"cat | cat << OK" des lettres pas prise en compte
