@@ -12,13 +12,8 @@ chaine vide avec espace qui affiche message erreur
 ' seule qui segfault
 " apres avoir deja fait " segfault
 
-utiliser stat pour les cmd files 
-/bin/ls
-
 code exit des signaux
-ctrl + d qui ne fonctionne pas si ecrit dans prompt
 ;' qui ne fait rien
-
 
 --------------------------------------------------------
 prompt> '
@@ -29,10 +24,4 @@ QUOTES SEULES
 
 ;':|}  segfault
 
-
-truc chelou = "cat << ok > out | sleep 2"  
-        ============> cara NULL;
-
-
-">>" resultat s'affiche apres exit du shell
 "cat | cat << OK" des lettres pas prise en compte

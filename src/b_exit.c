@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/25 12:17:42 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:32:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int ft_exit_error(char *str)
+int	ft_exit_error(char *str)
 {
 	char	*join;
 
@@ -52,31 +52,31 @@ void	ft_exit_pack(t_data *data, int code_error)
 	printf("exit\n");
 	ft_to_free(data);
 	ft_free_for_end(data);
-    exit (g_error_last);
+	exit(g_error_last);
 }
 
-int ft_exit(t_data *data)
+int	ft_exit(t_data *data)
 {
-    if (data->lst->content[1])
-    {
+	if (data->lst->content[1])
+	{
 		if (data->lst->content[2])
 		{
 			g_error_last = 1;
-            printf("exit\n");
+			printf("exit\n");
 			write(2, "bash: exit: too many arguments\n", 32);
-            return (1);
+			return (1);
 		}
-        if (ft_is_valid_num(data->lst->content[1]))
+		if (ft_is_valid_num(data->lst->content[1]))
 			ft_exit_pack(data, ft_atoi(data->lst->content[1]) % 256);
 		else
 		{
 			g_error_last = 2;
 			printf("exit\n");
 			ft_exit_error(data->lst->content[1]);
-            exit (g_error_last);
+			exit (g_error_last);
 		}
-    }
-    else
+	}
+	else
 		ft_exit_pack(data, 0);
 	return (1);
 }

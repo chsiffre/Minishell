@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 14:53:08 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:33:34 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ int		ft_nb_quote(char *str);
 char	*del_quote(char *str, char *ret, int i, char c);
 void	ft_free(t_data *data);
 int check_pipe(char *str);
+
+//***********dups***************//
+int		ft_make_dup(t_data *data);
+void	ft_dup_pipe(t_data *data);
+int		ft_here_doc(t_data *data);
+
 //***********builtins***************//
 int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
@@ -124,6 +130,7 @@ t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_has_equal(char *str);
 int		ft_check_exist(t_data *data, t_env *env, char *str);
+char	*ft_find_name(char *name, char *str);
 
 //***********prompt***************//
 void	ft_ctrl(int signal);
@@ -140,7 +147,6 @@ void	ft_conv_lst(char *line);
 //***********exec***************//
 int		ft_check_type(t_data *data);
 int		ft_which_redir(t_data *data);
-int		ft_make_dup(t_data *data);
 int		ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
@@ -153,5 +159,10 @@ int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);
 int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
+
+//***********utils***************//
+int		list_progress(t_data *data);
+int		ft_lstlen(t_lst *lst);
+
 
 #endif

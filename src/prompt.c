@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/01 18:33:41 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:15:12 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,45 @@ void	ft_to_free(t_data *data)
 	data->out_redir = 0;
 	data->i = 0;
 	data->y = 0;
+}
+
+int	ft_check_pipe(t_data *data)
+{
+	t_lst	*tmp;
+
+	tmp = data->lst;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+		{
+			if (ft_pipe(data) == 1)
+				return (1);
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (2);
+}
+
+int	ft_check_type(t_data *data)
+{
+	if (ft_check_pipe(data) == 0)
+		return (0);
+	if (data->lst->type == REDIR)
+	{
+		if (ft_which_redir(data) == 1)
+			return (1);
+		return (0);
+	}
+	else if (data->lst->type == CMD && !data->lst->next)
+	{
+		ft_make_dup(data);
+		if (ft_execute_cmd(data, data->lst->content[0]) == 1)
+			return (1);
+		return (0);
+	}
+	else
+		return (ft_error(data, "Unexepted command\n", 1), 2);
 }
 
 void	ft_prompt(t_data *data)

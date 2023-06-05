@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/22 22:21:58 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/05 13:33:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,57 @@ int	ft_lsize(t_lst *lst)
 	return (count);
 }
 
-void	ft_list_to_tab(t_data *data, t_lst *lst)
+char	*ft_find_name(char *name, char *str)
 {
-	t_lst	*tmp;
-	int		i;
-	int		j;
+	int	i;
 
-	tmp = lst;
 	i = 0;
-	data->cmd = malloc(sizeof(char *) * (ft_lsize(tmp) + 1));
-	if (data->cmd == NULL)
-		ft_error(data, "malloc error\n", 1);
-	while (tmp)
-	{
-		j = 0;
-		data->cmd[i] = malloc(sizeof(char) * ft_strlen((*tmp->content)));
-		if (data->cmd[i])
-			ft_error(data, "malloc error\n", 1);
-		while (tmp->content[j])
-		{
-			data->cmd[i][j] = (*tmp->content[j]);
-			j++;
-		}
+	while (str[i] && str[i] != '=')
 		i++;
-		tmp = tmp->next;
+	name = malloc(sizeof(char) * (i + 3));
+	if (!name)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		name[i] = str[i];
+		i++;
 	}
-	data->cmd[i] = NULL;
+	name[i] = '=';
+	i++;
+	name[i] = '\0';
+	return (name);
+}
+
+int	ft_lstlen(t_lst *lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
+}
+
+int	list_progress(t_data *data)
+{
+	while (data->lst && data->lst->type != CMD)
+	{
+		if (data->lst->type == PIPE)
+		{
+			data->lst = data->lst->next;
+			if (data->lst->type == PIPE)
+				ft_print_error("bash: syntax error near unexpected token `||'");
+		}
+		if (data->lst->type == REDIR)
+		{
+			if (ft_which_redir(data) == 1)
+				return (1);
+			data->lst = data->lst->next;
+		}
+	}
+	return (0);
 }

@@ -30,6 +30,8 @@ LIST_SRC =	main.c \
 			exec_pipe.c \
 			error.c \
 			signal.c \
+			dups.c \
+			here_doc.c \
 
 LIST_INC = minishell.h
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/01 18:36:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/05 11:09:41 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ft_execute_cmd(t_data *data, char *content)
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
 	signal(SIGQUIT, ft_ctrl_fork);
-
 	i = ft_builtins(data);
 	if (i == -1 || i == 1)
 		return (1);
@@ -101,47 +100,4 @@ int	ft_execute_cmd(t_data *data, char *content)
 		free(cmd[i]);
 	free(cmd);
 	return (0);
-}
-
-int	ft_make_dup(t_data *data)
-{
-	if (data->in_redir == -1 || data->out_redir == -1)
-		ft_error(data, "dup error\n", 1);
-	if (data->in_redir && dup2(data->in_redir, STDIN_FILENO) == -1)
-		ft_error(data, "dup error\n", 1);
-	if (data->out_redir && dup2(data->out_redir, STDOUT_FILENO) == -1)
-		ft_error(data, "dup error\n", 1);
-	return (0);
-}
-
-int	ft_check_type(t_data *data)
-{
-	t_lst	*tmp;
-
-	tmp = data->lst;
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-		{
-			if (ft_pipe(data) == 1)
-				return (1);
-			return (0);
-		}
-		tmp = tmp->next;
-	}
-	if (data->lst->type == REDIR)
-	{
-		if (ft_which_redir(data) == 1)
-			return (1);
-		return (0);
-	}
-	else if (data->lst->type == CMD && !data->lst->next)
-	{
-		ft_make_dup(data);
-		if (ft_execute_cmd(data, data->lst->content[0]) == 1)
-			return (1);
-		return (0);
-	}
-	else
-		return (ft_error(data, "Unexepted command\n", 1), 2);
 }
