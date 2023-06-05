@@ -6,22 +6,11 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 13:21:59 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:25:11 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	ft_export_error(char *str)
-{
-	char	*join;
-
-	join = ft_strjoin("bash: export: '", str);
-	join = ft_strjoin(join, "' not a valid indentifier\n");
-	write(2, join, ft_strlen(join));
-	free(join);
-	return (1);
-}
 
 int	ft_check_isok(char *str)
 {
@@ -35,6 +24,19 @@ int	ft_check_isok(char *str)
 		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (1);
 		i++;
+	}
+	return (0);
+}
+
+int	ft_loop_check(t_env *tmp, char *name, char *n_equal)
+{
+	while (tmp)
+	{
+		if (ft_compare_str(tmp->name, name))
+			return (1);
+		if (ft_compare_str(tmp->name, n_equal))
+			return (1);
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -59,14 +61,8 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 	name[i] = '\0';
 	ft_strlcpy(name, str, i + 1);
 	n_equal = ft_strjoin(name, "=");
-	while (tmp)
-	{
-		if (ft_compare_str(tmp->name, name))
-			return (free(name), free(n_equal), 1);
-		if (ft_compare_str(tmp->name, n_equal))
-			return (free(name), free(n_equal), 1);
-		tmp = tmp->next;
-	}
+	if (ft_loop_check(tmp, name, n_equal) == 1)
+		return (free(name), free(n_equal), 1);
 	return (free(name), free(n_equal), 0);
 }
 

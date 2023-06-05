@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/05 11:15:12 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:56:14 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	ft_to_free(t_data *data)
 		free(data->lst);
 		data->lst = next;
 	}
-	if (data->in_redir > 0)
-		dup2(data->savestdin, STDIN_FILENO);
-	if (data->out_redir > 0)
-		dup2(data->savestdout, STDOUT_FILENO);
+	ft_close_end(data);
 	data->in_redir = 0;
 	data->out_redir = 0;
 	data->i = 0;
@@ -76,6 +73,25 @@ int	ft_check_type(t_data *data)
 		return (ft_error(data, "Unexepted command\n", 1), 2);
 }
 
+void	ft_parse_exec(t_data *data)
+{
+	data->line = ft_pre_split(data->line);
+	if (!data->line)
+		ft_write_error("bash: syntax error near unexpected token `||'");
+	data->lst = ft_parse(data);
+	if (data->line && !data->lst)
+		ft_write_error
+			("syntax error near unexpected token `newline'");
+	while (data->lst && data->lst->content)
+	{
+		if (ft_check_type(data) == 1)
+			break ;
+		if (data->lst == NULL || data->lst->next == NULL)
+			break ;
+		data->lst = data->lst->next;
+	}
+}
+
 void	ft_prompt(t_data *data)
 {
 	int	i;
@@ -88,35 +104,14 @@ void	ft_prompt(t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
 		if (!data->line)
-		{
-			ft_to_free(data);
-			printf("exit\n");
-			ft_free_for_end(data);
-			return ;
-		}
+			ft_rl_error(data);
 		else if (data->line[0] != '\0')
 			add_history(data->line);
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
 				ft_error(data, "non printable\n", 1);
 		if (data->line[0] != '\0')
-		{
-			data->line = ft_pre_split(data->line);
-			if (!data->line)
-				ft_write_error("bash: syntax error near unexpected token `||'");
-			data->lst = ft_parse(data);
-			if (data->line && !data->lst)
-				ft_write_error
-					("syntax error near unexpected token `newline'");
-			while (data->lst && data->lst->content)
-			{
-				if (ft_check_type(data) == 1)
-					break ;
-				if (data->lst == NULL || data->lst->next == NULL)
-					break ;
-				data->lst = data->lst->next;
-			}
-		}
+			ft_parse_exec(data);
 		free(data->line);
 		ft_to_free(data);
 	}

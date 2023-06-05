@@ -25,3 +25,8 @@ QUOTES SEULES
 ;':|}  segfault
 
 "cat | cat << OK" des lettres pas prise en compte
+
+
+PENSER A FREE LE CODE 127
+
+PENSER A CLOSE DUP des saves

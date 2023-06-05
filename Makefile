@@ -29,6 +29,7 @@ LIST_SRC =	main.c \
 			exec_redir.c \
 			exec_pipe.c \
 			error.c \
+			error2.c \
 			signal.c \
 			dups.c \
 			here_doc.c \

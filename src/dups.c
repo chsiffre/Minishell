@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:55:54 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 10:57:06 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:55:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,22 @@ int	ft_make_dup(t_data *data)
 		ft_error(data, "dup error\n", 1);
 	if (data->out_redir && dup2(data->out_redir, STDOUT_FILENO) == -1)
 		ft_error(data, "dup error\n", 1);
+	return (0);
+}
+
+int	ft_close_end(t_data *data)
+{
+	if (data->in_redir > 0)
+	{
+		close(data->in_redir);
+		if (dup2(data->savestdin, STDIN_FILENO) == -1)
+			ft_error(data, "dup error\n", 1);
+	}
+	if (data->out_redir > 0)
+	{
+		close(data->out_redir);
+		if (dup2(data->savestdout, STDOUT_FILENO) == -1)
+			ft_error(data, "dup error\n", 1);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/05 13:33:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:56:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
 char	**ft_check_redir(char **res_parse,
-t_data *data, char **strs, int start);
+			t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
@@ -105,12 +105,13 @@ char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
 char	*del_quote(char *str, char *ret, int i, char c);
 void	ft_free(t_data *data);
-int check_pipe(char *str);
+int		check_pipe(char *str);
 
 //***********dups***************//
 int		ft_make_dup(t_data *data);
 void	ft_dup_pipe(t_data *data);
 int		ft_here_doc(t_data *data);
+int		ft_close_end(t_data *data);
 
 //***********builtins***************//
 int		ft_is_builtins(char *str);
@@ -118,7 +119,7 @@ void	ft_echo(t_data *data);
 int		ft_unset(t_data *data);
 int		ft_export(t_data *data);
 void	ft_cd(t_data *data);
-int 	ft_exit(t_data *data);
+int		ft_exit(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -159,6 +160,8 @@ int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);
 int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
+int		ft_export_error(char *str);
+void	ft_rl_error(t_data *data);
 
 //***********utils***************//
 int		list_progress(t_data *data);

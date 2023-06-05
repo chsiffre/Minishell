@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 11:16:42 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:14:39 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int i)
 {
 	if (data->in_redir > 0)
 	{
+		close(data->in_redir);
 		if (dup2(data->savestdin, STDIN_FILENO) == -1)
 			ft_error(data, "dup error\n", 1);
 		data->in_redir = 0;
 	}
 	if (data->out_redir > 0)
 	{
+		close(data->out_redir);
 		if (dup2(data->savestdout, STDOUT_FILENO) == -1)
 			ft_error(data, "dup error\n", 1);
 		data->out_redir = 0;
