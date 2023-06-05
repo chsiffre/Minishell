@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/04 17:06:51 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 15:24:57 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
-		//data->line = "echo $USER";
+		//data->line = "echo \'ggds sgdg d\'  \"$USER\"";
 		if (!data->line)
 		{
 			ft_to_free(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/04 19:30:50 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 16:59:34 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_lst	*ft_parse(t_data *data)
 	if (!data->res_split)
 		return (NULL);
 	// while (data->res_split[i])
-	// {
 	// 	printf("%s\n", data->res_split[i++]);
-	// }
 	// exit(1);
 	data->res_parse = malloc((ft_strs_len(data->res_split) + 1) * sizeof(char *));
 	if (!data->res_parse)
@@ -43,30 +41,25 @@ t_lst	*ft_parse(t_data *data)
 	}
 	data->res_parse[i] = NULL;
 	i = 0;
-	// while (data->res_parse[i])
-	// {
-	// 	printf("%s\n", data->res_parse[i++]);
-	// }
-	// exit(1);
 	data->res_parse = check_quotes(data->res_parse, data);
+	// i = 0;
+	// while (data->res_parse[i])
+	// 	printf("%s\n", data->res_parse[i++]);
+	// exit(1);
 	i = 0;
-	while (data->res_parse[i])
-	{
-		printf("%s\n", data->res_parse[i++]);
-	}
-	exit(1);
 	lst = ft_convert_in_lst(lst, data);
 	if (!lst)
 		return (NULL);
-	i = 0;
-	while (lst)
-	{
-		i = -1;
-		while (lst->content[++i])
-			printf("[%s] ", lst->content[i]);
-		printf("\n");
-		lst = lst->next;
-	}
+	// i = 0;
+	// while (lst)
+	// {
+	// 	i = -1;
+	// 	while (lst->content[++i])
+	// 		printf("[%s] ", lst->content[i]);
+	// 	printf("\n");
+	// 	lst = lst->next;
+	// }
+	// exit(1);
 	return (lst);
 }
 

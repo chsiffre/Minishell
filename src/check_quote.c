@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/06/04 19:44:01 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 17:01:50 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char **check_quotes(char **strs, t_data *data)
 {
     int i;
-
+    
     i = 0;
     while (strs[i])
     {
@@ -32,8 +32,8 @@ char *is_quote(char *str, t_data *data)
 	char *ret;
 
 	ret = NULL;
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
@@ -48,10 +48,10 @@ char *is_quote(char *str, t_data *data)
             if (is_var(str, i , data))
             {   ret = resize_var(str, data);
                 ret = replace_var(str, ret, &i, data);
+                data->ind = 0;
             }
             return (ret);
         } 
-		i++;
 	}
 	return (str);
 }
@@ -62,8 +62,8 @@ char *del_quote(char *str, char *ret, t_data *data)
     int quote;
 
     quote = 0;
-    i = -1;
-    while (str[++i])
+    i = 0;
+    while (str[i])
     {
         if (str[i] == '\"' || str[i] == '\'')
         {
@@ -77,14 +77,11 @@ char *del_quote(char *str, char *ret, t_data *data)
             }
         }
         else
-            ret[data->ind++] = str[i];
+            ret[data->ind++] = str[i++];
     }
     ret[data->ind] = '\0';
-    data->ind = 0;
-    // printf("%s\n", ret);
 	return (ret);
 }
-
 
 char    *resize_var(char *str, t_data *data)
 {
@@ -125,7 +122,7 @@ char *resize_quote(char *str, t_data *data)
     i = -1;
     quote = 0;
     new_size = 0;
-    while (str[i++])
+    while (str[++i])
     {
         if (str[i] == '\'' || str[i] == '\"')
         {
@@ -133,7 +130,7 @@ char *resize_quote(char *str, t_data *data)
             while (str[i] && str[i] != quote)
             {
                 if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
-                    new_size = var_exist(str, &i, data);
+                    new_size += var_exist(str, &i, data);
                 else if (str[i] == '$' &&  if_expand(str) && !is_var(str, i, data))
                     while (str[i] && ft_isalnum(str[i]))
                         i++;
@@ -147,7 +144,6 @@ char *resize_quote(char *str, t_data *data)
         else
             new_size++;
     }
-    printf("%d", new_size);
     return (malloc(sizeof (char) * new_size + 1));
 }
 

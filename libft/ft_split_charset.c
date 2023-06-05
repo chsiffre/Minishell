@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/04 18:54:51 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 16:55:37 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	get_ac(char *str, char *charset)
 	{
 		while (ft_charset(str[i], charset) && str[i])
 			i++;
-		if (!str[i])
-			break;
-		if (str[i] == '\"' || str[i] == '\'')
+		if (str[i] && (str[i] == '\"' || str[i] == '\''))
 		{
 			c = str[i++];
 			while (str[i] && str[i] != c)
@@ -50,33 +48,26 @@ int	get_ac(char *str, char *charset)
 			i++;
 			count++;
 		}
-		else
-			count++;
-		skiping_next(str, charset, &i, &count);
+		else if (str[i])
+			skiping_one(str, charset, &i, &count);
+		if (str[i] && !ft_charset(str[i], charset) && str[i] != '\'' && str[i] != '\"')
+			skiping_two(str, charset, &i, &count);
 	}
 	return (count + 1);
 }
 
-void	skiping_next(char *str, char *charset, int *i, int *count)
+void	skiping_one(char *str, char *charset, int *i, int *count)
 {
-	char c;
-
-	c = 0;
-	if (str[*i] == '\'' || str[*i] == '\"')
-	{
-		c = str[(*i)++];
-		while (str[(*i)] != c && str[*i])
-			(*i)++;
+	(*count)++;
+	while (!ft_charset(str[*i], charset) && str[*i] && str[*i] != '\"' && str[*i] != '\'')
 		(*i)++;
-		(*count)++;
-	}
-	else
-	{
-		while (!ft_charset(str[*i], charset) && str[*i] && str[*i] != '\"' && str[*i] != '\'')
-			(*i)++;
-		if (str[*i + 1] && !ft_charset(str[*i], charset))
-			(*count)++;
-	}
+}
+
+void	skiping_two(char *str, char *charset, int *i, int *count)
+{
+	while (str[*i] &&!ft_charset(str[*i], charset) && str[*i] != '\'' && str[*i] != '\"')
+		(*i)++;
+	(*count)++;
 }
 
 char	*give_memory(char *str, char *charset, int *index, int i_str)

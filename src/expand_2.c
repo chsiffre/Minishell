@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/01 14:59:04 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 16:43:15 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int is_var(char *str, int i, t_data *data)
     {
         if (ft_compare_var(str, tmp->name, i))
         {
+            // printf("%s\n", tmp->name);
+            // exit(1);
             while (str[i] && str[i] != '\'' && str[i] != '\"')
                 (i)++;
             return ((int) ft_strlen(tmp->value));
@@ -60,12 +62,17 @@ int	ft_compare_var(char *s1, char *s2, int i)
     y = 0;
 	while (s1[i] && s2[y])
 	{
-		if ((s1[i] != s2[y]) && s2[y] != '=')
+		if ((s1[i] != s2[y]))
 			return (0);
 		i++;
         y++;
 	}
-	return (1);
+    if (!s1[i] && s2[y] == '=')
+        return (1);
+    else if (!s1[i] && !s2[y])
+        return (1);
+    else
+	    return (0);
 }
 
 int if_expand(char *str)

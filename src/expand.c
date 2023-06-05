@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/01 14:58:07 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/05 16:29:54 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 char *replace_var(char *str, char *ret, int *i, t_data *data)
 {
     t_env   *tmp;
-    int y;
 
+    int y;
     y = 0;
     tmp = data->env;
     (*i)++;
@@ -68,9 +68,10 @@ char *replace_var(char *str, char *ret, int *i, t_data *data)
     {
         if (ft_compare_var(str, tmp->name, *i))
         {
+            //printf("%s\n", tmp->value);
             while (tmp->value[y])
                 ret[data->ind++] = tmp->value[y++];
-            while (ft_isalnum(str[*i]) && str[*i])
+            while (str[*i] && ft_isalnum(str[*i]))
                 (*i)++;
             return (ret);
         }
