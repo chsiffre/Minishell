@@ -1,12 +1,8 @@
-./" qui ne fait rien ??
-
 echo a faire
 gerer exit
     ----> prblm exit avec un nbr "exit 12" par exemple
 
-variable d'environnement
 $? a faire
 
 LEAKS ==========  "> out" "< Makefile cat " "<< EOF"
 
-"|" mauvais message
