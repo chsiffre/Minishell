@@ -30,3 +30,19 @@ QUOTES SEULES
 PENSER A FREE LE CODE 127
 
 PENSER A CLOSE DUP des saves
+
+
+
+"""
+prompt> libft | libft
+bash: execve error
+bash: execve error
+"""
+
+
+
+"""
+prompt> ls | ls | ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls | ls | ls
+minishell: malloc.c:2379: sysmalloc: Assertion `(old_top == initial_top (av) && old_size == 0) || ((unsigned long) (old_size) >= MINSIZE && prev_inuse (old_top) && ((unsigned long) old_end & (pagesize - 1)) == 0)' failed.
+"""
+Parsing erreur

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 15:14:39 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:44:23 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	if (!cmd)
 		ft_error(data, "malloc error\n", 1);
 	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
-	if (cmd[0] == NULL)
+	if ((cmd[0] == NULL) || (is_executable(cmd[0]) != 0))
 		exit (127);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		ft_error(data, "execve error\n", 1);

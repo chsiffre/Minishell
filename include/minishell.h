@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/05 14:56:00 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:55:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	ft_conv_lst(char *line);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
+int		is_executable(char *content);
 int		ft_which_redir(t_data *data);
 int		ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
