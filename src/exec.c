@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/25 13:28:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:07:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ char	*ft_try_path(t_data *data, char *cmd)
 	char	*tab;
 
 	i = 0;
-	if (access(cmd, X_OK) != -1)
-	{
-		tab = ft_strdup(cmd);
-		return (tab);
-	}
+	if (cmd && ft_special_char(cmd) == 1)
+		return (ft_strdup(cmd));
 	tmp = ft_strjoin("/", cmd);
 	tab = NULL;
 	while (data->split_path && data->split_path[i])
@@ -73,6 +70,28 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content)
 	return (cmd);
 }
 
+int	is_executable(char *content)
+{
+	struct stat	info;
+
+	if (stat(content, &info) == 0)
+	{
+		if (!(info.st_mode & S_IXUSR))
+		{
+			ft_printf_fd("bash: %s: Permission denied\n", 2, content);
+			return (-1);
+		}
+		if (S_ISDIR(info.st_mode))
+		{
+			ft_printf_fd("%s: is a directory\n", 2, content);
+			return (-1);
+		}
+		return (0);
+	}
+	ft_printf_fd("No such file or directory\n", 2);
+	return (-1);
+}
+
 int	ft_execute_cmd(t_data *data, char *content)
 {
 	char	**cmd;
@@ -81,67 +100,23 @@ int	ft_execute_cmd(t_data *data, char *content)
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
 	signal(SIGQUIT, ft_ctrl_fork);
-
 	i = ft_builtins(data);
 	if (i == -1 || i == 1)
 		return (1);
 	i = 0;
-	if (ft_special_char(data->lst->content[0]) == 1)
-		return (1);
 	while (data->lst->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		ft_error(data, "malloc error\n", 1);
 	cmd = ft_cmd_options(data, cmd, content);
-	if (cmd[0] != NULL && ft_exec(data, cmd) == 1)
+	if (cmd[0] != NULL && (is_executable(cmd[0]) == 0))
+		ft_exec(data, cmd);
+	else
 		return (1);
 	i = -1;
 	while (cmd[++i])
 		free(cmd[i]);
 	free(cmd);
 	return (0);
-}
-
-int	ft_make_dup(t_data *data)
-{
-	if (data->in_redir == -1 || data->out_redir == -1)
-		ft_error(data, "dup error\n", 1);
-	if (data->in_redir && dup2(data->in_redir, STDIN_FILENO) == -1)
-		ft_error(data, "dup error\n", 1);
-	if (data->out_redir && dup2(data->out_redir, STDOUT_FILENO) == -1)
-		ft_error(data, "dup error\n", 1);
-	return (0);
-}
-
-int	ft_check_type(t_data *data)
-{
-	t_lst	*tmp;
-
-	tmp = data->lst;
-	while (tmp)
-	{
-		if (tmp->type == PIPE)
-		{
-			if (ft_pipe(data) == 1)
-				return (1);
-			return (0);
-		}
-		tmp = tmp->next;
-	}
-	if (data->lst->type == REDIR)
-	{
-		if (ft_which_redir(data) == 1)
-			return (1);
-		return (0);
-	}
-	else if (data->lst->type == CMD && !data->lst->next)
-	{
-		ft_make_dup(data);
-		if (ft_execute_cmd(data, data->lst->content[0]) == 1)
-			return (1);
-		return (0);
-	}
-	else
-		return (ft_error(data, "Unexepted command\n", 1), 2);
 }

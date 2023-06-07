@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/05/30 13:57:55 by luhumber         ###   ########.fr       */
+/*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
+/*   Updated: 2023/06/07 13:03:24 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
 char	**ft_check_redir(char **res_parse,
-t_data *data, char **strs, int start);
+			t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
@@ -115,14 +115,21 @@ char	*is_quote(char *str);
 int		ft_nb_quote(char *str);
 char	*del_quote(char *str, char *ret, int i, char c);
 void	ft_free(t_data *data);
-int check_pipe(char *str);
+int		check_pipe(char *str);
+
+//***********dups***************//
+int		ft_make_dup(t_data *data);
+void	ft_dup_pipe(t_data *data);
+int		ft_here_doc(t_data *data);
+int		ft_close_end(t_data *data);
+
 //***********builtins***************//
 int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
 int		ft_unset(t_data *data);
 int		ft_export(t_data *data);
 void	ft_cd(t_data *data);
-int 	ft_exit(t_data *data);
+int		ft_exit(t_data *data);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -134,10 +141,12 @@ t_env	*ft_new_env(char *str);
 void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_has_equal(char *str);
 int		ft_check_exist(t_data *data, t_env *env, char *str);
+char	*ft_find_name(char *name, char *str);
 
 //***********prompt***************//
 void	ft_ctrl(int signal);
 void	ft_ctrl_fork(int signal);
+void	ft_here_sig(int signal);
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);
@@ -148,8 +157,8 @@ void	ft_conv_lst(char *line);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
+int		is_executable(char *content);
 int		ft_which_redir(t_data *data);
-int		ft_make_dup(t_data *data);
 int		ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
@@ -162,5 +171,12 @@ int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);
 int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
+int		ft_export_error(char *str);
+void	ft_rl_error(t_data *data);
+
+//***********utils***************//
+int		list_progress(t_data *data);
+int		ft_lstlen(t_lst *lst);
+
 
 #endif

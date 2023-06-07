@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 14:08:10 by charles           #+#    #+#             */
-/*   Updated: 2023/05/24 14:49:38 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/06 15:05:11 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			*ft_memset(void *s, int c, size_t n);
 void			*ft_memmove(void *dest, const void *src, size_t n);
 void			ft_bzero(void *s, size_t n);
-void			ft_putchar_fd(char c, int fd);
+int				ft_putchar_fd(char c, int fd);
 void			ft_putendl_fd(char *s, int fd);
-void			ft_putnbr_fd(int n, int fd);
-void			ft_putstr_fd(char *s, int fd);
+int				ft_putnbr_fd(int n, int fd);
+int				ft_putstr_fd(char *s, int fd);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*ft_itoa(int n);
 char			*ft_strchr(const char *s, int c);
@@ -75,5 +75,9 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 t_list			*ft_lstlast(t_list *lst);
+int				ft_printaddress_fd(void *address, int fd);
+int				ft_base_fd(char *base, long int nbr, int fd);
+int				ft_putnbr_unsigned_fd(unsigned int n, int fd);
+int				ft_printf_fd(const char *s, int fd, ...);
 
 #endif

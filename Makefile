@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 CC = cc
 
@@ -29,6 +29,10 @@ LIST_SRC =	main.c \
 			exec_redir.c \
 			exec_pipe.c \
 			error.c \
+			error2.c \
+			signal.c \
+			dups.c \
+			here_doc.c \
 			add_to_lst.c \
 			expand.c \
 			expand_2.c \

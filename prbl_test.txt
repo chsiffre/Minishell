@@ -12,13 +12,8 @@ chaine vide avec espace qui affiche message erreur
 ' seule qui segfault
 " apres avoir deja fait " segfault
 
-utiliser stat pour les cmd files 
-/bin/ls
-
 code exit des signaux
-ctrl + d qui ne fonctionne pas si ecrit dans prompt
 ;' qui ne fait rien
-
 
 --------------------------------------------------------
 prompt> '
@@ -29,4 +24,25 @@ QUOTES SEULES
 
 ;':|}  segfault
 
-export ne pas supprimer la value si "export TEST=bonjour" faire "export TEST" ne fait rien
+"cat | cat << OK" des lettres pas prise en compte
+
+
+PENSER A FREE LE CODE 127
+
+PENSER A CLOSE DUP des saves
+
+
+
+"""
+prompt> libft | libft
+bash: execve error
+bash: execve error
+"""
+
+
+
+"""
+prompt> ls | ls | ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls | ls | ls
+minishell: malloc.c:2379: sysmalloc: Assertion `(old_top == initial_top (av) && old_size == 0) || ((unsigned long) (old_size) >= MINSIZE && prev_inuse (old_top) && ((unsigned long) old_end & (pagesize - 1)) == 0)' failed.
+"""
+Parsing erreur
