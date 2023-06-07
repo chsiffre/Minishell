@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/29 10:42:25 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/06 16:38:13 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char *ft_pre_split(char *str)
 {
-	int i;
 	int new_size;
 	char *copy;
 	
@@ -22,23 +21,19 @@ char *ft_pre_split(char *str)
 	if (!copy)
 		return (NULL);
 	new_size = ft_strlen(str);
-	i = -1;
-	while (str[++i])
+	new_size = resize_pre_split(str, &new_size);
+	if (quote_open(str))
 	{
-		if (str[i] == '<' || str[i] == '>')
-		{
-			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
-				new_size++;
-			if (str[i - 1] && str[i - 1] != ' ')
-				new_size++; 
-		}
-		if (str[i] && str[i] == '|' && str[i - 1] != ' ')
-			new_size++;
-		if (str[i] && str[i] == '|' && str[i + 1] && str[i + 1] != ' ')
-			new_size++;
+		printf("quote open\n");
+		exit(1);
 	}
 	str = malloc((new_size + 1) * sizeof(char));
-	return (ft_str_replace(str, copy, new_size));
+	if (!str)
+		return (NULL);
+	str = ft_str_replace(str, copy, new_size);
+	if (!str)
+		return (NULL);
+	return (free(copy), str);
 }
 
 char *ft_str_replace(char *str, char *copy, int new_size)
@@ -56,7 +51,7 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 			return (free (copy), NULL);
 	}
 	str[i] = '\0';
-	return (free(copy), str);
+	return (str);
 }
 
 char *check_chevron(char *str, char *copy, int *i, int *y)
@@ -98,4 +93,48 @@ char *check_pipes(char *str, char *copy, int *i, int *y)
 	else
 		str[(*y)++] = copy[(*i)++];
 	return (str);
+}
+
+int quote_open(char *str)
+{
+	int	i;
+	char quote;
+
+	quote = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			quote = str[i++];
+			while (str[i] != quote && str[i])
+				i++;
+			if (!str[i])
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int resize_pre_split(char *str, int *new_size)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
+				(*new_size)++;
+			if (str[i - 1] && str[i - 1] != ' ')
+				(*new_size)++; 
+		}
+		if (str[i] && str[i] == '|' && str[i - 1] != ' ')
+			(*new_size)++;
+		if (str[i] && str[i] == '|' && str[i + 1] && str[i + 1] != ' ')
+			(*new_size)++;
+	}
+	return (*new_size);
 }

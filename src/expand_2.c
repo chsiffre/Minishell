@@ -3,40 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 13:51:25 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:27:19 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int var_exist(char *str, t_data *data)
+char    *resize_var(char *str, t_data *data)
 {
-    t_env *tmp;
-
+    t_env   *tmp;
+    int i;
+    int new_size;
+ 
+    i = 0;
+    new_size = 0;
     tmp = data->env;
-    str++;
+    
+    while (str[i++] && str[i] != '$')
+        new_size++;
     while (tmp)
     {
-        if (ft_compare_var(str, tmp->name))
-            return (ft_strlen(tmp->name));
+        if (ft_compare_var(str, tmp->name, i))
+        {
+            i = -1;
+            while (tmp->value[++i])
+                new_size++;
+            break;
+        }
         tmp = tmp->next;
     }
-    return (0);
-}
-
-int	ft_compare_var(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if ((s1[i] != s2[i]) || (s2[i] != s1[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+    return (malloc(sizeof(char ) * new_size + 1));
 }

@@ -6,10 +6,9 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/07 13:02:51 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:11:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -33,6 +32,7 @@ void	ft_to_free(t_data *data)
 	data->out_redir = 0;
 	data->i = 0;
 	data->y = 0;
+	data->ind = 0;
 }
 
 int	ft_check_pipe(t_data *data)
@@ -42,7 +42,6 @@ int	ft_check_pipe(t_data *data)
 	tmp = data->lst;
 	while (tmp)
 	{
-		//data->line = "ls";
 		if (tmp->type == PIPE)
 		{
 			if (ft_pipe(data) == 1)

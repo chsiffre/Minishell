@@ -1,11 +1,10 @@
 echo a faire
 
-variable d'environnement
 $? a faire
 
 LEAKS ==========>       "> out"       "< Makefile cat "       "<< EOF"
 
-"|" mauvais message
+
 chaine vide avec espace qui affiche message erreur
 
 ./" qui ne fait rien ??

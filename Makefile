@@ -36,6 +36,8 @@ LIST_SRC =	main.c \
 			add_to_lst.c \
 			expand.c \
 			expand_2.c \
+			check_quote.c \
+			check_quote_2.c \
 
 LIST_INC = minishell.h
 

@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/29 09:55:24 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/04 17:42:03 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int check_quote(char *str, int *index, char *charset)
 	return (0);
 }
 
-int check_space(char *str, int *index, char *charset)
+int check_space(char *str, int *index, char *charset, int i_str)
 {
 	int	i;
 	int len;
@@ -57,16 +57,12 @@ int check_space(char *str, int *index, char *charset)
 			i++;
 		if (str[i] == '\"' || str[i] == '\'')
 		{
-			if (str[i - 1] == ' ')
+			if (str[i - 1] == ' ' && i_str != 1)
 				len++;
-			c = str[i];
-			i++;
+			c = str[i++];
 			while (str[i++] != c)
 				len++;
-			if (ft_charset(str[i], charset))
-				return (len + 3);
-			else
-				return (len + 2);
+			return (len + 2);
 		}
 		else
 			return (0);

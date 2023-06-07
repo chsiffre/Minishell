@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/29 10:44:14 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/01 12:38:56 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 	i = start;
 	while (strs[i] && strs[i][0] != '|')
 	{
-		strs[i] = ft_expand(strs[i], d);
 		if (!strs[i])
 			return (NULL);
 		if (strs[i + 1] && ft_is_redir(strs[i]))
@@ -90,37 +89,7 @@ int	ft_is_builtins(char *str)
 	return (0);
 }
 
-char *is_quote(char *str)
-{
-	int	i;
-	char *ret;
 
-	ret = malloc(sizeof(char) * (ft_strlen(str) - ft_nb_quote(str)) + 1);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-			return (del_quote(str, ret, i, str[i]));
-		i++;
-	}
-	return (str);
-}
-
-char *del_quote(char *str,char *ret, int i, char c)
-{
-	int y;
-
-	y = 0;
-	if (str[i - 1] == ' ')
-		ret[y++] = str[i - 1];
-	i++;
-	while (str[i] && str[i] != c)
-		ret[y++] = str[i++];
-	if (str[i++ + 1] == ' ')
-		ret[y++] = str[i++];
-	ret[y] = '\0';
-	return (ret);
-}
 
 int ft_nb_quote(char *str)
 {

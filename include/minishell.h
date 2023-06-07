@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 13:03:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:08:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ typedef struct s_data {
 	int		is_redir;
 	int		in_redir;
 	int		out_redir;
+	int		ind;
+	int		x;
+    char	f_quote;
+    char	s_quote;
+    char	quote;
 }	t_data;
 
 //***********prompt***************//
@@ -85,6 +90,7 @@ int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
 t_lst	*ft_parse(t_data *data);
+t_lst	*add_command(t_lst *lst, t_data *data);
 char	*ft_pre_split(char *str);
 char	*ft_str_replace(char *str, char *copy, int new_size);
 int		ft_is_redir(char *str);
@@ -93,6 +99,9 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
 int		ft_len_parse(char **strs, int i);
 int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
+char	**check_res_split(t_data *data);
+int		resize_pre_split(char *str, int *new_size);
+int		quote_open(char *str);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
 char	**ft_check_redir(char **res_parse,
 			t_data *data, char **strs, int start);
@@ -107,13 +116,21 @@ char *check_chevron(char *str, char *copy, int *i, int *y);
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
-int		var_exist(char *str, t_data *data);
-int		ft_compare_var(char *s1, char *s2);
-char	*replace_var(char *str, char *ret, int i, t_data *data);
-
-char	*is_quote(char *str);
+char	*replace_all_str(char *str, char *ret, int i, t_data *data);
+char	*replace_quote(char *str, char *ret, t_data *data);
+int		if_expand(char *str);
+int		var_exist(char *str, int *i, t_data *data);
+int		is_var(char *str, int i, t_data *data);
+int		ft_compare_var(char *s1, char *s2, int i);
+char	*replace_var(char *str, char *ret, int *i, t_data *data);;
+void	check_size(char *str, int *i, int *new_size, t_data *data);
+char	*resize_str(char *str, char *ret, t_data *data, int *new_size);
+char	*resize_quote(char *str, t_data *data);
+char	*is_quote(char *str, t_data *data);
+char	*resize_var(char *str, t_data *data);
 int		ft_nb_quote(char *str);
-char	*del_quote(char *str, char *ret, int i, char c);
+char	**check_quotes(char **strs, t_data *data);
+char	*del_quote(char *str, char *ret, t_data *data);
 void	ft_free(t_data *data);
 int		check_pipe(char *str);
 
