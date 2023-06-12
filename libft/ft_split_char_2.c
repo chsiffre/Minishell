@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/04 17:42:03 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/12 12:16:55 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char *copy_str(int *index, char *str, int len, char *ret)
 		i++;
 		(*index)++;
 	}
-	ret[i] = 0;
+	ret[i] = '\0';
 	return (ret);
 }
 

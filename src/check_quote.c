@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/06/06 15:28:39 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/12 12:38:43 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char *replace_quote(char *str, char *ret, t_data *data)
     if (!ret)
         return (NULL);
     ret = del_quote(str, ret, data);
-    return (free(str), ret);
+    return (ret);
 }
 
 char *replace_all_str(char *str, char *ret, int i, t_data *data)
