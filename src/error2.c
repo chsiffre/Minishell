@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/06 15:02:55 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:50:09 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,19 @@ int	ft_export_error(char *str)
 void	ft_rl_error(t_data *data)
 {
 	ft_to_free(data);
-	printf("exit\n");
+	write(2, "exit\n", 6);
 	ft_free_for_end(data);
 	exit(1);
+}
+
+void	ft_syntax_error(char *str)
+{
+	char	*join;
+
+	g_error_last = 2;
+	join = ft_strjoin("bash: syntax error near unexpected token ", str);
+	write(2, join, ft_strlen(join));
+	write(2, "\n", 2);
+	free(join);
+	return ;
 }

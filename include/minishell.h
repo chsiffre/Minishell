@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 13:08:31 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:57:39 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ typedef struct s_data {
 	int		out_redir;
 	int		ind;
 	int		x;
-    char	f_quote;
-    char	s_quote;
-    char	quote;
+	char	f_quote;
+	char	s_quote;
+	char	quote;
 }	t_data;
 
 //***********prompt***************//
@@ -110,8 +110,8 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
-char *check_pipes(char *str, char *copy, int *i, int *y);
-char *check_chevron(char *str, char *copy, int *i, int *y);
+char	*check_pipes(char *str, char *copy, int *i, int *y);
+char	*check_chevron(char *str, char *copy, int *i, int *y);
 
 //***********expand***************//
 
@@ -190,6 +190,7 @@ int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
 int		ft_export_error(char *str);
 void	ft_rl_error(t_data *data);
+void	ft_syntax_error(char *str);
 
 //***********utils***************//
 int		list_progress(t_data *data);

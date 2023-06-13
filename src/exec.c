@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/06 15:07:00 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:59:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,19 @@ int	is_executable(char *content)
 	{
 		if (!(info.st_mode & S_IXUSR))
 		{
+			g_error_last = 1;
 			ft_printf_fd("bash: %s: Permission denied\n", 2, content);
 			return (-1);
 		}
 		if (S_ISDIR(info.st_mode))
 		{
+			g_error_last = 126;
 			ft_printf_fd("%s: is a directory\n", 2, content);
 			return (-1);
 		}
 		return (0);
 	}
+	g_error_last = 1;
 	ft_printf_fd("No such file or directory\n", 2);
 	return (-1);
 }
