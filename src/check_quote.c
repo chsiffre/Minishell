@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/06/06 15:28:39 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/14 11:46:03 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *is_quote(char *str, t_data *data)
 		if (str[i] == '\"' || str[i] == '\'')
             return (replace_quote(str, ret, data));
         else if (str[i] == '$')
-            return (replace_all_str(str, ret, i , data));
+            return (replace_all_str(str, ret, i + 1, data));
 	}
 	return (free(ret), str);
 }
@@ -53,7 +53,7 @@ char *replace_quote(char *str, char *ret, t_data *data)
     if (!ret)
         return (NULL);
     ret = del_quote(str, ret, data);
-    return (free(str), ret);
+    return (ret);
 }
 
 char *replace_all_str(char *str, char *ret, int i, t_data *data)

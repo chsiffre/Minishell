@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 13:08:31 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:49:50 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_data {
 	int		ind;
 	int		x;
     char	f_quote;
-    char	s_quote;
     char	quote;
 }	t_data;
 
@@ -103,8 +102,7 @@ char	**check_res_split(t_data *data);
 int		resize_pre_split(char *str, int *new_size);
 int		quote_open(char *str);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
-char	**ft_check_redir(char **res_parse,
-			t_data *data, char **strs, int start);
+char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
@@ -112,11 +110,14 @@ void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
 char *check_pipes(char *str, char *copy, int *i, int *y);
 char *check_chevron(char *str, char *copy, int *i, int *y);
+char	*new_join(char const *s1, char const *s2, char *str);
 
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
+char	*copy_var(char *str, char *ret, int *i, t_data *data);
 char	*replace_all_str(char *str, char *ret, int i, t_data *data);
+int check_size_var(char *str, int *i, int *new_size, t_data *data);
 char	*replace_quote(char *str, char *ret, t_data *data);
 int		if_expand(char *str);
 int		var_exist(char *str, int *i, t_data *data);
