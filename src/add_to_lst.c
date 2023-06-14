@@ -3,53 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/05/29 10:13:06 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/14 15:05:20 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size)
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 {
 	t_lst	*ptr;
 	size_t	y;
 
 	y = 0;
-	ptr = malloc(sizeof(t_lst));
+	ptr = malloc(sizeof(t_lst) + 1);
 	if (!ptr)
 		return (NULL);
+	//printf("%zd\n", ft_strs_len(strs));
 	ptr->content = malloc(sizeof(char *) * (ft_strs_len(strs) + 1));
-	ptr->content = malloc(sizeof(char *) * (size + 1));
 	if (!ptr->content)
 		return (NULL);
+	printf("%p\n", ptr->content);
 	ptr->type = type;
 	if (strs[i] && ft_is_redir(strs[i]))
 	{
-		ptr->content[y++] = strs[i++];
+		ptr->content[y++] = ft_strdup(strs[i++]);
 		if (!strs[i] || strs[i][0] == '|')
 			return (NULL);
-		ptr->content[y++] = strs[i++];
+		ptr->content[y++] = ft_strdup(strs[i++]);
 	}
 	else if (strs[i] && !ft_is_redir(strs[i]) && strs[i][0] != '|')
 	{
 		while (strs[i] && strs[i][0] != '|')
-			ptr->content[y++] = strs[i++];
+			ptr->content[y++] = ft_strdup(strs[i++]);
 	}
 	else
-		ptr->content[y++] = strs[i++];
+		ptr->content[y++] = ft_strdup(strs[i++]);
 	ptr->content[y] = 0;
 	ptr->next = NULL;
 	return (ptr);
 }
 
-t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size)
+t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type)
 {
 	t_lst	*new;
 
-	new = ft_lstnew_t(data->res_parse, type, data->y, size);
+	new = ft_lstnew_t(data->res_parse, type, data->y);
 	if (!new)
 		return (NULL);
 	ft_add_back(&lst, new);

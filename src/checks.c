@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/01 12:38:56 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/14 14:34:50 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 			return (NULL);
 		if (ft_is_redir(strs[i]))
 		{
-			res_parse[data->i++] = strs[i];
+			res_parse[data->i++] = ft_strdup(strs[i]);
 			i++;
 			if (!strs[i])
 				return (NULL);
-			res_parse[data->i++] = strs[i];
+			res_parse[data->i++] = ft_strdup(strs[i]);
 			i++;
 		}
 		else
@@ -69,7 +69,7 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 			i = i + 2;
 		else if (strs[i] && strs[i][0] != '|')
 		{
-			res_parse[d->i++] = strs[i];
+			res_parse[d->i++] = ft_strdup(strs[i]);
 			i++;
 		}
 	}

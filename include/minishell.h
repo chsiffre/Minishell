@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/14 11:49:50 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:24:36 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_lst	*add_command(t_lst *lst, t_data *data);
 char	*ft_pre_split(char *str);
 char	*ft_str_replace(char *str, char *copy, int new_size);
 int		ft_is_redir(char *str);
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size);
+t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i);
 t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
 int		ft_len_parse(char **strs, int i);
 int		ft_is_redir(char *str);
@@ -101,7 +101,7 @@ t_lst	*ft_last(t_lst *lst);
 char	**check_res_split(t_data *data);
 int		resize_pre_split(char *str, int *new_size);
 int		quote_open(char *str);
-t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
+t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type);
 char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
@@ -111,6 +111,8 @@ char	*copy_str(int *index, char *str, int len, char *ret);
 char *check_pipes(char *str, char *copy, int *i, int *y);
 char *check_chevron(char *str, char *copy, int *i, int *y);
 char	*new_join(char const *s1, char const *s2, char *str);
+void	*free_data(t_data *data);
+
 
 //***********expand***************//
 
