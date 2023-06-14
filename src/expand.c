@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/06 15:17:27 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/07 15:59:31 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,25 @@
 
 char *replace_var(char *str, char *ret, int *i, t_data *data)
 {
+    while (str[*i])
+    {
+        if (str[*i] == '$')
+            ret = copy_var(str, ret, i, data);
+        (*i)++;
+    }
+    ret[data->ind] = '\0';
+    return (ret);
+}
+
+char *copy_var(char *str, char *ret, int *i, t_data *data)
+{
+    int y;
     t_env   *tmp;
 
-    int y;
     y = 0;
     tmp = data->env;
+    while (str[*i] && str[*i] != '$')
+        (*i)++;
     (*i)++;
     while (tmp)
     {
@@ -28,7 +42,7 @@ char *replace_var(char *str, char *ret, int *i, t_data *data)
                 ret[data->ind++] = tmp->value[y++];
             while (str[*i] && ft_isalnum(str[*i]))
                 (*i)++;
-            ret[data->ind] = '\0';
+            (*i)--;
             return (ret);
         }
         tmp = tmp->next;
@@ -86,6 +100,8 @@ int	ft_compare_var(char *s1, char *s2, int i)
 	{
         if (s1[i] == '\"' || s1[i] == '\'')
             break;
+        if (s1[i] == '$' && s2[y] == '=' && !s2[y + 1])
+            return (1);
 		if ((s1[i] != s2[y]))
 			return (0);
 		i++;

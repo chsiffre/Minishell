@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/06 15:27:19 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/07 15:42:16 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,42 @@
 
 char    *resize_var(char *str, t_data *data)
 {
-    t_env   *tmp;
     int i;
     int new_size;
  
-    i = 0;
+    i = -1;
     new_size = 0;
-    tmp = data->env;
-    
-    while (str[i++] && str[i] != '$')
+    while (str[++i] && str[i] != '$')
         new_size++;
+    while (str[i])
+    {
+        if (str[i] == '$')
+            new_size += check_size_var(str, &i, &new_size, data);
+        i++;
+    }
+    return (malloc(sizeof(char ) * new_size + 1));
+}
+
+int check_size_var(char *str, int *i, int *new_size, t_data *data)
+{
+    t_env   *tmp;
+    int     z;
+    
+    z = -1;
+    tmp = data->env;
+    (*i)++;
     while (tmp)
     {
-        if (ft_compare_var(str, tmp->name, i))
+        if (ft_compare_var(str, tmp->name, *i))
         {
-            i = -1;
-            while (tmp->value[++i])
-                new_size++;
-            break;
+            z = -1;
+            while (tmp->value[++z])
+                (*new_size)++;
+            while (ft_isalnum(str[*i]))
+                (*i)++;
+            return (*new_size);
         }
         tmp = tmp->next;
     }
-    return (malloc(sizeof(char ) * new_size + 1));
+    return (*new_size);
 }

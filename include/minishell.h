@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/06 16:11:32 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/07 15:50:40 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_data {
 	int		ind;
 	int		x;
     char	f_quote;
-    char	s_quote;
     char	quote;
 }	t_data;
 
@@ -101,8 +100,7 @@ char	**check_res_split(t_data *data);
 int		resize_pre_split(char *str, int *new_size);
 int		quote_open(char *str);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size);
-char	**ft_check_redir(char **res_parse,
-t_data *data, char **strs, int start);
+char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
 char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
@@ -114,7 +112,9 @@ char *check_chevron(char *str, char *copy, int *i, int *y);
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
+char	*copy_var(char *str, char *ret, int *i, t_data *data);
 char	*replace_all_str(char *str, char *ret, int i, t_data *data);
+int check_size_var(char *str, int *i, int *new_size, t_data *data);
 char	*replace_quote(char *str, char *ret, t_data *data);
 int		if_expand(char *str);
 int		var_exist(char *str, int *i, t_data *data);
