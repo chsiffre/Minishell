@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 15:50:40 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:46:32 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
 char *check_pipes(char *str, char *copy, int *i, int *y);
 char *check_chevron(char *str, char *copy, int *i, int *y);
+char	*new_join(char const *s1, char const *s2, char *str);
 
 //***********expand***************//
 
