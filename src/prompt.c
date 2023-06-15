@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/14 15:42:25 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:16:11 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,10 @@ void	ft_parse_exec(t_data *data)
 {
 	data->line = ft_pre_split(data->line);
 	if (!data->line)
-		ft_write_error("bash: syntax error near unexpected token `||'");
-	else if (data->line == "")
-		return ;
+		ft_syntax_error("`||'");
 	data->lst = ft_parse(data);
 	if (data->line && !data->lst)
-		ft_write_error
-			("syntax error near unexpected token `newline'");
+		ft_syntax_error("`newline'");
 	while (data->lst && data->lst->content)
 	{
 		if (ft_check_type(data) == 1)
@@ -149,7 +146,7 @@ void	ft_prompt(t_data *data)
 			add_history(data->line);
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
-				ft_error(data, "non printable\n", 1);
+				ft_error(data, "non printable\n", 2);
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);
