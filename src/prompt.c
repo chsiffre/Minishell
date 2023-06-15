@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/15 10:52:33 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:06:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ void	*free_data(t_data *data)
 	
 	i = 0;
 	i = 0;
-	while (data->res_parse[i])
+	while (data->res_parse && data->res_parse[i])
 	{
 		if (data->res_parse[i])
 			free(data->res_parse[i++]);
 		else
 			i++;
 	}
-	free(data->res_parse);
+	if (data->res_parse)
+		free(data->res_parse);
 	i = 0;
-	while (data->res_split[i])
+	while (data->res_split && data->res_split[i])
 	{
 		
 		if (data->res_split[i])
@@ -35,7 +36,8 @@ void	*free_data(t_data *data)
 		else
 			i++;
 	}
-	free(data->res_split);
+	if (data->res_split)
+		free(data->res_split);
 	return (NULL);
 }
 
@@ -45,7 +47,6 @@ void	ft_to_free(t_data *data)
 	t_lst	*next;
 
 	next = NULL;
-	free_data(data);
 	while (data->lst != NULL)
 	{
 		next = data->lst->next;
@@ -145,6 +146,7 @@ void	ft_prompt(t_data *data)
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);
+		free_data(data);
 		ft_to_free(data); 
 	}
 }

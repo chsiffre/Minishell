@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/05 14:56:51 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:07:14 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_error(t_data *data, char *str, int exit_code)
 	write(2, join, ft_strlen(join));
 	free(join);
 	ft_to_free(data);
+	free_data(data);
 	ft_free_for_end(data);
 	g_error_last = exit_code;
 	exit(g_error_last);
