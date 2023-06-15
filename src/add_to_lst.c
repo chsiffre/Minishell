@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/06/14 15:05:20 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:43:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	ptr = malloc(sizeof(t_lst) + 1);
 	if (!ptr)
 		return (NULL);
-	//printf("%zd\n", ft_strs_len(strs));
 	ptr->content = malloc(sizeof(char *) * (ft_strs_len(strs) + 1));
 	if (!ptr->content)
 		return (NULL);
-	printf("%p\n", ptr->content);
 	ptr->type = type;
 	if (strs[i] && ft_is_redir(strs[i]))
 	{

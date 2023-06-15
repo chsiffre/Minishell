@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/15 10:16:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:52:33 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	*free_data(t_data *data)
 	int	i;
 	
 	i = 0;
-	// while (data->res_parse[i])
-	// 	printf("%s\n", data->res_parse[i++]);
 	i = 0;
 	while (data->res_parse[i])
 	{
@@ -28,7 +26,6 @@ void	*free_data(t_data *data)
 			i++;
 	}
 	free(data->res_parse);
-	//printf("%s\n", data->res_split[0]);
 	i = 0;
 	while (data->res_split[i])
 	{
@@ -63,7 +60,6 @@ void	ft_to_free(t_data *data)
 		data->lst = next;
 	}
 	ft_close_end(data);
-	free(data->pipex);
 	data->in_redir = 0;
 	data->out_redir = 0;
 	data->i = 0;
@@ -138,7 +134,6 @@ void	ft_prompt(t_data *data)
 		signal(SIGINT, ft_ctrl);
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
-		//data->line = "ls";
 		data->line = readline("prompt> ");
 		if (!data->line)
 			ft_rl_error(data);
@@ -150,6 +145,6 @@ void	ft_prompt(t_data *data)
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);
-		ft_to_free(data);
+		ft_to_free(data); 
 	}
 }
