@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/12 15:04:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:16:02 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_end(t_data *data)
 	while (i--)
 	{
 		if (waitpid(data->pipex->tab_pid[i], NULL, 0) == -1)
-			ft_error(data, "waitpid error\n", 1);
+			ft_error(data, "waitpid error\n", 1, 1);
 		if (i > 0)
 			close(data->pipex->tab_fd[i]);
 	}
@@ -37,14 +37,14 @@ void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int i)
 	{
 		close(data->in_redir);
 		if (dup2(data->savestdin, STDIN_FILENO) == -1)
-			ft_error(data, "dup error\n", 1);
+			ft_error(data, "dup error\n", 1, 1);
 		data->in_redir = 0;
 	}
 	if (data->out_redir > 0)
 	{
 		close(data->out_redir);
 		if (dup2(data->savestdout, STDOUT_FILENO) == -1)
-			ft_error(data, "dup error\n", 1);
+			ft_error(data, "dup error\n", 1, 1);
 		data->out_redir = 0;
 	}
 	data->pipex->tab_pid[i] = pid;
@@ -69,12 +69,12 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
 	if ((cmd[0] == NULL) || (is_executable(cmd[0]) != 0))
 		exit (127);
 	if (execve(cmd[0], cmd, data->env_path) == -1)
-		ft_error(data, "execve error\n", 1);
+		ft_error(data, "execve error\n", 1, 1);
 	return (0);
 }
 
@@ -88,13 +88,13 @@ int	ft_loop_pipe(t_data *data)
 	while (data->lst)
 	{
 		if (pipe(fd) == -1)
-			ft_error(data, "pipe error\n", 1);
+			ft_error(data, "pipe error\n", 1, 1);
 		data->pipex->file_out = fd[1];
 		if (!data->lst->next)
 			data->pipex->file_out = STDOUT_FILENO;
 		pid = fork();
 		if (pid == -1)
-			ft_error(data, "fork error\n", 1);
+			ft_error(data, "fork error\n", 1, 1);
 		else if (pid == 0)
 			if (ft_exec_pipe(data, fd) == 1)
 				exit (1);

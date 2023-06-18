@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 13:33:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:15:34 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_exist_var(t_data *data, char *str, t_env *new)
 	name = NULL;
 	name = ft_find_name(name, str);
 	if (name == NULL)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	while (ft_strncmp(new->name, name, ft_strlen(name) - 1))
 		new = new->next;
 	free(new->name);
@@ -77,7 +77,7 @@ void	ft_exist_var(t_data *data, char *str, t_env *new)
 		free(new->value);
 		new->value = ft_add_value(str, i);
 		if (!new->value)
-			ft_error(data, "malloc error\n", 1);
+			ft_error(data, "malloc error\n", 1, 1);
 		if (ft_has_equal(new->name))
 			new->equal = 1;
 	}

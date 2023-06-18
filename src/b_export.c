@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 14:25:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:17:38 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 		i++;
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	i++;
 	name[i] = '\0';
 	ft_strlcpy(name, str, i + 1);

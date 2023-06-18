@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/15 10:16:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:13:59 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	ft_to_free(t_data *data);
 int		ft_print_error(char	*str);
 int		ft_write_error(char *str);
 int		ft_cmd_error(char	*str);
-void	ft_error(t_data *data, char *str, int exit_code);
+void	ft_error(t_data *data, char *str, int exit_code, int parse);
 int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
 int		ft_export_error(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:27:03 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 12:27:37 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:16:32 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_write_entry(t_data *data, char *res, char *line)
 
 	res = malloc(sizeof(char) * ft_strlen(line) + 2);
 	if (!res)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	i = -1;
 	while (line[++i])
 		res[i] = line[i];
@@ -55,7 +55,7 @@ void	ft_heredoc_loop(t_data *data, int *fd)
 void	ft_pid_heredoc(t_data *data, pid_t pid, int *fd)
 {
 	if (pid == -1)
-		ft_error(data, "fork error\n", 1);
+		ft_error(data, "fork error\n", 1, 1);
 	else if (pid == 0)
 	{
 		close(fd[0]);
@@ -74,7 +74,7 @@ int	ft_here_doc(t_data *data)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-		ft_error(data, "pipe error\n", 1);
+		ft_error(data, "pipe error\n", 1, 1);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	ft_pid_heredoc(data, pid, fd);

@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 23:03:10 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:15:12 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_get_pwd(t_data *data)
 	char	buff[REP_MAX];
 
 	if (getcwd(buff, REP_MAX) == NULL)
-		ft_error(data, "PWD error\n", 1);
+		ft_error(data, "PWD error\n", 1, 1);
 	printf("%s\n", buff);
 }
 

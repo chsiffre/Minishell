@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/15 13:06:00 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:46:12 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	ft_check_type(t_data *data)
 		return (0);
 	}
 	else
-		return (ft_error(data, "Unexepted command\n", 1), 2);
+		return (ft_error(data, "Unexepted command\n", 1, 1), 2);
 }
 
 void	ft_parse_exec(t_data *data)
@@ -142,7 +142,7 @@ void	ft_prompt(t_data *data)
 			add_history(data->line);
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
-				ft_error(data, "non printable\n", 2);
+				ft_error(data, "non printable\n", 2, 0);
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);

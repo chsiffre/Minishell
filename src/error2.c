@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/15 12:57:38 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:40:11 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_rl_error(t_data *data)
 	ft_to_free(data);
 	write(2, "exit\n", 6);
 	ft_free_for_end(data);
-	exit(1);
+	exit(0);
 }
 
 void	ft_syntax_error(char *str)
