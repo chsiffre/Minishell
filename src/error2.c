@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/13 10:50:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:18:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_rl_error(t_data *data)
 	ft_to_free(data);
 	write(2, "exit\n", 6);
 	ft_free_for_end(data);
-	exit(1);
+	exit(0);
 }
 
 void	ft_syntax_error(char *str)
