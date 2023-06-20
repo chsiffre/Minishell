@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/12 15:04:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:00:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	ft_dup_pipe(data);
 	i = ft_builtins(data);
 	if (i == 1 || i == -1)
-		exit (1);
+		exit (0);
 	i = 0;
 	while (data->lst->content[i])
 		i++;
