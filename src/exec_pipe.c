@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/20 11:00:28 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:32:38 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 int	ft_end(t_data *data)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
+	ret = 0;
 	while (data->pipex->tab_pid[i])
 		i++;
 	while (i--)
 	{
-		if (waitpid(data->pipex->tab_pid[i], NULL, 0) == -1)
+		if (waitpid(data->pipex->tab_pid[i], &ret, 0) == -1)
 			ft_error(data, "waitpid error\n", 1);
+		if (ret % 256 == 0 && g_error_last != 127)
+			g_error_last = WEXITSTATUS(ret);
 		if (i > 0)
 			close(data->pipex->tab_fd[i]);
 	}
@@ -72,7 +76,10 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 		ft_error(data, "malloc error\n", 1);
 	cmd = ft_cmd_options(data, cmd, data->lst->content[0]);
 	if ((cmd[0] == NULL) || (is_executable(cmd[0]) != 0))
+	{
+		g_error_last = 127;
 		exit (127);
+	}
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		ft_error(data, "execve error\n", 1);
 	return (0);
@@ -117,8 +124,10 @@ int	ft_pipe(t_data *data)
 	signal(SIGQUIT, ft_ctrl_fork);
 	if (list_progress(data) == 1)
 		return (1);
+	g_error_last = 0;
 	if (ft_loop_pipe(data) == 1)
 		return (1);
 	ft_end(data);
+	printf("%d\n", g_error_last);
 	return (0);
 }

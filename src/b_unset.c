@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/24 13:51:01 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:39:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ void	ft_envdelone(t_env *env)
 		free(env->value);
 		free(env);
 	}
-}
-
-int	ft_special_unset(char *name)
-{
-	if (ft_compare_str(name, "PWD")
-		|| ft_compare_str(name, "_")
-		|| ft_compare_str(name, "SHLVL"))
-		return (printf("minishell: %s: not a valid identifer\n", name), 1);
-	return (0);
 }
 
 int	ft_find_var(t_data *data, t_env *tmp, char *n_equal, char *name)
@@ -67,8 +58,11 @@ int	ft_unset(t_data *data)
 	{
 		len = ft_strlen(data->lst->content[i]);
 		if (data->lst->content[i][len - 1] == '=')
+		{
 			printf
 			("minishell: %s: not a valid identifer\n", data->lst->content[i]);
+			g_error_last = 1;
+		}
 		n_equal = ft_strjoin(data->lst->content[i], "=");
 		ft_find_var(data, tmp, n_equal, data->lst->content[i]);
 		i++;

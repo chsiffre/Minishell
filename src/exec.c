@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/13 10:59:31 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:47:22 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_exec(t_data *prompt, char **cmd)
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
 			ft_error(prompt, "Is a directory\n", 1);
 	}
+	g_error_last = 0;
 	if (waitpid(pid, NULL, 0) == -1)
 		ft_error(prompt, "waitpid error\n", 1);
 	return (0);

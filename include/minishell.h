@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/13 10:57:39 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:26:09 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ int		ft_free_for_end(t_data *data);
 int		ft_special_char(char *cmd);
 int		ft_export_error(char *str);
 void	ft_rl_error(t_data *data);
+void	ft_exit_pack(t_data *data, int code_error);
 void	ft_syntax_error(char *str);
 
 //***********utils***************//
