@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 11:53:08 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:30:40 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_to_free(t_data *data)
 		i = 0;
 		while (data->lst->content[i])
 		{
-			if (data->lst->content)
+			if (data->lst->content[i])
 				free(data->lst->content[i++]);
 		}
 		free(data->lst->content);
@@ -106,8 +106,10 @@ int	ft_check_type(t_data *data)
 		return (ft_error(data, "Unexepted command\n", 1, 1), 2);
 }
 
-void	ft_parse_exec(t_data *data)
+int	ft_parse_exec(t_data *data)
 {
+	if (empty(data->line))
+		return (0);
 	data->line = ft_pre_split(data->line);
 	if (!data->line)
 		ft_syntax_error("`||'");
@@ -122,12 +124,15 @@ void	ft_parse_exec(t_data *data)
 			break ;
 		data->lst = data->lst->next;
 	}
+	return (1);
 }
 
 void	ft_prompt(t_data *data)
 {
 	int	i;
-
+	int to_free;
+	
+	to_free = 0;
 	while (1)
 	{
 		i = 0;
@@ -142,10 +147,11 @@ void	ft_prompt(t_data *data)
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
 				ft_error(data, "non printable\n", 2, 0);
-		if (data->line[0] != '\0')
-			ft_parse_exec(data);
+		if (ft_parse_exec(data) == 0)
+			to_free = 1;
 		free(data->line);
-		free_data(data);
+		if (to_free == 0)
+			free_data(data);
 		ft_to_free(data);
 	}
 }
