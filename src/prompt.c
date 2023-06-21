@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 12:01:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:05:43 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ void	ft_prompt(t_data *data)
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);
-		free_data(data);
 		ft_to_free(data);
 	}
 }
