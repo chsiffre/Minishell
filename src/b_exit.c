@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/20 13:44:14 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:29:11 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	ft_is_valid_num(char *command)
 
 	i = -1;
 	res = 0;
+	if (command[0] == '+')
+		i++;
 	while (command[++i])
 	{
 		if (!ft_isdigit(command[i]))

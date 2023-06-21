@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:07:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:45:44 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:32:09 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_algo_cd(t_data *data, char *rep)
 {
 	ft_old_pwd(data);
 	if (chdir(rep) == -1)
-		ft_print_error(rep, 1);
+		return (ft_print_error(rep, 1), 1);
 	ft_pwd(data);
 	g_error_last = 0;
 	return (0);

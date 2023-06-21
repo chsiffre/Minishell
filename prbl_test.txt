@@ -20,3 +20,27 @@ Parsing erreur
 
 
 "cat | cat << OK" des lettres pas prise en compte
+
+
+
+test important : 
+60 
+82 = cat <missing | cat
+
+Test  86: ❌ ls >./outfiles/outfile01
+Test  87: ❌ ls >         ./outfiles/outfile01
+Test  89: ❌ ls >./outfiles/outfile01 >./outfiles/outfile02
+Test 114: ❌ ls >>./outfiles/outfile01
+Test 115: ❌ ls >>      ./outfiles/outfile01
+Test 116: ❌ ls >>./outfiles/outfile01 >./outfiles/outfile01
+Test 117: ❌ ls >./outfiles/outfile01 >>./outfiles/outfile01
+Test 118: ❌ ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02
+Test 119: ❌ ls >>./outfiles/outfile01 >>./outfiles/outfile02
+Test 136: ❌ cat <minishell.h|ls
+Test 135: ❌ cat <minishell.h>./outfiles/outfile
+
+
+
+Test 141: ❌ ./test_files/invalid_permission
+Test 142: ❌ ./missing.out 
+Test 147: ❌ /test_files

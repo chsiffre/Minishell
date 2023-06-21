@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/06/21 14:43:56 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:06:15 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char *ft_convert_error(char *str, char *ret)
     y = 0;
     i = 0;
     free(ret);
-    printf("%lu", ft_strlen(str) + ft_int_len(g_error_last) - 1);
     ret = malloc(((ft_strlen(str) - 2) + ft_int_len(g_error_last)) + 1);
     if (!ret)
         return (NULL);

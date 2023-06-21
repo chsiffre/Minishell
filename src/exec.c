@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 11:48:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:15:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_exec(t_data *prompt, char **cmd)
 {
 	pid_t	pid;
+	int		ret;
 
 	pid = fork();
 	if (pid == -1)
@@ -25,8 +26,11 @@ int	ft_exec(t_data *prompt, char **cmd)
 			ft_error(prompt, "Is a directory\n", 1, 1);
 	}
 	g_error_last = 0;
-	if (waitpid(pid, NULL, 0) == -1)
+	ret = 0;
+	if (waitpid(pid, &ret, 0) == -1)
 		ft_error(prompt, "waitpid error\n", 1, 1);
+	if (WIFEXITED(ret))
+		g_error_last = WEXITSTATUS(ret);
 	return (0);
 }
 
@@ -79,7 +83,7 @@ int	is_executable(char *content)
 	{
 		if (!(info.st_mode & S_IXUSR))
 		{
-			g_error_last = 1;
+			g_error_last = 126;
 			ft_printf_fd("bash: %s: Permission denied\n", 2, content);
 			return (-1);
 		}

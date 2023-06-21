@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/06/21 14:27:12 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:48:50 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char *resize_quote(char *str, t_data *data)
         else
             new_size++;
     }
-    printf("%d\n", new_size);
     return (malloc(sizeof (char) * new_size + 1));
 }
 
