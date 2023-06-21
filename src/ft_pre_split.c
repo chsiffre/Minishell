@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 14:59:35 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:05:47 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,22 +123,23 @@ int resize_pre_split(char *str, int *new_size)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i])
 	{
-		if (str[i] == '<' || str[i] == '>')
+		if (str[i] && (str[i] == '<' || str[i] == '>'))
 		{
-			if (!str[i + 1])
-				return (0);
+			// if (!str[i + 1])
+			// 	return (0);
 			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
 				(*new_size)++;
 			if (str[i - 1] && str[i - 1] != ' ')
-				(*new_size)++; 
+				(*new_size)++;
 		}
-		if (str[i] && str[i] == '|' && str[i - 1] != ' ')
+		if (str[i] && str[i] == '|' && str[i - 1] && str[i - 1] != ' ')
 			(*new_size)++;
 		if (str[i] && str[i] == '|' && str[i + 1] && str[i + 1] != ' ')
 			(*new_size)++;
+		i++;
 	}
 	return (*new_size);
 }
@@ -157,27 +158,32 @@ int	empty(char *str)
 	return (1);
 }
 
-// int	check_chevron(char *str)
-// {
-// 	int	i;
+int	not_parse(char *str)
+{
+	int	i;
+	char c;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '<' || str[i] == '>')
-// 		{
-// 			if (str[i])
-// 				i++;
-// 			else
-// 				return (0);
-// 			while (str[i])
-// 			{
-// 				if ()
-// 			}
-// 		}
-// 	}
-// 	return ();
-// }
+	c = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] == '<' || str[i] == '>' || str[i] == '|'))
+		{
+			c = str[i];
+			while (str[i] && (str[i] == c || is_space(str[i])))
+				i++;
+		}
+		else if (str[i] && ft_is_not_space(str[i]))
+			return (0);
+		if (str[i])
+			i++;
+	}
+	if (c == '<' || c == '>')
+		ft_syntax_error("`newline'");
+	else if (c == '|')
+		ft_syntax_error("`|'");
+	return (1);
+}
 
 int	ft_is_not_space(char c)
 {
@@ -185,4 +191,12 @@ int	ft_is_not_space(char c)
 		|| (c >= 33 && c <= 127))
 		return (1);
 	return (0);
+}
+
+int is_space(char caractere) 
+{
+    if (caractere == ' ' || caractere == '\t' || caractere == '\n' || caractere == '\v' || caractere == '\f' || caractere == '\r')
+    	return (1);
+	else
+    	return (0);
 }

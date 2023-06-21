@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 14:51:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:31:59 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_check_type(t_data *data)
 
 int	ft_parse_exec(t_data *data)
 {
-	if (empty(data->line))
+	if (empty(data->line) || not_parse(data->line))
 		return (0);
 	data->line = ft_pre_split(data->line);
 	if (!data->line)

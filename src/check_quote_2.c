@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/06/21 14:27:12 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:20:32 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ char *resize_quote(char *str, t_data *data)
     {
         if (str[i] == '\'' || str[i] == '\"')
         {
-            quote = str[i];
-            while (str[++i] && str[i] != quote)
+            quote = str[i++];
+            while (str[i] && str[i] != quote)
                 check_size(str, &i, &new_size, data);
+            if (str[i] && str[i] != quote)
+                new_size++;
         }
         else
             new_size++;
     }
-    printf("%d\n", new_size);
     return (malloc(sizeof (char) * new_size + 1));
 }
 
@@ -67,12 +68,13 @@ void    check_size(char *str, int *i, int *new_size, t_data *data)
     else if (str[*i] == '$' && if_expand(str) && is_var(str, *i, data))
         (*new_size) += var_exist(str, i, data);
     else if (str[*i] == '$' &&  if_expand(str) && !is_var(str, *i, data))
-    {
         while (str[*i] && ft_isalnum(str[*i]))
             (*i)++;
-    }
     else
+    {
         (*new_size)++;
+        (*i)++;
+    }
 }
 
 char *del_quote(char *str, char *ret, t_data *data)
@@ -90,8 +92,10 @@ char *del_quote(char *str, char *ret, t_data *data)
             while (str[i] && str[i] != quote)
             {
                 if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
+                {
                     ret = replace_var(str, ret, &i, data);
-                else if (str[i])
+                }
+                else if (str[i] && str[i] != quote)
                     ret[data->ind++] = str[i++];
             }
         }
