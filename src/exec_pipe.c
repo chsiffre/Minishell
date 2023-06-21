@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:50:43 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:34:30 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,21 @@ int	ft_end(t_data *data)
 {
 	int	i;
 	int	ret;
+	int	last;
 
 	i = 0;
-	ret = 0;
 	while (data->pipex->tab_pid[i])
 		i++;
+	last = i - 1;
 	while (i--)
 	{
+		ret = 0;
 		if (waitpid(data->pipex->tab_pid[i], &ret, 0) == -1)
 			ft_error(data, "waitpid error\n", 1, 1);
-		if (ret % 256 == 0 && g_error_last != 127)
+		if (WIFEXITED(ret) && i == last)
 			g_error_last = WEXITSTATUS(ret);
+		else if (WIFSIGNALED(ret))
+			ft_ctrl(WTERMSIG(ret));
 		if (i > 0)
 			close(data->pipex->tab_fd[i]);
 	}
@@ -128,6 +132,5 @@ int	ft_pipe(t_data *data)
 	if (ft_loop_pipe(data) == 1)
 		return (1);
 	ft_end(data);
-	printf("%d\n", g_error_last);
 	return (0);
 }

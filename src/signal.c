@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:51:04 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/30 17:20:25 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:41:50 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_ctrl(int signal)
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_error_last = 130;
 	}
 	else if (signal == SIGTERM)
 		exit (0);
