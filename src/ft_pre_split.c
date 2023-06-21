@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/14 15:43:26 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:15:13 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char *ft_pre_split(char *str)
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
+	// if (!check_chevron())
+	// 	return (free(copy), );
 	new_size = ft_strlen(str);
 	new_size = resize_pre_split(str, &new_size);
 	if (quote_open(str))
@@ -137,4 +139,20 @@ int resize_pre_split(char *str, int *new_size)
 			(*new_size)++;
 	}
 	return (*new_size);
+}
+
+int	empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]) || str[i] == '|')
+			return (0);
+		if (str[i] == '<' || str[i] == '>')
+			return (0);
+		i++;
+	}
+	return (1);
 }

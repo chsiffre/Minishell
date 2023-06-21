@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 11:45:25 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:24:59 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	*check_pipes(char *str, char *copy, int *i, int *y);
 char	*check_chevron(char *str, char *copy, int *i, int *y);
 char	*new_join(char const *s1, char const *s2, char *str);
 void	*free_data(t_data *data);
+int		empty(char *str);
 
 
 //***********expand***************//
