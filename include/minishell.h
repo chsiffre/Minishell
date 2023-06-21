@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 12:24:59 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:54:47 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ char	*check_chevron(char *str, char *copy, int *i, int *y);
 char	*new_join(char const *s1, char const *s2, char *str);
 void	*free_data(t_data *data);
 int		empty(char *str);
+char	*ft_convert_error(char *str, char *ret);
+int		ft_int_len(int n);
+int	ft_is_not_space(char c);
+
 
 
 //***********expand***************//

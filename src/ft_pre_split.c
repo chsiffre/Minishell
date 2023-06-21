@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 12:15:13 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:59:35 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char *ft_pre_split(char *str)
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
-	// if (!check_chevron())
-	// 	return (free(copy), );
+	// if (!check_chevron(str))
+	// 	return (free(copy), str);
 	new_size = ft_strlen(str);
 	new_size = resize_pre_split(str, &new_size);
 	if (quote_open(str))
@@ -128,6 +128,8 @@ int resize_pre_split(char *str, int *new_size)
 	{
 		if (str[i] == '<' || str[i] == '>')
 		{
+			if (!str[i + 1])
+				return (0);
 			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
 				(*new_size)++;
 			if (str[i - 1] && str[i - 1] != ' ')
@@ -148,11 +150,39 @@ int	empty(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '|')
-			return (0);
-		if (str[i] == '<' || str[i] == '>')
+		if (ft_is_not_space(str[i]))
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+// int	check_chevron(char *str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '<' || str[i] == '>')
+// 		{
+// 			if (str[i])
+// 				i++;
+// 			else
+// 				return (0);
+// 			while (str[i])
+// 			{
+// 				if ()
+// 			}
+// 		}
+// 	}
+// 	return ();
+// }
+
+int	ft_is_not_space(char c)
+{
+	if ((c >= 0 && c <= 8) || (c >= 16 && c < 32) 
+		|| (c >= 33 && c <= 127))
+		return (1);
+	return (0);
 }

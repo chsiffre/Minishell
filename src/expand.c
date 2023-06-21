@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 15:59:31 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:30:54 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	ft_compare_var(char *s1, char *s2, int i)
     y = 0;
 	while (s1[i] && s2[y])
 	{
+        if (s1[i] == '?' && !s1[i + 1])
+            return (1);
         if (s1[i] == '\"' || s1[i] == '\'')
             break;
         if (s1[i] == '$' && s2[y] == '=' && !s2[y + 1])
