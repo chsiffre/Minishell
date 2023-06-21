@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/24 14:57:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:14:59 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_struct_env(t_data *data)
 	{
 		new = ft_new_env(data->env_path[i]);
 		if (!new)
-			ft_error(data, "malloc error\n", 1);
+			ft_error(data, "malloc error\n", 1, 1);
 		ft_envadd_back(&data->env, new);
 		i++;
 	}

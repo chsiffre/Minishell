@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:00:23 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:01:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:51:47 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 		i++;
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	i++;
 	name[i] = '\0';
 	ft_strlcpy(name, str, i + 1);

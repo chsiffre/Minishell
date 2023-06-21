@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/20 13:47:22 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:48:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int	ft_exec(t_data *prompt, char **cmd)
 
 	pid = fork();
 	if (pid == -1)
-		ft_error(prompt, "fork error\n", 1);
+		ft_error(prompt, "fork error\n", 1, 1);
 	else if (pid == 0)
 	{
 		if (execve(cmd[0], cmd, prompt->env_path) == -1)
-			ft_error(prompt, "Is a directory\n", 1);
+			ft_error(prompt, "Is a directory\n", 1, 1);
 	}
 	g_error_last = 0;
 	if (waitpid(pid, NULL, 0) == -1)
-		ft_error(prompt, "waitpid error\n", 1);
+		ft_error(prompt, "waitpid error\n", 1, 1);
 	return (0);
 }
 
@@ -112,7 +112,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
-		ft_error(data, "malloc error\n", 1);
+		ft_error(data, "malloc error\n", 1, 1);
 	cmd = ft_cmd_options(data, cmd, content);
 	if (cmd[0] != NULL && (is_executable(cmd[0]) == 0))
 		ft_exec(data, cmd);

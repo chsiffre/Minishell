@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/06/21 11:43:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:51:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	ptr = malloc(sizeof(t_lst) + 1);
 	if (!ptr)
 		return (NULL);
-	//printf("%zd\n", ft_strs_len(strs));
 	ptr->content = malloc(sizeof(char *) * (ft_strs_len(strs) + 1));
 	if (!ptr->content)
 		return (NULL);
-	printf("%p\n", ptr->content);
 	ptr->type = type;
 	if (strs[i] && ft_is_redir(strs[i]))
 	{
@@ -46,7 +44,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	return (ptr);
 }
 
-t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size)
+t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type)
 {
 	t_lst	*new;
 

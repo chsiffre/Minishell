@@ -7,38 +7,10 @@ LEAKS ==========>       "> out"       "< Makefile cat "       "<< EOF"
 
 chaine vide avec espace qui affiche message erreur
 
-./" qui ne fait rien ??
-' seule qui segfault
-" apres avoir deja fait " segfault
-
-code exit des signaux
-;' qui ne fait rien
-
---------------------------------------------------------
-prompt> '
-''[1]    466789 segmentation fault (core dumped)  ./minishell
---------------------------------------------------------
-QUOTES SEULES
+quote ouverte ne doit pas fermer le programme
 
 
-;':|}  segfault
-
-"cat | cat << OK" des lettres pas prise en compte
-
-
-PENSER A FREE LE CODE 127
-
-PENSER A CLOSE DUP des saves
-
-
-
-"""
-prompt> libft | libft
-bash: execve error
-bash: execve error
-"""
-
-
+ls | | ls  ------------------>>>>>>>>>>> Erreur dans le parsing
 
 """
 prompt> ls | ls | ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls| ls | ls | ls | ls
@@ -47,4 +19,4 @@ minishell: malloc.c:2379: sysmalloc: Assertion `(old_top == initial_top (av) && 
 Parsing erreur
 
 
-ls | | ls
+"cat | cat << OK" des lettres pas prise en compte

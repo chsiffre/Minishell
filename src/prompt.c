@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 11:43:56 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:53:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,28 @@
 void	*free_data(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
-	// while (data->res_parse[i])
-	// 	printf("%s\n", data->res_parse[i++]);
 	i = 0;
-	while (data->res_parse[i])
+	while (data->res_parse && data->res_parse[i])
 	{
 		if (data->res_parse[i])
 			free(data->res_parse[i++]);
 		else
 			i++;
 	}
-	free(data->res_parse);
-	//printf("%s\n", data->res_split[0]);
+	if (data->res_parse)
+		free(data->res_parse);
 	i = 0;
-	while (data->res_split[i])
+	while (data->res_split && data->res_split[i])
 	{
-		
 		if (data->res_split[i])
 			free(data->res_split[i++]);
 		else
 			i++;
 	}
-	free(data->res_split);
+	if (data->res_split)
+		free(data->res_split);
 	return (NULL);
 }
 
@@ -48,7 +46,6 @@ void	ft_to_free(t_data *data)
 	t_lst	*next;
 
 	next = NULL;
-	free_data(data);
 	while (data->lst != NULL)
 	{
 		next = data->lst->next;
@@ -63,7 +60,6 @@ void	ft_to_free(t_data *data)
 		data->lst = next;
 	}
 	ft_close_end(data);
-	free(data->pipex);
 	data->in_redir = 0;
 	data->out_redir = 0;
 	data->i = 0;
@@ -107,7 +103,7 @@ int	ft_check_type(t_data *data)
 		return (0);
 	}
 	else
-		return (ft_error(data, "Unexepted command\n", 1), 2);
+		return (ft_error(data, "Unexepted command\n", 1, 1), 2);
 }
 
 void	ft_parse_exec(t_data *data)
@@ -138,7 +134,6 @@ void	ft_prompt(t_data *data)
 		signal(SIGINT, ft_ctrl);
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
-		//data->line = "ls";
 		data->line = readline("prompt> ");
 		if (!data->line)
 			ft_exit_pack(data, g_error_last);
@@ -146,10 +141,11 @@ void	ft_prompt(t_data *data)
 			add_history(data->line);
 		while (data->line[i++])
 			if (!ft_isascii(data->line[i]))
-				ft_error(data, "non printable\n", 2);
+				ft_error(data, "non printable\n", 2, 0);
 		if (data->line[0] != '\0')
 			ft_parse_exec(data);
 		free(data->line);
+		free_data(data);
 		ft_to_free(data);
 	}
 }

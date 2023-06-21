@@ -6,13 +6,13 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 11:16:13 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:46:35 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_error(t_data *data, char *str, int exit_code)
+void	ft_error(t_data *data, char *str, int exit_code, int parse)
 {
 	char	*join;
 
@@ -20,6 +20,8 @@ void	ft_error(t_data *data, char *str, int exit_code)
 	write(2, join, ft_strlen(join));
 	free(join);
 	ft_to_free(data);
+	if (parse == 1)
+		free_data(data);
 	ft_free_for_end(data);
 	g_error_last = exit_code;
 	exit(g_error_last);

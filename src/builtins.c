@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 10:32:41 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:46:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_get_pwd(t_data *data)
 	char	buff[REP_MAX];
 
 	if (getcwd(buff, REP_MAX) == NULL)
-		ft_error(data, "PWD error\n", 1);
+		ft_error(data, "PWD error\n", 1, 1);
 	printf("%s\n", buff);
 	g_error_last = 0;
 }
