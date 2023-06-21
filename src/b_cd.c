@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:07:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/05/24 22:09:01 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/21 11:17:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_cd_error(char *str)
+{
+	g_error_last = 1;
+	ft_printf_fd("%s\n", 2, str);
+	return (-1);
+}
 
 int	ft_pwd(t_data *data)
 {
@@ -46,8 +53,9 @@ int	ft_algo_cd(t_data *data, char *rep)
 {
 	ft_old_pwd(data);
 	if (chdir(rep) == -1)
-		ft_print_error(rep);
+		ft_print_error(rep, 1);
 	ft_pwd(data);
+	g_error_last = 0;
 	return (0);
 }
 
@@ -71,10 +79,10 @@ void	ft_cd(t_data *data)
 			}
 			tmp = tmp->next;
 		}
-		write(2, "bash: cd: HOME not set\n", 24);
+		ft_cd_error("bash: cd: HOME not set");
 	}
 	else if (args == 2)
 		ft_algo_cd(data, data->lst->content[1]);
 	else
-		ft_printf("bash: cd: too many arguments\n");
+		ft_cd_error("bash: cd: too many arguments");
 }

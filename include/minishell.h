@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/20 13:26:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:16:39 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 
 //***********error***************//
 void	ft_to_free(t_data *data);
-int		ft_print_error(char	*str);
+int		ft_print_error(char *str, int error_code);
 int		ft_write_error(char *str);
 int		ft_cmd_error(char	*str);
 void	ft_error(t_data *data, char *str, int exit_code);

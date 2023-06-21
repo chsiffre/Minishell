@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/19 15:18:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:39:06 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_export_error(char *str)
 	join = ft_strjoin(join, "' not a valid indentifier\n");
 	write(2, join, ft_strlen(join));
 	free(join);
+	g_error_last = 2;
 	return (1);
 }
 

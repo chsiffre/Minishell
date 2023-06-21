@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 13:33:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:37:14 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ void	ft_add_var(t_data *data, char *str, int exist)
 	{
 		ft_exist_var(data, str, new);
 	}
+	g_error_last = 0;
 }

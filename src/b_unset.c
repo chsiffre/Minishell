@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/20 15:39:21 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:45:07 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ int	ft_unset(t_data *data)
 		len = ft_strlen(data->lst->content[i]);
 		if (data->lst->content[i][len - 1] == '=')
 		{
-			printf
-			("minishell: %s: not a valid identifer\n", data->lst->content[i]);
+			ft_printf_fd
+			("bash: %s: not a valid identifer\n", 2, data->lst->content[i]);
 			g_error_last = 1;
+			return (1);
 		}
 		n_equal = ft_strjoin(data->lst->content[i], "=");
 		ft_find_var(data, tmp, n_equal, data->lst->content[i]);
 		i++;
 	}
+	g_error_last = 0;
 	return (0);
 }

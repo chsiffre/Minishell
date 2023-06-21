@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/05/29 10:13:06 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/21 10:58:52 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i, int size)
 	return (ptr);
 }
 
-t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type, int size)
+t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type, int size)
 {
 	t_lst	*new;
 

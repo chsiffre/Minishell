@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/05 12:27:26 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:18:17 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_in_redir(t_data *data)
 		data->in_redir = open
 			(data->lst->content[1], O_RDONLY, 0644);
 		if (data->in_redir == -1)
-			return (ft_print_error(data->lst->content[1]), 1);
+			return (ft_print_error(data->lst->content[1], 1), 1);
 		return (0);
 	}
 	else if (ft_compare_str(data->lst->content[0], "<<"))
@@ -38,7 +38,7 @@ int	ft_out_redir(t_data *data)
 		data->out_redir = open
 			(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (data->out_redir == -1)
-			return (ft_print_error(data->lst->content[1]), 1);
+			return (ft_print_error(data->lst->content[1], 1), 1);
 		return (0);
 	}
 	else if (ft_compare_str(data->lst->content[0], ">>"))
@@ -46,7 +46,7 @@ int	ft_out_redir(t_data *data)
 		data->out_redir = open
 			(data->lst->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (data->out_redir == -1)
-			return (ft_print_error(data->lst->content[1]), 1);
+			return (ft_print_error(data->lst->content[1], 1), 1);
 		return (0);
 	}
 	return (2);
@@ -60,7 +60,7 @@ int	ft_which_redir(t_data *data)
 	{
 		g_error_last = 2;
 		return (ft_print_error
-			("syntax error near unexpected token `newline'\n"), 1);
+			("syntax error near unexpected token `newline'\n", 1), 1);
 	}
 	redir = ft_in_redir(data);
 	if (redir == 1)
@@ -72,7 +72,7 @@ int	ft_which_redir(t_data *data)
 			return (1);
 		if (redir == 2)
 			return (ft_print_error
-				("syntax error near unexpected token `newline'\n"), 1);
+				("syntax error near unexpected token `newline'\n", 1), 1);
 	}
 	return (0);
 }

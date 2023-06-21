@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/05 14:56:51 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:16:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ void	ft_error(t_data *data, char *str, int exit_code)
 	exit(g_error_last);
 }
 
-int	ft_print_error(char *str)
+int	ft_print_error(char *str, int error_code)
 {
 	char	*join;
 
 	join = ft_strjoin("bash: ", str);
 	perror(join);
 	free(join);
+	if (error_code != 0)
+		g_error_last = error_code;
 	return (1);
 }
 

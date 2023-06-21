@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/05/24 23:03:10 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/21 10:32:41 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_print_env(t_data *data)
 			printf("%s%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
+	g_error_last = 0;
 }
 
 void	ft_get_pwd(t_data *data)
@@ -32,6 +33,7 @@ void	ft_get_pwd(t_data *data)
 	if (getcwd(buff, REP_MAX) == NULL)
 		ft_error(data, "PWD error\n", 1);
 	printf("%s\n", buff);
+	g_error_last = 0;
 }
 
 int	ft_builtins(t_data *data)
