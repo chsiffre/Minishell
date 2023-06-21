@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/06 15:54:59 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/14 14:32:58 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char **check_res_split(t_data *data)
 		while (data->res_split[i] && data->res_split[i][0] != '|')
 			i++;
 		if (data->res_split[i])
-			data->res_parse[data->i++] = data->res_split[i++];
+			data->res_parse[data->i++] = ft_strdup(data->res_split[i++]);
 	}
 	data->res_parse[i] = NULL;
 	return (data->res_parse);
@@ -57,7 +57,7 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 	{
 		if (ft_is_redir(data->res_parse[data->y]))
 		{
-			lst = ft_add_lst(lst, data, REDIR, 2);
+			lst = ft_add_lst(lst, data, REDIR);
 			if (!lst)
 				return (NULL);
 			data->y = data->y + 2;
@@ -73,12 +73,12 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 
 t_lst *add_command(t_lst *lst, t_data *data)
 {
-	lst = ft_add_lst(lst, data, CMD, ft_len_parse(data->res_parse, data->y));
+	lst = ft_add_lst(lst, data, CMD);
 	while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
 		data->y++;
 	if (data->res_parse[data->y])
 	{
-		lst = ft_add_lst(lst, data, PIPE, 1);
+		lst = ft_add_lst(lst, data, PIPE);
 		if (!lst)
 			return (NULL);
 		data->y++;

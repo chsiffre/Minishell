@@ -6,11 +6,41 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/20 13:26:28 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:43:56 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	*free_data(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	// while (data->res_parse[i])
+	// 	printf("%s\n", data->res_parse[i++]);
+	i = 0;
+	while (data->res_parse[i])
+	{
+		if (data->res_parse[i])
+			free(data->res_parse[i++]);
+		else
+			i++;
+	}
+	free(data->res_parse);
+	//printf("%s\n", data->res_split[0]);
+	i = 0;
+	while (data->res_split[i])
+	{
+		
+		if (data->res_split[i])
+			free(data->res_split[i++]);
+		else
+			i++;
+	}
+	free(data->res_split);
+	return (NULL);
+}
 
 void	ft_to_free(t_data *data)
 {
@@ -18,16 +48,22 @@ void	ft_to_free(t_data *data)
 	t_lst	*next;
 
 	next = NULL;
+	free_data(data);
 	while (data->lst != NULL)
 	{
 		next = data->lst->next;
 		i = 0;
 		while (data->lst->content[i])
-			free(data->lst->content[i++]);
+		{
+			if (data->lst->content)
+				free(data->lst->content[i++]);
+		}
+		free(data->lst->content);
 		free(data->lst);
 		data->lst = next;
 	}
 	ft_close_end(data);
+	free(data->pipex);
 	data->in_redir = 0;
 	data->out_redir = 0;
 	data->i = 0;
@@ -102,6 +138,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGINT, ft_ctrl);
 		signal(SIGTERM, ft_ctrl);
 		signal(SIGQUIT, SIG_IGN);
+		//data->line = "ls";
 		data->line = readline("prompt> ");
 		if (!data->line)
 			ft_exit_pack(data, g_error_last);

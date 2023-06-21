@@ -39,6 +39,7 @@ LIST_SRC =	main.c \
 			check_quote.c \
 			check_quote_2.c \
 			export_utils.c \
+			new_join.c \
 
 LIST_INC = minishell.h
 

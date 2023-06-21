@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_char_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/04 17:42:03 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/14 12:19:24 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,13 @@ char *copy_str(int *index, char *str, int len, char *ret)
     ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
-	// if (str[*index] == ' ' && str[*index - 1] 
-	// 	&& str[*index - 1] != '\'' && str[*index - 1] != '\"')
-	// 	(*index)++;
 	while (i < len)
 	{
 		ret[i] = str[*index];
 		i++;
 		(*index)++;
 	}
-	ret[i] = 0;
+	ret[i] = '\0';
 	return (ret);
 }
 
