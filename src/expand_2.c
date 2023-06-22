@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/07 15:42:16 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:47:33 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ char    *resize_var(char *str, t_data *data)
     while (str[i])
     {
         if (str[i] == '$')
-            new_size += check_size_var(str, &i, &new_size, data);
-        i++;
+            new_size = new_size + check_size_var(str, &i, &new_size, data);
+        if (str[i] && str[i] != '$')
+            i++;
     }
     return (malloc(sizeof(char ) * new_size + 1));
 }

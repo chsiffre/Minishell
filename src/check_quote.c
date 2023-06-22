@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/06/21 15:06:40 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:30:51 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char *replace_all_str(char *str, char *ret, int i, t_data *data)
 	if (is_var(str, i , data))
 	{
 		if (str[i] == '?')
-			return (ft_convert_error(str, ret));
+			return (ft_convert_error(str, ret, 0));
 		ret = resize_var(str, data);
 		if (str[i - 1])
 		{
@@ -75,7 +75,7 @@ char *replace_all_str(char *str, char *ret, int i, t_data *data)
 	return (ret);
 }
 
-char *ft_convert_error(char *str, char *ret)
+char *ft_convert_error(char *str, char *ret, int quote)
 {
 	int i;
 	int y;
@@ -83,20 +83,28 @@ char *ft_convert_error(char *str, char *ret)
 	y = 0;
 	i = 0;
 	free(ret);
-	ret = malloc(((ft_strlen(str) - 2) + ft_int_len(g_error_last)) + 1);
+	if (quote)
+		ret = malloc(((ft_strlen(str) - 4) + ft_int_len(g_error_last)) + 1);
+	else
+		ret = malloc(((ft_strlen(str) - 2) + ft_int_len(g_error_last)) + 1);
 	if (!ret)
 		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
-			ret = ft_itoa(g_error_last);
+			ret = ft_n_itoa(g_error_last, ret);
 			while (ret[y])
 				y++;
 			i++;
 		}
-		else
+		else if (quote == 0)
 			ret[y++] = str[i];
+		else if (quote == 1)
+		{
+			if (str[i] && str[i] != '\"')
+				ret[y++] = str[i];
+		}
 		i++;
 	}
 	ret[y] = '\0';

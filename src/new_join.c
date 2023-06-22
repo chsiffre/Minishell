@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:15:57 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/12 13:10:11 by charles          ###   ########.fr       */
+/*   Updated: 2023/06/22 11:17:50 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	if_add_space(char *s1, char *s2, char *str)
 	else
 		len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	return (len);
-
 }
 
 char	*new_join(char const *s1, char const *s2, char *str)

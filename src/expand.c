@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 16:19:19 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:04:19 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ char *replace_var(char *str, char *ret, int *i, t_data *data)
         if (str[*i] == '$')
         {
             ret = copy_var(str, ret, i, data);
-            while (ft_isalpha(str[*i]))
+            while (str[*i] && ft_isalpha(str[*i]))
                 (*i)++;
-            return (ret);
+            if (str[*i] == '\'' || str[*i] == '\"')
+                break;
+            if (str[*i] && str[*i] != '$')
+                (*i)++;     
         }
     }
     ret[data->ind] = '\0';
@@ -101,7 +104,7 @@ int	ft_compare_var(char *s1, char *s2, int i)
     y = 0;
 	while (s1[i] && s2[y])
 	{
-        if (s1[i] == '?' && !s1[i + 1])
+        if (s1[i] == '?')
             return (1);
         if (s1[i] == '\"' || s1[i] == '\'')
             break;

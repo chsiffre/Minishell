@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 17:05:47 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:30:35 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char *ft_pre_split(char *str)
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
-	// if (!check_chevron(str))
-	// 	return (free(copy), str);
 	new_size = ft_strlen(str);
 	new_size = resize_pre_split(str, &new_size);
 	if (quote_open(str))
@@ -188,7 +186,7 @@ int	not_parse(char *str)
 int	ft_is_not_space(char c)
 {
 	if ((c >= 0 && c <= 8) || (c >= 16 && c < 32) 
-		|| (c >= 33 && c <= 127))
+		|| (c >= 33 && c < 127))
 		return (1);
 	return (0);
 }
@@ -199,4 +197,63 @@ int is_space(char caractere)
     	return (1);
 	else
     	return (0);
+}
+
+static int	int_len(int n)
+{
+	int	i;
+	int	y;
+
+	i = 1;
+	if (n < 0)
+	{
+		y = -n;
+		i++;
+	}
+	else
+		y = n;
+	while (y >= 10)
+	{	
+		y = y / 10;
+		i++;
+	}
+	return (i);
+}
+
+static char	*ft_itoa_2(long y, long n, int i, char *ret)
+{
+	if (n == 0)
+	{
+		ret[1] = '\0';
+		ret[0] = 48;
+		return (ret);
+	}
+	ret[i] = '\0';
+	i--;
+	while (i >= 0)
+	{
+		ret[i--] = (y % 10) + '0';
+		y = y / 10;
+	}
+	if (n < 0)
+		ret[0] = '-';
+	return (ret);
+}
+
+char	*ft_n_itoa(int n, char *ret)
+{
+	long	i;
+	int		y;
+
+	if (n == -2147483648)
+	{
+		return (ft_strdup("-2147483648"));
+	}
+	else
+		i = int_len(n);
+	if (n < 0 && n != -2147483648)
+		y = -n;
+	else
+		y = n;
+	return (ft_itoa_2(y, n, i, ret));
 }
