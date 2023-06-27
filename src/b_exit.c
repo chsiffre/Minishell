@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/26 20:39:34 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/27 12:04:44 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_exit(t_data *data)
 			ft_exit_pack(data, ft_atoi(data->lst->content[1]) % 256);
 		else
 		{
-			g_error_last = 255;
+			g_error_last = 2;
 			printf("exit\n");
 			ft_exit_error(data->lst->content[1]);
 			exit (g_error_last);
