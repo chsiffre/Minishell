@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 17:15:57 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:26:13 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	is_executable(char *content)
 		}
 		return (0);
 	}
-	g_error_last = 1;
+	g_error_last = 127;
 	ft_printf_fd("No such file or directory\n", 2);
 	return (-1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:00:23 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:51:47 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:57:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check_isok(char *str)
 	i = 0;
 	if (ft_isalpha(str[0]) == 0 && str[i] != '_')
 		return (1);
-	while (str[i] && str[i + 1] != '=')
+	while (str[i] && str[i] != '=')
 	{
 		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (1);

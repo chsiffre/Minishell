@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 15:02:41 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:33:28 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define REP_MAX 256
 # define REDIR 0
 # define CMD 1
 # define PIPE 2
+# define REP_MAX 256
+# define LLMAX  9223372036854775807
 
 # include <unistd.h>
 # include <stdio.h>

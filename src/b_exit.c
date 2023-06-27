@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 16:29:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:39:34 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	ft_is_valid_num(char *command)
 
 	i = -1;
 	res = 0;
+	if (ft_compare_str(command, "-9223372036854775808"))
+		return (1);
 	if (command[0] == '+')
 		i++;
 	while (command[++i])
@@ -42,7 +44,7 @@ static int	ft_is_valid_num(char *command)
 				i++;
 		}
 		res = (res * 10) + command[i] - '0';
-		if (res > 9223372036854775807)
+		if (res > LLMAX)
 			return (0);
 	}
 	return (1);
@@ -72,7 +74,7 @@ int	ft_exit(t_data *data)
 			ft_exit_pack(data, ft_atoi(data->lst->content[1]) % 256);
 		else
 		{
-			g_error_last = 2;
+			g_error_last = 255;
 			printf("exit\n");
 			ft_exit_error(data->lst->content[1]);
 			exit (g_error_last);

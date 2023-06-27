@@ -65,7 +65,7 @@ $(LIBFT) : $(DIR_LIBFT)
 	$(MAKE) -C $(DIR_LIBFT)
 
 $(DIR_OBJ)%.o : $(DIR_SRC)%.c $(INC)
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC) 
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC) -I/opt/homebrew/opt/readline/include
 
 $(NAME) : $(DIR_OBJ) $(OBJ) $(INC) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline -L/opt/homebrew/opt/readline/lib

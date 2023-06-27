@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 16:18:31 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:12:23 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	}
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		ft_error(data, "execve error\n", 1, 1);
+	g_error_last = 0;
 	return (0);
 }
 
@@ -121,7 +122,11 @@ int	ft_loop_pipe(t_data *data)
 int	ft_pipe(t_data *data)
 {
 	data->pipex->tab_pid = ft_calloc(ft_lstlen(data->lst), sizeof(int));
+	if (data->pipex->tab_pid == NULL)
+		ft_error(data, "malloc error\n", 1, 1);
 	data->pipex->tab_fd = ft_calloc(ft_lstlen(data->lst), sizeof(int));
+	if (data->pipex->tab_fd == NULL)
+		ft_error(data, "malloc error\n", 1, 1);
 	data->pipex->prev_fd = 0;
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
