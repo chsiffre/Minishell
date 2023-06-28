@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:18:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:45:12 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	ft_in_redir(t_data *data)
 	else if (ft_compare_str(data->lst->content[0], "<<"))
 	{	
 		if (ft_here_doc(data) == 1)
+		{
+			g_error_last = 130;
 			return (1);
+		}
 		return (0);
 	}
 	return (2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/27 15:24:07 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/28 11:42:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_exec(t_data *prompt, char **cmd)
 		ft_error(prompt, "waitpid error\n", 1, 1);
 	if (WIFEXITED(ret))
 		g_error_last = WEXITSTATUS(ret);
+	else if (WIFSIGNALED(ret))
+		g_error_last = 130;
 	return (0);
 }
 

@@ -3,68 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/27 17:12:12 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/28 11:23:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_end(t_data *data)
+void	ft_dup_built(t_data *data)
 {
 	int	i;
-	int	ret;
-	int	last;
 
-	i = 0;
-	while (data->pipex->tab_pid[i])
-		i++;
-	last = i - 1;
-	while (i--)
-	{
-		ret = 0;
-		if (waitpid(data->pipex->tab_pid[i], &ret, 0) == -1)
-			ft_error(data, "waitpid error\n", 1, 1);
-		if (WIFEXITED(ret) && i == last)
-			g_error_last = WEXITSTATUS(ret);
-		else if (WIFSIGNALED(ret))
-			ft_ctrl(WTERMSIG(ret));
-		if (i > 0)
-			close(data->pipex->tab_fd[i]);
-	}
-	free(data->pipex->tab_pid);
-	free(data->pipex->tab_fd);
-	return (0);
-}
-
-void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int i)
-{
-	if (data->in_redir != 0)
-	{
-		if (data->in_redir > 0)
-		{
-			close(data->in_redir);
-			if (dup2(data->savestdin, STDIN_FILENO) == -1)
-				ft_error(data, "dup error\n", 1, 1);
-		}
-		data->in_redir = 0;
-	}
-	if (data->out_redir != 0)
-	{
-		if (data->out_redir > 0)
-		{
-			close(data->out_redir);
-			if (dup2(data->savestdout, STDOUT_FILENO) == -1)
-				ft_error(data, "dup error\n", 1, 1);
-		}
-		data->out_redir = 0;
-	}
-	data->pipex->tab_pid[i] = pid;
-	data->pipex->tab_fd[i] = data->pipex->prev_fd;
-	data->pipex->prev_fd = fd[0];
-	close(fd[1]);
+	if (ft_make_dup(data) == 1)
+		exit (0);
+	ft_dup_pipe(data);
+	i = ft_builtins(data);
+	if (i == 1 || i == -1)
+		exit (0);
 }
 
 int	ft_exec_pipe(t_data *data, int fd[2])
@@ -73,12 +30,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	int		i;
 
 	close(fd[0]);
-	if (ft_make_dup(data) == 1)
-		exit (0);
-	ft_dup_pipe(data);
-	i = ft_builtins(data);
-	if (i == 1 || i == -1)
-		exit (0);
+	ft_dup_built(data);
 	i = 0;
 	while (data->lst->content[i])
 		i++;
