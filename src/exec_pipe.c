@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/27 13:04:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:12:12 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,24 @@ int	ft_end(t_data *data)
 
 void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int i)
 {
-	if (data->in_redir > 0)
+	if (data->in_redir != 0)
 	{
-		close(data->in_redir);
-		if (dup2(data->savestdin, STDIN_FILENO) == -1)
-			ft_error(data, "dup error\n", 1, 1);
+		if (data->in_redir > 0)
+		{
+			close(data->in_redir);
+			if (dup2(data->savestdin, STDIN_FILENO) == -1)
+				ft_error(data, "dup error\n", 1, 1);
+		}
 		data->in_redir = 0;
 	}
-	if (data->out_redir > 0)
+	if (data->out_redir != 0)
 	{
-		close(data->out_redir);
-		if (dup2(data->savestdout, STDOUT_FILENO) == -1)
-			ft_error(data, "dup error\n", 1, 1);
+		if (data->out_redir > 0)
+		{
+			close(data->out_redir);
+			if (dup2(data->savestdout, STDOUT_FILENO) == -1)
+				ft_error(data, "dup error\n", 1, 1);
+		}
 		data->out_redir = 0;
 	}
 	data->pipex->tab_pid[i] = pid;
@@ -67,7 +73,8 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	int		i;
 
 	close(fd[0]);
-	ft_make_dup(data);
+	if (ft_make_dup(data) == 1)
+		exit (0);
 	ft_dup_pipe(data);
 	i = ft_builtins(data);
 	if (i == 1 || i == -1)
@@ -113,8 +120,7 @@ int	ft_loop_pipe(t_data *data)
 		ft_restore_loop(data, pid, fd, i);
 		i++;
 		data->lst = data->lst->next;
-		if (list_progress(data) == 1)
-			return (1);
+		list_progress(data);
 	}
 	return (0);
 }
@@ -131,8 +137,7 @@ int	ft_pipe(t_data *data)
 	signal(SIGINT, ft_ctrl_fork);
 	signal(SIGTERM, ft_ctrl_fork);
 	signal(SIGQUIT, ft_ctrl_fork);
-	if (list_progress(data) == 1)
-		return (1);
+	list_progress(data);
 	g_error_last = 0;
 	if (ft_loop_pipe(data) == 1)
 		return (1);
