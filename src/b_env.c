@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/15 13:14:59 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/28 18:53:05 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ t_env	*ft_new_env(char *str)
 	t_env	*new;
 	int		temp;
 	int		k;
+	int		i;
 
 	k = 0;
-	temp = -1;
+	temp = 0;
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
@@ -67,9 +68,17 @@ t_env	*ft_new_env(char *str)
 	new->name = malloc(sizeof(char *) * (k + 1));
 	if (!new->name)
 		return (NULL);
-	while (++temp <= k)
-		new->name[temp] = str[temp];
-	new->name[temp] = '\0';
+	i = 0;
+	while (temp <= k)
+	{
+		if (str[temp] != '+')
+		{
+			new->name[i] = str[temp];
+			i++;
+		}
+		temp++;
+	}
+	new->name[i] = '\0';
 	if (new->equal == 1)
 		ft_alloc_val(new, str, k, temp);
 	else

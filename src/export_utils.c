@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:00:23 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/28 14:36:06 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/02 17:42:17 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ int	ft_check_isok(char *str)
 	i = 0;
 	if (ft_isalpha(str[0]) == 0 && str[i] != '_')
 		return (1);
-	while (str[i] && ((str[i] != '=') && (str[i] != '+' && str[i + 1] != '=')))
+	while (str[i] && str[i] != '=')
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			return (2);
 		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
 			return (1);
 		i++;
 	}
+	if (str[i] == '+')
+		return (2);
 	return (0);
 }
 
@@ -46,7 +50,7 @@ char	*ft_plusequal_cpy(char *str, char *name)
 	int	i;
 
 	i = 0;
-	while (str[i] && (str[i + 1] != '=') && (str[i + 1] != '+'))
+	while (str[i] && ((str[i] != '=') && (str[i] != '+')))
 	{
 		name[i] = str[i];
 		i++;
@@ -59,14 +63,16 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 {
 	t_env	*tmp;
 	int		i;
+	int		ret;
 	char	*name;
 	char	*n_equal;
 
 	tmp = env;
 	i = 0;
-	if (ft_check_isok(str) == 1)
+	ret = ft_check_isok(str);
+	if (ret == 1)
 		return (-1);
-	while (str[i] && str[i + 1] != '=')
+	while (str[i] && (str[i + 1] != '=' && str[i + 1] != '+'))
 		i++;
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
@@ -77,6 +83,10 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 	name = ft_plusequal_cpy(str, name);
 	n_equal = ft_strjoin(name, "=");
 	if (ft_loop_check(tmp, name, n_equal) == 1)
+	{
+		if (ret == 2)
+			return (free(name), free(n_equal), 2);
 		return (free(name), free(n_equal), 1);
+	}
 	return (free(name), free(n_equal), 0);
 }

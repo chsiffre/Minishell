@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:46:27 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:07:18 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,35 @@ void	ft_exist_var(t_data *data, char *str, t_env *new)
 	}
 }
 
+void	ft_join_var(t_data *data, char *str, t_env *new)
+{
+	char	*join;
+	char	*name;
+	int		i;
+	
+	i = 0;
+	name = NULL;
+	name = ft_find_name(name, str);
+	if (name == NULL)
+		ft_error(data, "malloc error\n", 1, 1);
+	while (ft_strncmp(new->name, name, ft_strlen(name) - 1))
+		new = new->next;
+	free(new->name);
+	new->name = name;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (str[i] == '=')
+	{
+		join = ft_strjoin(new->value, ft_add_value(str, i));
+		free(new->value);
+		new->value = join;
+		if (!new->value)
+			ft_error(data, "malloc error\n", 1, 1);
+		if (ft_has_equal(new->name))
+			new->equal = 1;
+	}
+}
+
 void	ft_add_var(t_data *data, char *str, int exist)
 {
 	t_env	*new;
@@ -94,8 +123,8 @@ void	ft_add_var(t_data *data, char *str, int exist)
 		ft_envadd_back(&data->env, new);
 	}
 	else if (exist == 1)
-	{
 		ft_exist_var(data, str, new);
-	}
+	else if (exist == 2)
+		ft_join_var(data, str, new);
 	g_error_last = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/28 10:59:13 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:55:10 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ char	*ft_find_name(char *name, char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && (str[i] != '=' && str[i] != '+'))
 		i++;
 	name = malloc(sizeof(char) * (i + 3));
 	if (!name)
 		return (NULL);
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && (str[i] != '=' && str[i] != '+'))
 	{
 		name[i] = str[i];
 		i++;
