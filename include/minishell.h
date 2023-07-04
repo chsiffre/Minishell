@@ -6,10 +6,9 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/22 11:31:13 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 09:54:47 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -95,17 +94,18 @@ char	*ft_pre_split(char *str);
 char	*ft_str_replace(char *str, char *copy, int new_size);
 int		ft_is_redir(char *str);
 t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i);
-t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
+t_lst	*ft_convert_in_lst(t_lst *lst, t_data *d);
 int		ft_len_parse(char **strs, int i);
 int		ft_is_redir(char *str);
 t_lst	*ft_last(t_lst *lst);
 char	**check_res_split(t_data *data);
 int		resize_pre_split(char *str, int *new_size);
 int		quote_open(char *str);
-t_lst	*ft_add_lst(t_lst *lst,t_data *data, int type);
-char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start);
+t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type);
+char	**ft_check_redir(char **res_parse, t_data *data,
+			char **strs, int start);
 ssize_t	ft_strs_len(char **strs);
-char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start);
+char	**ft_check_cmd(t_data *d, char **strs, int start);
 t_lst	*ft_check_builtins(t_lst *lst, t_data *data, ssize_t i);
 void	ft_add_back(t_lst **lst, t_lst *new);
 char	*copy_str(int *index, char *str, int len, char *ret);
@@ -113,19 +113,19 @@ char	*check_pipes(char *str, char *copy, int *i, int *y);
 char	*check_chevron(char *str, char *copy, int *i, int *y);
 char	*new_join(char const *s1, char const *s2, char *str);
 void	*free_data(t_data *data);
+void	ft_free_content(t_data *d, int i);
 int		empty(char *str);
 int		ft_int_len(int n);
 int		ft_is_not_space(char c);
 int		not_parse(char *str);
 int		is_space(char caractere);
 
-
 //***********expand***************//
 
 char	*ft_expand(char *str, t_data *data);
 char	*copy_var(char *str, char *ret, int *i, t_data *data);
 char	*replace_all_str(char *str, char *ret, int i, t_data *data);
-int check_size_var(char *str, int *i, int *new_size, t_data *data);
+int		check_size_var(char *str, int *i, int *new_size, t_data *data);
 char	*replace_quote(char *str, char *ret, t_data *data);
 int		if_expand(char *str);
 int		var_exist(char *str, int *i, t_data *data);
@@ -207,6 +207,5 @@ void	ft_syntax_error(char *str);
 //***********utils***************//
 int		list_progress(t_data *data);
 int		ft_lstlen(t_lst *lst);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/12 12:16:51 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:14:15 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	ft_charset(char c, char *charset)
 
 int	get_ac(char *str, char *charset)
 {
-	int	i;
-	int	count;
-	char c;
+	int		i;
+	int		count;
+	char	c;
 
 	c = 0;
 	count = 0;
@@ -50,7 +50,8 @@ int	get_ac(char *str, char *charset)
 		}
 		else if (str[i])
 			skiping_one(str, charset, &i, &count);
-		if (str[i] && !ft_charset(str[i], charset) && str[i] != '\'' && str[i] != '\"')
+		if (str[i] && !ft_charset(str[i], charset)
+			&& str[i] != '\'' && str[i] != '\"')
 			skiping_two(str, charset, &i, &count);
 	}
 	return (count + 1);
@@ -59,13 +60,15 @@ int	get_ac(char *str, char *charset)
 void	skiping_one(char *str, char *charset, int *i, int *count)
 {
 	(*count)++;
-	while (!ft_charset(str[*i], charset) && str[*i] && str[*i] != '\"' && str[*i] != '\'')
+	while (!ft_charset(str[*i], charset) && str[*i]
+		&& str[*i] != '\"' && str[*i] != '\'')
 		(*i)++;
 }
 
 void	skiping_two(char *str, char *charset, int *i, int *count)
 {
-	while (str[*i] &&!ft_charset(str[*i], charset) && str[*i] != '\'' && str[*i] != '\"')
+	while (str[*i] &&!ft_charset(str[*i], charset)
+		&& str[*i] != '\'' && str[*i] != '\"')
 		(*i)++;
 	(*count)++;
 }
@@ -84,17 +87,18 @@ char	*give_memory(char *str, char *charset, int *index, int i_str)
 			while (ft_charset(str[*index], charset))
 				(*index)++;
 		else
-			while (ft_charset(str[*index], charset) && str[(*index) + 1] != '\"' && str[(*index) + 1] != '\'')
+			while (ft_charset(str[*index], charset)
+				&& str[(*index) + 1] != '\"' && str[(*index) + 1] != '\'')
 				(*index)++;
-		return (copy_str(index, str, len ,ret));
+		return (copy_str(index, str, len, ret));
 	}
 	len = check_quote(str, index, charset);
 	if (len != 0)
 		return (copy_str(index, str, len, ret));
 	while (ft_charset(str[*index], charset))
 		(*index)++;
-	while (!ft_charset(str[*index + len], charset) && str[*index + len] &&
-	str[*index + len] != '\'' && str[*index + len] != '\"')
+	while (!ft_charset(str[*index + len], charset) && str[*index + len]
+		&& str[*index + len] != '\'' && str[*index + len] != '\"')
 		len++;
 	return (copy_str(index, str, len, ret));
 }

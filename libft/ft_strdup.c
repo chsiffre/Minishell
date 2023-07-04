@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 12:45:19 by charles           #+#    #+#             */
-/*   Updated: 2023/06/14 14:41:53 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:07:51 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ char	*ft_strdup(const char *s)
 	while (s[++i])
 		dest[i] = s[i];
 	dest[i] = '\0';
-	return (dest);
+	return (free((char *) s), dest);
 }

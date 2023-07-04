@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:55:39 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/14 14:34:50 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/04 09:56:36 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ char	**ft_check_redir(char **res_parse, t_data *data, char **strs, int start)
 		{
 			res_parse[data->i++] = ft_strdup(strs[i]);
 			i++;
-			if (!strs[i])
-				return (NULL);
+			// if (res_parse[data->i - 1])
+			// 	return (NULL);
 			res_parse[data->i++] = ft_strdup(strs[i]);
+			// if (res_parse[data->i - 1])
+			// 	return (NULL);
 			i++;
 		}
 		else
@@ -45,18 +47,18 @@ int	ft_is_redir(char *str)
 	{
 		if (str[i] && str[i] == '<' && !str[i + 1])
 			return (1);
-		else if (str[i] == '>' && !str[i + 1])
+		else if (str[i] && str[i] == '>' && !str[i + 1])
 			return (1);
-		else if (str[i] && str[i] == '>' && str[i + 1] == '>')
+		else if (str[i] && str[i] == '>' && str[i + 1] && str[i + 1] == '>')
 			return (1);
-		else if (str[i] && str[i] == '<' && str[i + 1] == '<')
+		else if (str[i] && str[i] == '<' && str[i + 1] && str[i + 1] == '<')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
+char	**ft_check_cmd(t_data *d, char **strs, int start)
 {
 	int	i;
 
@@ -69,11 +71,11 @@ char	**ft_check_cmd(char **res_parse, t_data *d, char **strs, int start)
 			i = i + 2;
 		else if (strs[i] && strs[i][0] != '|')
 		{
-			res_parse[d->i++] = ft_strdup(strs[i]);
+			d->res_parse[d->i++] = ft_strdup(strs[i]);
 			i++;
 		}
 	}
-	return (res_parse);
+	return (d->res_parse);
 }
 
 int	ft_is_builtins(char *str)
@@ -89,12 +91,10 @@ int	ft_is_builtins(char *str)
 	return (0);
 }
 
-
-
-int ft_nb_quote(char *str)
+int	ft_nb_quote(char *str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = 0;

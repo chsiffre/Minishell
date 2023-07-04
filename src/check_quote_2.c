@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/06/22 12:04:51 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:07:45 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,90 +33,91 @@ int	ft_int_len(int n)
 	return (i);
 }
 
-char *resize_quote(char *str, t_data *data)
+char	*resize_quote(char *str, t_data *data)
 {
-    int i;
-    int new_size;
-    char quote;
-    
-    i = -1;
-    quote = 0;
-    new_size = 0;
-    while (str[++i])
-    {
-        if (str[i] == '\'' || str[i] == '\"')
-        {
-            quote = str[i++];
-            while (str[i] && str[i] != quote)
-                check_size(str, &i, &new_size, data);
-            if (str[i] && str[i] != quote)
-                new_size++;
-        }
-        else
-            new_size++;
-    }
-    return (malloc(sizeof (char) * new_size + 1));
+	int		i;
+	int		new_size;
+	char	quote;
+
+	i = -1;
+	quote = 0;
+	new_size = 0;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+				check_size(str, &i, &new_size, data);
+			if (str[i] && str[i] != quote)
+				new_size++;
+		}
+		else
+			new_size++;
+	}
+	return (malloc(sizeof (char) * new_size + 1));
 }
 
-void    check_size(char *str, int *i, int *new_size, t_data *data)
+void	check_size(char *str, int *i, int *new_size, t_data *data)
 {
-    if (str[*i] == '$' && str[*i + 1] == '?')
-    {
-        (*new_size) += ft_int_len(g_error_last);
-        (*i)++;
-    }
-    else if (str[*i] == '$' && if_expand(str) && is_var(str, *i, data))
-        (*new_size) += var_exist(str, i, data);
-    else if (str[*i] == '$' &&  if_expand(str) && !is_var(str, *i, data))
-    {
-        (*i)++;
-        while (str[*i] && ft_isalpha(str[*i]))
-            (*i)++;
-    }
-    else
-    {
-        (*new_size)++;
-        (*i)++;
-    }
+	if (str[*i] == '$' && str[*i + 1] == '?')
+	{
+		(*new_size) += ft_int_len(g_error_last);
+		(*i)++;
+	}
+	else if (str[*i] == '$' && if_expand(str) && is_var(str, *i, data))
+		(*new_size) += var_exist(str, i, data);
+	else if (str[*i] == '$' && if_expand(str) && !is_var(str, *i, data))
+	{
+		(*i)++;
+		while (str[*i] && ft_isalpha(str[*i]))
+			(*i)++;
+	}
+	else
+	{
+		(*new_size)++;
+		(*i)++;
+	}
 }
 
-char *del_quote(char *str, char *ret, t_data *data)
+char	*del_quote(char *str, char *ret, t_data *data)
 {
-	int i;
-    int quote;
+	int	i;
+	int	quote;
 
-    quote = 0;
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '\"' || str[i] == '\'')
-        {
-            quote = str[i++];
-            while (str[i] && str[i] != quote)
-            {
-                if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
-                {
-                    if (str[i + 1] == '?')
-                    {
-                        data->ind = 0;
-			            return (ft_convert_error(str, ret, 1));
-                    }
-                    ret = replace_var(str, ret, &i, data);
-                }
-                else if (str[i] == '$' && if_expand(str) && !is_var(str, i, data))
-                {
-                    i++;
-                    while (str[i] && ft_isalpha(str[i]))
-                        i++;
-                }
-                else if (str[i] && str[i] != quote)
-                    ret[data->ind++] = str[i++];
-            }
-        }
-        else
-            ret[data->ind++] = str[i++];
-    }
-    ret[data->ind] = '\0';
-    data->ind = 0;
+	quote = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+			{
+				if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
+				{
+					if (str[i + 1] == '?')
+					{
+						data->ind = 0;
+						return (ft_convert_error(str, ret, 1));
+					}
+					ret = replace_var(str, ret, &i, data);
+				}
+				else if (str[i] == '$' && if_expand(str)
+					&& !is_var(str, i, data))
+				{
+					i++;
+					while (str[i] && ft_isalpha(str[i]))
+						i++;
+				}
+				else if (str[i] && str[i] != quote)
+					ret[data->ind++] = str[i++];
+			}
+		}
+		else
+			ret[data->ind++] = str[i++];
+	}
+	ret[data->ind] = '\0';
+	data->ind = 0;
 	return (ret);
 }

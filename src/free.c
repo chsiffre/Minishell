@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 14:52:03 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:01:36 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	*free_data(t_data *data)
 	i = 0;
 	while (data->res_parse && data->res_parse[i])
 	{
-		if (data->res_parse[i])
-			free(data->res_parse[i++]);
-		else
-			i++;
+		free(data->res_parse[i++]);
 	}
 	if (data->res_parse)
 		free(data->res_parse);
@@ -48,13 +45,13 @@ void	ft_to_free(t_data *data)
 	next = NULL;
 	while (data->lst != NULL)
 	{
-		next = data->lst->next;
 		i = 0;
 		while (data->lst->content[i])
 		{
-			if (data->lst->content[i])
-				free(data->lst->content[i++]);
+			free(data->lst->content[i]);
+			i++;
 		}
+		next = data->lst->next;
 		free(data->lst->content);
 		free(data->lst);
 		data->lst = next;

@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:15:57 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/22 11:17:50 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 09:55:45 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	if_add_space(char *s1, char *s2, char *str)
 	i = ft_strlen(s1) - 1;
 	if (!s1[0])
 		len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	else if (s1 && s1[i] != '\"' && s1[i] != '\'' && str[0] != '\'' && str[0] != '\"' && str[0] != ' ')
+	else if (s1 && s1[i] != '\"' && s1[i] != '\''
+		&& str[0] != '\'' && str[0] != '\"' && str[0] != ' ')
 		len = ft_strlen(s1) + ft_strlen(s2) + 2;
 	else
 		len = ft_strlen(s1) + ft_strlen(s2) + 1;

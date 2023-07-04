@@ -6,17 +6,17 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/22 11:30:35 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 09:51:26 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *ft_pre_split(char *str)
+char	*ft_pre_split(char *str)
 {
-	int new_size;
-	char *copy;
-	
+	int		new_size;
+	char	*copy;
+
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
@@ -27,7 +27,7 @@ char *ft_pre_split(char *str)
 		printf("quote open\n");
 		exit(1);
 	}
-	str = malloc((new_size + 1) * sizeof(char));
+	str = ft_calloc((new_size + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	str = ft_str_replace(str, copy, new_size);
@@ -36,17 +36,17 @@ char *ft_pre_split(char *str)
 	return (free(copy), str);
 }
 
-char *ft_str_replace(char *str, char *copy, int new_size)
+char	*ft_str_replace(char *str, char *copy, int new_size)
 {
-	int i;
-	int y;
-	
+	int	i;
+	int	y;
+
 	y = 0;
 	i = 0;
 	while (i < new_size)
 	{
 		str = check_chevron(str, copy, &i, &y);
-		str = check_pipes(str, copy , &i, &y);
+		str = check_pipes(str, copy, &i, &y);
 		if (!str)
 			return (free (copy), NULL);
 	}
@@ -54,23 +54,26 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 	return (str);
 }
 
-char *check_chevron(char *str, char *copy, int *i, int *y)
+char	*check_chevron(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && (copy[*i] == '<' || copy[*i] == '>'))
 	{
-		if (copy[*i - 1] && copy[*i - 1] != ' ' && copy[*i - 1] != '<' && copy[*i - 1] != '>')
+		if (*i != 0 && (copy[*i - 1] && copy[*i - 1] != ' '
+				&& copy[*i - 1] != '<' && copy[*i - 1] != '>'))
 		{
 			str[(*y)++] = ' ';
 			if (copy[*i])
 				str[(*y)++] = copy[(*i)++];
-			if (copy[*i] && copy[*i] != '<' && copy[*i] != '>' && copy[*i] != ' ')
+			if (copy[*i] && copy[*i] != '<'
+				&& copy[*i] != '>' && copy[*i] != ' ')
 			{
 				str[(*y)++] = ' ';
 				str[(*y)++] = copy[(*i)++];
 			}
 			return (str);
 		}
-		else if (copy[*i + 1] && copy[*i + 1] != '<' && copy[*i + 1] != '>' && copy[*i + 1] != ' ')
+		else if (copy[*i + 1] && (copy[*i + 1] != '<'
+				&& copy[*i + 1] != '>' && copy[*i + 1] != ' '))
 		{
 			str[(*y)++] = copy[(*i)++];
 			str[(*y)++] = ' ';
@@ -80,11 +83,12 @@ char *check_chevron(char *str, char *copy, int *i, int *y)
 	return (str);
 }
 
-char *check_pipes(char *str, char *copy, int *i, int *y)
+char	*check_pipes(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && copy[*i + 1] && (copy[*i] == '|' && copy[*i + 1] == '|'))
 		return (NULL);
-	if ((copy[*i] != ' ' && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
+	if (copy[*i] && ((copy[*i] != ' ' && copy[*i + 1] && copy[*i + 1] == '|')
+			|| (copy[*i] == '|' && copy[*i + 1] && copy[*i + 1] != ' ')))
 	{
 		if (copy[*i])
 			str[(*y)++] = copy[(*i)++];
@@ -95,10 +99,10 @@ char *check_pipes(char *str, char *copy, int *i, int *y)
 	return (str);
 }
 
-int quote_open(char *str)
+int	quote_open(char *str)
 {
-	int	i;
-	char quote;
+	int		i;
+	char	quote;
 
 	quote = 0;
 	i = 0;
@@ -117,23 +121,23 @@ int quote_open(char *str)
 	return (0);
 }
 
-int resize_pre_split(char *str, int *new_size)
+int	resize_pre_split(char *str, int *new_size)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] && (str[i] == '<' || str[i] == '>'))
+		if (i != 0 && str[i] && (str[i] == '<' || str[i] == '>'))
 		{
-			// if (!str[i + 1])
-			// 	return (0);
-			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
+			if (str[i + 1] && str[i + 1] != '<'
+				&& str[i + 1] != '>' && str[i + 1] != ' ')
 				(*new_size)++;
 			if (str[i - 1] && str[i - 1] != ' ')
 				(*new_size)++;
 		}
-		if (str[i] && str[i] == '|' && str[i - 1] && str[i - 1] != ' ')
+		if (i != 0 && str[i] && str[i] == '|'
+			&& str[i - 1] && str[i - 1] != ' ')
 			(*new_size)++;
 		if (str[i] && str[i] == '|' && str[i + 1] && str[i + 1] != ' ')
 			(*new_size)++;
@@ -158,8 +162,8 @@ int	empty(char *str)
 
 int	not_parse(char *str)
 {
-	int	i;
-	char c;
+	int		i;
+	char	c;
 
 	c = 0;
 	i = 0;
@@ -171,6 +175,8 @@ int	not_parse(char *str)
 			while (str[i] && (str[i] == c || is_space(str[i])))
 				i++;
 		}
+		else if (str[i] == '$' && (!str[i + 1] || is_space(str[i + 1])))
+			return (printf("$: command not found\n"), 1);
 		else if (str[i] && ft_is_not_space(str[i]))
 			return (0);
 		if (str[i])
@@ -191,12 +197,13 @@ int	ft_is_not_space(char c)
 	return (0);
 }
 
-int is_space(char caractere) 
+int	is_space(char caractere) 
 {
-    if (caractere == ' ' || caractere == '\t' || caractere == '\n' || caractere == '\v' || caractere == '\f' || caractere == '\r')
-    	return (1);
+	if (caractere == ' ' || caractere == '\t' || caractere == '\n'
+		|| caractere == '\v' || caractere == '\f' || caractere == '\r')
+		return (1);
 	else
-    	return (0);
+		return (0);
 }
 
 static int	int_len(int n)

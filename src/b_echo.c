@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/22 12:26:53 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:08:09 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char	*ft_echo_env(t_data *data, char *str)
 
 void	ft_echo(t_data *data)
 {
-	char *ret;
-	int i;
-	int option;
-	
+	char	*ret;
+	int		i;
+	int		option;
+
 	i = 0;
 	ret = "";
 	if (ft_compare_str(data->lst->content[i + 1], "-n"))
@@ -62,4 +62,5 @@ void	ft_echo(t_data *data)
 		printf("%s", ret);
 	else
 		printf("%s\n", ret);
+	free(ret);
 }
