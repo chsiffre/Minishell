@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/21 14:51:58 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:05:08 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int	ft_check_type(t_data *data)
 
 int	ft_parse_exec(t_data *data)
 {
+	t_lst *iterator;
+
+	iterator = data->lst;
 	if (empty(data->line))
 		return (0);
 	data->line = ft_pre_split(data->line);
@@ -61,13 +64,13 @@ int	ft_parse_exec(t_data *data)
 	data->lst = ft_parse(data);
 	if (data->line && !data->lst)
 		ft_syntax_error("`newline'");
-	while (data->lst && data->lst->content)
+	while (iterator && iterator->content)
 	{
 		if (ft_check_type(data) == 1)
 			break ;
-		if (data->lst == NULL || data->lst->next == NULL)
+		if (iterator == NULL || iterator->next == NULL)
 			break ;
-		data->lst = data->lst->next;
+		iterator = iterator->next;
 	}
 	return (1);
 }

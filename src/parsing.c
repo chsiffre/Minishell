@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/06/14 14:32:58 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:06:46 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ t_lst	*ft_parse(t_data *data)
 	lst = ft_convert_in_lst(lst, data);
 	if (!lst)
 		return (NULL);
+
+	// {
+	// 	int i = 0;
+	// 	t_lst	*temp = lst;
+	// 	while (temp)
+	// 	{
+	// 		while(temp->content[i])
+	// 		{
+	// 			printf("%s ", temp->content[i++]);
+
+	// 		}
+	// 		printf("\n");
+	// 		i = 0;
+	// 		temp = temp->next;
+	// 	}
+
+	// }
+
 	return (lst);
 }
 
@@ -62,7 +80,7 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 				return (NULL);
 			data->y = data->y + 2;
 		}
-		else if (data->res_parse[data->y] 
+		else if (data->res_parse[data->y]
 			&& !ft_is_redir(data->res_parse[data->y]) && data->res_parse[data->y][0] != '|')
 			lst = add_command(lst, data);
 		else

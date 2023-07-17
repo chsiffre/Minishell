@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 15:31:29 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:38:34 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_free_for_end(t_data *data)
 	ft_close_end(data);
 	close(data->savestdin);
 	close(data->savestdout);
-	rl_clear_history();
+	//rl_clear_history();
 	free(data->pipex);
 	return (0);
 }
