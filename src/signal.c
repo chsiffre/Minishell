@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:51:04 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/08 13:39:04 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:31:47 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_ctrl(int signal)
 {
 	if (signal == SIGINT)
 	{
-		//rl_on_new_line();
+		rl_on_new_line();
 		printf("\n");
-		//rl_replace_line("", 0);
-		//rl_redisplay();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_error_last = 130;
 	}
 	else if (signal == SIGTERM)
@@ -30,9 +30,9 @@ void	ft_ctrl_fork(int signal)
 {
 	if (signal == SIGINT)
 	{
-		//rl_on_new_line();
+		rl_on_new_line();
 		printf("\n");
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 	}
 	else if (signal == SIGTERM)
 		exit (0);
@@ -47,9 +47,9 @@ void	ft_here_sig(int signal)
 {
 	if (signal == SIGINT)
 	{
-		//rl_on_new_line();
+		rl_on_new_line();
 		printf("\n");
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		exit(1);
 	}
 }

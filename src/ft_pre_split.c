@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/21 14:59:35 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:14:29 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char *ft_pre_split(char *str)
 {
-	int new_size;
-	char *copy;
+	int		new_size;
+	char	*copy;
 	
 	copy = ft_strdup(str);
 	if (!copy)
@@ -38,7 +38,7 @@ char *ft_pre_split(char *str)
 	return (free(copy), str);
 }
 
-char *ft_str_replace(char *str, char *copy, int new_size)
+char	*ft_str_replace(char *str, char *copy, int new_size)
 {
 	int i;
 	int y;
@@ -56,7 +56,7 @@ char *ft_str_replace(char *str, char *copy, int new_size)
 	return (str);
 }
 
-char *check_chevron(char *str, char *copy, int *i, int *y)
+char	*check_chevron(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && (copy[*i] == '<' || copy[*i] == '>'))
 	{
@@ -82,7 +82,7 @@ char *check_chevron(char *str, char *copy, int *i, int *y)
 	return (str);
 }
 
-char *check_pipes(char *str, char *copy, int *i, int *y)
+char	*check_pipes(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && copy[*i + 1] && (copy[*i] == '|' && copy[*i + 1] == '|'))
 		return (NULL);
@@ -97,7 +97,7 @@ char *check_pipes(char *str, char *copy, int *i, int *y)
 	return (str);
 }
 
-int quote_open(char *str)
+int	quote_open(char *str)
 {
 	int	i;
 	char quote;
@@ -182,7 +182,7 @@ int	empty(char *str)
 int	ft_is_not_space(char c)
 {
 	if ((c >= 0 && c <= 8) || (c >= 16 && c < 32) 
-		|| (c >= 33 && c <= 127))
+		|| (c >= 33 && c < 127))
 		return (1);
 	return (0);
 }

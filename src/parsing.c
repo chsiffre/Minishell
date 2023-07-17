@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/09 11:06:46 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:53:16 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 	return (lst);
 }
 
-t_lst *add_command(t_lst *lst, t_data *data)
+t_lst	*add_command(t_lst *lst, t_data *data)
 {
 	lst = ft_add_lst(lst, data, CMD);
 	while (data->res_parse[data->y] && data->res_parse[data->y][0] != '|')
