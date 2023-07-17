@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/09 11:07:36 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:49:28 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	ft_to_free(t_data *data)
 	t_lst	*next;
 
 	next = NULL;
-	while (data->lst != NULL)
+	while (data->iterator != NULL)
 	{
-		next = data->lst->next;
+		next = data->iterator->next;
 		i = 0;
-		while (data->lst->content[i])
+		while (data->iterator->content[i])
 		{
-			if (data->lst->content[i])
-				free(data->lst->content[i++]);
+			if (data->iterator->content[i])
+				free(data->iterator->content[i++]);
 		}
-		free(data->lst->content);
-		free(data->lst);
-		data->lst = next;
+		free(data->iterator->content);
+		free(data->iterator);
+		data->iterator = next;
 	}
 	ft_close_end(data);
 	data->in_redir = 0;

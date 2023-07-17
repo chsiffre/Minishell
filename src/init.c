@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/14 13:48:10 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:47:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_data	ft_init_struct(t_data data)
 {
 	data.line = NULL;
 	data.lst = NULL;
+	data.iterator = NULL;
 	data.path = NULL;
 	data.split_path = NULL;
 	data.cmd = NULL;

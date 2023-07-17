@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/17 15:18:02 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/17 16:48:33 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,22 @@ int	ft_check_type(t_data *data)
 
 int	ft_parse_exec(t_data *data)
 {
-	t_lst	*iterator;
-
 	if (empty(data->line))
 		return (0);
 	data->line = ft_pre_split(data->line);
 	if (!data->line)
 		ft_syntax_error("`||'");
-	data->lst = ft_parse(data);
-	if (data->line && !data->lst)
+	data->iterator = ft_parse(data);
+	if (data->line && !data->iterator)
 		ft_syntax_error("`newline'");
-	iterator = data->lst;
-	while (iterator && iterator->content)
+	data->lst = data->iterator;
+	while (data->lst && data->lst->content)
 	{
 		if (ft_check_type(data) == 1)
 			break ;
-		if (iterator == NULL || iterator->next == NULL)
+		if (data->lst == NULL || data->lst->next == NULL)
 			break ;
-		iterator = iterator->next;
+		data->lst = data->lst->next;
 	}
 	return (1);
 }
