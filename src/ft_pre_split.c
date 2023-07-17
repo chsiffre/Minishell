@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/17 15:14:29 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/17 15:21:40 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int	empty(char *str)
 
 int	ft_is_not_space(char c)
 {
-	if ((c >= 0 && c <= 8) || (c >= 16 && c < 32) 
+	if ((c > 0 && c <= 8) || (c >= 16 && c < 32) 
 		|| (c >= 33 && c < 127))
 		return (1);
 	return (0);
