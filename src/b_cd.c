@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:07:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 15:32:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_cd(t_data *data)
 
 	args = 0;
 	tmp = data->env;
-	while (data->lst->content[args])
+	while (data->iterator->content[args])
 		args++;
 	if (args == 1)
 	{
@@ -82,7 +82,7 @@ void	ft_cd(t_data *data)
 		ft_cd_error("bash: cd: HOME not set");
 	}
 	else if (args == 2)
-		ft_algo_cd(data, data->lst->content[1]);
+		ft_algo_cd(data, data->iterator->content[1]);
 	else
 		ft_cd_error("bash: cd: too many arguments");
 }

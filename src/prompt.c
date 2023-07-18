@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/17 16:48:33 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 11:01:05 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_check_pipe(t_data *data)
 {
 	t_lst	*tmp;
 
-	tmp = data->lst;
+	tmp = data->iterator;
 	while (tmp)
 	{
 		if (tmp->type == PIPE)
@@ -34,16 +34,16 @@ int	ft_check_type(t_data *data)
 {
 	if (ft_check_pipe(data) == 0)
 		return (0);
-	if (data->lst->type == REDIR)
+	if (data->iterator->type == REDIR)
 	{
 		if (ft_which_redir(data) == 1)
 			return (1);
 		return (0);
 	}
-	else if (data->lst->type == CMD && !data->lst->next)
+	else if (data->iterator->type == CMD && !data->iterator->next)
 	{
 		ft_make_dup(data);
-		if (ft_execute_cmd(data, data->lst->content[0]) == 1)
+		if (ft_execute_cmd(data, data->iterator->content[0]) == 1)
 			return (1);
 		return (0);
 	}
@@ -61,14 +61,14 @@ int	ft_parse_exec(t_data *data)
 	data->iterator = ft_parse(data);
 	if (data->line && !data->iterator)
 		ft_syntax_error("`newline'");
-	data->lst = data->iterator;
-	while (data->lst && data->lst->content)
+	data->iterator = data->iterator;
+	while (data->iterator && data->iterator->content)
 	{
 		if (ft_check_type(data) == 1)
 			break ;
-		if (data->lst == NULL || data->lst->next == NULL)
+		if (data->iterator == NULL || data->iterator->next == NULL)
 			break ;
-		data->lst = data->lst->next;
+		data->iterator = data->iterator->next;
 	}
 	return (1);
 }

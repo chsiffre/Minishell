@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/17 16:49:28 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 10:14:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	ft_to_free(t_data *data)
 	t_lst	*next;
 
 	next = NULL;
-	while (data->iterator != NULL)
+	while (data->lst != NULL)
 	{
-		next = data->iterator->next;
+		next = data->lst->next;
 		i = 0;
-		while (data->iterator->content[i])
+		while (data->lst->content[i])
 		{
-			if (data->iterator->content[i])
-				free(data->iterator->content[i++]);
+			if (data->lst->content[i])
+				free(data->lst->content[i++]);
 		}
-		free(data->iterator->content);
-		free(data->iterator);
-		data->iterator = next;
+		free(data->lst->content);
+		free(data->lst);
+		data->lst = next;
 	}
 	ft_close_end(data);
 	data->in_redir = 0;

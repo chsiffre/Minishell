@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:23:07 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 10:45:07 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ int	ft_unset(t_data *data)
 
 	tmp = data->env;
 	i = 1;
-	while (data->lst->content[i])
+	while (data->iterator->content[i])
 	{
-		len = ft_strlen(data->lst->content[i]);
-		if (data->lst->content[i][len - 1] == '=')
+		len = ft_strlen(data->iterator->content[i]);
+		if (data->iterator->content[i][len - 1] == '=')
 		{
 			ft_printf_fd
-			("bash: %s: not a valid identifer\n", 2, data->lst->content[i]);
+			("bash: %s: not a valid identifer\n", 2, data->iterator->content[i]);
 			g_error_last = 1;
 			return (1);
 		}
-		n_equal = ft_strjoin(data->lst->content[i], "=");
-		ft_find_var(data, tmp, n_equal, data->lst->content[i]);
+		n_equal = ft_strjoin(data->iterator->content[i], "=");
+		ft_find_var(data, tmp, n_equal, data->iterator->content[i]);
 		i++;
 	}
 	g_error_last = 0;

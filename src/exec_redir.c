@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:18:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	ft_in_redir(t_data *data)
 {
-	if (ft_compare_str(data->lst->content[0], "<"))
+	if (ft_compare_str(data->iterator->content[0], "<"))
 	{
 		data->in_redir = open
-			(data->lst->content[1], O_RDONLY, 0644);
+			(data->iterator->content[1], O_RDONLY, 0644);
 		if (data->in_redir == -1)
-			return (ft_print_error(data->lst->content[1], 1), 1);
+			return (ft_print_error(data->iterator->content[1], 1), 1);
 		return (0);
 	}
-	else if (ft_compare_str(data->lst->content[0], "<<"))
+	else if (ft_compare_str(data->iterator->content[0], "<<"))
 	{	
 		if (ft_here_doc(data) == 1)
 			return (1);
@@ -33,20 +33,20 @@ int	ft_in_redir(t_data *data)
 
 int	ft_out_redir(t_data *data)
 {
-	if (ft_compare_str(data->lst->content[0], ">"))
+	if (ft_compare_str(data->iterator->content[0], ">"))
 	{
 		data->out_redir = open
-			(data->lst->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
+			(data->iterator->content[1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (data->out_redir == -1)
-			return (ft_print_error(data->lst->content[1], 1), 1);
+			return (ft_print_error(data->iterator->content[1], 1), 1);
 		return (0);
 	}
-	else if (ft_compare_str(data->lst->content[0], ">>"))
+	else if (ft_compare_str(data->iterator->content[0], ">>"))
 	{
 		data->out_redir = open
-			(data->lst->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
+			(data->iterator->content[1], O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (data->out_redir == -1)
-			return (ft_print_error(data->lst->content[1], 1), 1);
+			return (ft_print_error(data->iterator->content[1], 1), 1);
 		return (0);
 	}
 	return (2);
@@ -56,7 +56,7 @@ int	ft_which_redir(t_data *data)
 {
 	int	redir;
 
-	if (data->lst->content[1] == NULL)
+	if (data->iterator->content[1] == NULL)
 	{
 		g_error_last = 2;
 		return (ft_print_error

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 16:29:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,22 @@ void	ft_exit_pack(t_data *data, int code_error)
 
 int	ft_exit(t_data *data)
 {
-	if (data->lst->content[1])
+	if (data->iterator->content[1])
 	{
-		if (data->lst->content[2])
+		if (data->iterator->content[2])
 		{
 			g_error_last = 1;
 			printf("exit\n");
 			write(2, "bash: exit: too many arguments\n", 32);
 			return (1);
 		}
-		if (ft_is_valid_num(data->lst->content[1]))
-			ft_exit_pack(data, ft_atoi(data->lst->content[1]) % 256);
+		if (ft_is_valid_num(data->iterator->content[1]))
+			ft_exit_pack(data, ft_atoi(data->iterator->content[1]) % 256);
 		else
 		{
 			g_error_last = 2;
 			printf("exit\n");
-			ft_exit_error(data->lst->content[1]);
+			ft_exit_error(data->iterator->content[1]);
 			exit (g_error_last);
 		}
 	}

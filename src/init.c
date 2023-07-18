@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/17 16:47:20 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 10:13:47 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_init_data(t_data *data, char **envp)
 
 	data->env_path = envp;
 	data->env = NULL;
-	data->lst = NULL;
+	data->iterator = NULL;
 	data->in_redir = 0;
 	data->out_redir = 0;
 	data->savestdin = dup(0);

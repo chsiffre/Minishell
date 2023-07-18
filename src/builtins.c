@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 11:46:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ void	ft_get_pwd(t_data *data)
 
 int	ft_builtins(t_data *data)
 {
-	if (ft_compare_str(data->lst->content[0], "echo"))
+	if (ft_compare_str(data->iterator->content[0], "echo"))
 		return (ft_echo(data), 1);
-	else if (ft_compare_str(data->lst->content[0], "cd"))
+	else if (ft_compare_str(data->iterator->content[0], "cd"))
 		return (ft_cd(data), 1);
-	else if (ft_compare_str(data->lst->content[0], "pwd"))
+	else if (ft_compare_str(data->iterator->content[0], "pwd"))
 		return (ft_get_pwd(data), 1);
-	else if (ft_compare_str(data->lst->content[0], "export"))
+	else if (ft_compare_str(data->iterator->content[0], "export"))
 	{
 		if (ft_export(data) == 0)
 			return (1);
 		return (-1);
 	}
-	else if (ft_compare_str(data->lst->content[0], "unset"))
+	else if (ft_compare_str(data->iterator->content[0], "unset"))
 		return (ft_unset(data), 1);
-	else if (ft_compare_str(data->lst->content[0], "env"))
+	else if (ft_compare_str(data->iterator->content[0], "env"))
 		return (ft_print_env(data), 1);
-	else if (ft_compare_str(data->lst->content[0], "exit"))
+	else if (ft_compare_str(data->iterator->content[0], "exit"))
 		return (ft_exit(data), 1);
 	return (0);
 }

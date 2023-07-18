@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:27:03 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 11:48:28 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_pid_heredoc(t_data *data, pid_t pid, int *fd)
 	else if (pid == 0)
 	{
 		close(fd[0]);
-		data->limiter = data->lst->content[1];
+		data->limiter = data->iterator->content[1];
 		signal(SIGINT, ft_here_sig);
 		ft_heredoc_loop(data, fd);
 		close(fd[1]);

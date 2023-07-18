@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 13:40:07 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ void	ft_echo(t_data *data)
 	
 	i = 0;
 	ret = "";
-	if (ft_compare_str(data->lst->content[1], "-n"))
+	if (ft_compare_str(data->iterator->content[1], "-n"))
 	{
 		option = 1;
 		i++;
 	}
 	else
 		option = 0;
-	while (data->lst->content[++i])
-		ret = new_join(ret, data->lst->content[i], data->res_split[i]);
+	while (data->iterator->content[++i])
+		ret = new_join(ret, data->iterator->content[i], data->res_split[i]);
 	if (option == 1)
 		printf("%s", ret);
 	else

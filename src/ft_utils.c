@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 11:36:44 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,20 @@ int	ft_lstlen(t_lst *lst)
 
 int	list_progress(t_data *data)
 {
-	while (data->lst && data->lst->type != CMD)
+	while (data->iterator && data->iterator->type != CMD)
 	{
-		if (data->lst->type == PIPE)
+		if (data->iterator->type == PIPE)
 		{
-			data->lst = data->lst->next;
-			if (data->lst->type == PIPE)
+			data->iterator = data->iterator->next;
+			if (data->iterator->type == PIPE)
 				ft_print_error
 					("bash: syntax error near unexpected token `||'", 1);
 		}
-		if (data->lst->type == REDIR)
+		if (data->iterator->type == REDIR)
 		{
 			if (ft_which_redir(data) == 1)
 				return (1);
-			data->lst = data->lst->next;
+			data->iterator = data->iterator->next;
 		}
 	}
 	return (0);

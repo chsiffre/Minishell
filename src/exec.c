@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/06/21 17:15:57 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_try_path(t_data *data, char *cmd)
 	}
 	free(tmp);
 	if (!tab)
-		return (ft_cmd_error(data->lst->content[0]), NULL);
+		return (ft_cmd_error(data->iterator->content[0]), NULL);
 	return (tab);
 }
 
@@ -66,9 +66,9 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content)
 
 	cmd[0] = ft_try_path(data, content);
 	i = 1;
-	while (data->lst->content[i])
+	while (data->iterator->content[i])
 	{
-		cmd[i] = ft_strdup(data->lst->content[i]);
+		cmd[i] = ft_strdup(data->iterator->content[i]);
 		i++;
 	}
 	cmd[i] = 0;
@@ -112,7 +112,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 	if (i == -1 || i == 1)
 		return (1);
 	i = 0;
-	while (data->lst->content[i])
+	while (data->iterator->content[i])
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
