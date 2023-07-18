@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/18 11:01:05 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 11:31:09 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	ft_parse_exec(t_data *data)
 	data->line = ft_pre_split(data->line);
 	if (!data->line)
 		ft_syntax_error("`||'");
-	data->iterator = ft_parse(data);
-	if (data->line && !data->iterator)
+	data->lst = ft_parse(data);
+	if (data->line && !data->lst)
 		ft_syntax_error("`newline'");
-	data->iterator = data->iterator;
+	data->iterator = data->lst;
 	while (data->iterator && data->iterator->content)
 	{
 		if (ft_check_type(data) == 1)
