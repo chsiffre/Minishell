@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/18 13:48:29 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:19:47 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *ft_pre_split(char *str)
+char	*ft_pre_split(char *str)
 {
 	int		new_size;
 	char	*copy;
-	
+
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
@@ -26,7 +26,7 @@ char *ft_pre_split(char *str)
 	new_size = resize_pre_split(str, &new_size);
 	if (quote_open(str))
 	{
-		printf("quote open\n");
+		printf("quote opened\n");
 		exit(1);
 	}
 	str = malloc((new_size + 1) * sizeof(char));
@@ -40,9 +40,9 @@ char *ft_pre_split(char *str)
 
 char	*ft_str_replace(char *str, char *copy, int new_size)
 {
-	int i;
-	int y;
-	
+	int	i;
+	int	y;
+
 	y = 0;
 	i = 0;
 	while (i < new_size)
@@ -86,7 +86,7 @@ char	*check_pipes(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && copy[*i + 1] && (copy[*i] == '|' && copy[*i + 1] == '|'))
 		return (NULL);
-	if ((copy[*i] != ' ' && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
+	if ((copy[*i] && copy[*i] != ' ' && copy[*i + 1] && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
 	{
 		if (copy[*i])
 			str[(*y)++] = copy[(*i)++];

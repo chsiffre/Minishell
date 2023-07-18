@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/17 14:53:16 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/18 18:55:16 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_lst	*ft_parse(t_data *data)
 	lst = ft_convert_in_lst(lst, data);
 	if (!lst)
 		return (NULL);
-
 	// {
 	// 	int i = 0;
 	// 	t_lst	*temp = lst;
@@ -45,7 +44,6 @@ t_lst	*ft_parse(t_data *data)
 	// 	}
 
 	// }
-
 	return (lst);
 }
 
