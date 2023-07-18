@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/18 10:13:47 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:49:01 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_init_data(t_data *data, char **envp)
 {
-
 	data->env_path = envp;
 	data->env = NULL;
 	data->iterator = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:46:40 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	ft_is_valid_num(char *command)
 
 	i = -1;
 	res = 0;
+	if (ft_compare_str(command, "-9223372036854775808"))
+		return (1);
 	if (command[0] == '+')
 		i++;
 	while (command[++i])
@@ -42,7 +44,7 @@ static int	ft_is_valid_num(char *command)
 				i++;
 		}
 		res = (res * 10) + command[i] - '0';
-		if (res > 9223372036854775807)
+		if (res > LLMAX)
 			return (0);
 	}
 	return (1);

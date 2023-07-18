@@ -22,6 +22,8 @@ Parsing erreur
 "cat | cat << OK" des lettres pas prise en compte
 
 
+regler le probleme de : exit -"100" .       3 content 
+
 
 test important : 
 60 

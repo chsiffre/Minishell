@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:47:47 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_exec(t_data *prompt, char **cmd)
 		ft_error(prompt, "waitpid error\n", 1, 1);
 	if (WIFEXITED(ret))
 		g_error_last = WEXITSTATUS(ret);
+	else if (WIFSIGNALED(ret))
+		g_error_last = 130;
 	return (0);
 }
 
@@ -95,7 +97,7 @@ int	is_executable(char *content)
 		}
 		return (0);
 	}
-	g_error_last = 1;
+	g_error_last = 127;
 	ft_printf_fd("No such file or directory\n", 2);
 	return (-1);
 }

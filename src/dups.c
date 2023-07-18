@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dups.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:55:54 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/15 13:15:24 by lucas            ###   ########.fr       */
+/*   Updated: 2023/06/28 13:58:01 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	ft_dup_pipe(t_data *data)
 int	ft_make_dup(t_data *data)
 {
 	if (data->in_redir == -1 || data->out_redir == -1)
-		ft_error(data, "dup error\n", 1, 1);
+	{
+		data->in_redir = 0;
+		data->out_redir = 0;
+		return (1);
+	}
 	if (data->in_redir && dup2(data->in_redir, STDIN_FILENO) == -1)
 		ft_error(data, "dup error\n", 1, 1);
 	if (data->out_redir && dup2(data->out_redir, STDOUT_FILENO) == -1)

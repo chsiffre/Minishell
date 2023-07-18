@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:51:20 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ char	*ft_find_name(char *name, char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && (str[i] != '=' && str[i] != '+'))
 		i++;
 	name = malloc(sizeof(char) * (i + 3));
 	if (!name)
 		return (NULL);
 	i = 0;
-	while (str[i] && str[i] != '=')
+	while (str[i] && (str[i] != '=' && str[i] != '+'))
 	{
 		name[i] = str[i];
 		i++;
@@ -88,7 +88,12 @@ int	list_progress(t_data *data)
 		if (data->iterator->type == REDIR)
 		{
 			if (ft_which_redir(data) == 1)
+			{
+				g_error_last = 1;
+				data->lst = data->lst->next;
+				list_progress(data);
 				return (1);
+			}
 			data->iterator = data->iterator->next;
 		}
 	}

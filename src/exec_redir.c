@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:47:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	ft_in_redir(t_data *data)
 	else if (ft_compare_str(data->iterator->content[0], "<<"))
 	{	
 		if (ft_here_doc(data) == 1)
+		{
+			g_error_last = 130;
 			return (1);
+		}
 		return (0);
 	}
 	return (2);

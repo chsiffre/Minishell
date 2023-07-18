@@ -41,6 +41,7 @@ LIST_SRC =	main.c \
 			export_utils.c \
 			new_join.c \
 			free.c \
+			pipe_utils.c \
 
 LIST_INC = minishell.h
 

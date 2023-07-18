@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 10:12:27 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/18 13:46:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char	*ft_echo_env(t_data *data, char *str)
 
 void	ft_echo(t_data *data)
 {
-	char *ret;
-	int i;
-	int option;
-	
+	char	*ret;
+	int		i;
+	int		option;
+
 	i = 0;
 	ret = "";
 	if (ft_compare_str(data->iterator->content[1], "-n"))
