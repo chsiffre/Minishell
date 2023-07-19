@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/19 11:09:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:52:37 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	ft_echo(t_data *data)
 		printf("%s", ret);
 	else
 		printf("%s\n", ret);
+	free(ret);
 	g_error_last = 0;
 }

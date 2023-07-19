@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/07/19 10:11:58 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 15:51:32 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*is_quote(char *str, t_data *data)
 	char	*ret;
 
 	i = -1;
-	ret = malloc(sizeof (char) * ft_strlen(str) + 1);
+	ret = calloc(sizeof (char), ft_strlen(str) + 1);
 	if (!ret)
 	{
 		return (NULL);
@@ -49,11 +49,12 @@ char	*is_quote(char *str, t_data *data)
 
 char	*replace_quote(char *str, char *ret, t_data *data)
 {
+	free(ret);
 	ret = resize_quote(str, data);
 	if (!ret)
-		return (NULL);
+		return (free(str), NULL);
 	ret = del_quote(str, ret, data);
-	return (ret);
+	return (free(str), ret);
 }
 
 char	*replace_all_str(char *str, char *ret, int i, t_data *data)

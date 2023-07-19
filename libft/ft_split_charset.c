@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 10:42:33 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 15:03:17 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,33 +56,33 @@ void	skiping_two(char *str, char *charset, int *i, int *count)
 	(*count)++;
 }
 
-char	*give_memory(char *str, char *charset, int *in, int i_str)
+char	*give_memory(char *str, char *charset, int *i, int i_str)
 {
 	int		len;
 	char	*ret;
 
 	ret = NULL;
-	len = check_space(str, in, charset, i_str);
+	len = check_space(str, i, charset, i_str);
 	if (len != 0)
 	{
 		if (i_str == 1)
-			while (ft_charset(str[*in], charset))
-				(*in)++;
+			while (ft_charset(str[*i], charset))
+				(*i)++;
 		else
-			while (ft_charset(str[*in], charset)
-				&& str[(*in) + 1] != '\"' && str[(*in) + 1] != '\'')
-				(*in)++;
-		return (copy_str(in, str, len, ret));
+			while (ft_charset(str[*i], charset)
+				&& str[(*i) + 1] != '\"' && str[(*i) + 1] != '\'')
+				(*i)++;
+		return (copy_str(i, str, len, ret));
 	}
-	len = check_quote(str, in, charset);
+	len = check_quote(str, i, charset);
 	if (len != 0)
-		return (copy_str(in, str, len, ret));
-	while (ft_charset(str[*in], charset))
-		(*in)++;
-	while (!ft_charset(str[*in + len], charset) && str[*in + len]
-		&& str[*in + len] != '\'' && str[*in + len] != '\"')
+		return (copy_str(i, str, len, ret));
+	while (ft_charset(str[*i], charset))
+		(*i)++;
+	while (!ft_charset(str[*i + len], charset) && str[*i + len]
+		&& str[*i + len] != '\'' && str[*i + len] != '\"')
 		len++;
-	return (copy_str(in, str, len, ret));
+	return (copy_str(i, str, len, ret));
 }
 
 char	**ft_split_charset(char *str, char *charset)

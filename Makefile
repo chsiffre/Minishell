@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 CC = cc
 
@@ -26,6 +26,7 @@ LIST_SRC =	main.c \
 			ft_utils.c \
 			exec.c \
 			ft_pre_split.c \
+			ft_pre_split_2.c \
 			exec_redir.c \
 			exec_pipe.c \
 			error.c \

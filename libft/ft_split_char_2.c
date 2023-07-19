@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_char_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 10:42:46 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 15:58:45 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ int	check_space(char *str, int *index, char *charset, int i_str)
 	len = 0;
 	while (str[i])
 	{
-		while (ft_charset(str[i], charset))
+		while (str[i] && ft_charset(str[i], charset))
 			i++;
-		if (str[i] == '\"' || str[i] == '\'')
+		if (str[i] && (str[i] == '\"' || str[i] == '\''))
 		{
-			if (str[i - 1] == ' ' && i_str != 1)
+			if (i != 0 && str[i] && str[i - 1]
+				&& str[i - 1] == ' ' && i_str != 1)
 				len++;
 			c = str[i++];
-			while (str[i++] != c)
+			while (str[i++] != c && str[i])
 				len++;
 			return (len + 2);
 		}
