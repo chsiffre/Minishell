@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/21 16:42:11 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:59:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ int	ft_special_char(char *cmd)
 
 int	ft_export_error(char *str)
 {
-	char	*join;
-
-	join = ft_strjoin("bash: export: '", str);
-	join = ft_strjoin(join, "' not a valid indentifier\n");
-	write(2, join, ft_strlen(join));
-	free(join);
+	ft_printf_fd("bash: export: '%s\n' not a valid indentifier\n", 2, str);
 	g_error_last = 2;
 	return (1);
 }
@@ -48,12 +43,7 @@ void	ft_rl_error(t_data *data)
 
 void	ft_syntax_error(char *str)
 {
-	char	*join;
-
 	g_error_last = 2;
-	join = ft_strjoin("bash: syntax error near unexpected token ", str);
-	write(2, join, ft_strlen(join));
-	write(2, "\n", 2);
-	free(join);
+	ft_printf_fd("bash: syntax error near unexpected token %s\n", 2, str);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:00:23 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/02 17:42:17 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/19 11:15:46 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 	name = malloc(sizeof(char *) * i + 1);
 	if (!name)
 		ft_error(data, "malloc error\n", 1, 1);
-	// i++;
-	// name[i] = '\0';
-	// ft_strlcpy(name, str, i + 1);
 	name = ft_plusequal_cpy(str, name);
 	n_equal = ft_strjoin(name, "=");
 	if (ft_loop_check(tmp, name, n_equal) == 1)
@@ -89,4 +86,23 @@ int	ft_check_exist(t_data *data, t_env *env, char *str)
 		return (free(name), free(n_equal), 1);
 	}
 	return (free(name), free(n_equal), 0);
+}
+
+char	*ft_switch_value(char *val, char *str, int i)
+{
+	int	k;
+
+	val = malloc(sizeof(char) * (ft_strlen(str) - i));
+	if (!val)
+		return (NULL);
+	i++;
+	k = 0;
+	while (str[i])
+	{
+		val[k] = str[i];
+		k++;
+		i++;
+	}
+	val[k] = '\0';
+	return (val);
 }

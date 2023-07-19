@@ -6,11 +6,27 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/18 13:49:01 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:29:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_struct_env(t_data *data)
+{
+	int		i;
+	t_env	*new;
+
+	i = 0;
+	while (data->env_path[i])
+	{
+		new = ft_new_env(data->env_path[i]);
+		if (!new)
+			ft_error(data, "malloc error\n", 1, 1);
+		ft_envadd_back(&data->env, new);
+		i++;
+	}
+}
 
 void	ft_init_data(t_data *data, char **envp)
 {

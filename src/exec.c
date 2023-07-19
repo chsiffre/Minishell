@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 15:53:27 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:06:30 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 	if (cmd[0] != NULL && (is_executable(cmd[0]) == 0))
 		ft_exec(data, cmd);
 	else
-		return (1);
-	i = -1;
-	while (cmd[++i])
-		free(cmd[i]);
-	free(cmd);
+		return (free_cmd(cmd), 1);
+	free_cmd(cmd);
 	return (0);
 }

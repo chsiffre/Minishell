@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/18 18:45:44 by charles          ###   ########.fr       */
+/*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
+/*   Updated: 2023/07/19 13:30:49 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
 		if (!data->line)
-			ft_exit_pack(data, g_error_last);
+			ft_exit_pack(data, g_error_last, 0);
 		else if (data->line[0] != '\0')
 			add_history(data->line);
 		while (data->line[i++])

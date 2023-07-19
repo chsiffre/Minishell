@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:15:29 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/28 18:53:05 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/19 11:29:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,13 @@ char	*ft_alloc_val(t_env *new, char *str, int k, int temp)
 	return (new->value);
 }
 
-t_env	*ft_new_env(char *str)
+t_env	*give_value(t_env *new, char *str, int k)
 {
-	t_env	*new;
-	int		temp;
-	int		k;
 	int		i;
+	int		temp;
 
-	k = 0;
-	temp = 0;
-	new = malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->equal = ft_has_equal(str);
-	while (str[k] && str[k] != '=')
-		k++;
-	new->name = malloc(sizeof(char *) * (k + 1));
-	if (!new->name)
-		return (NULL);
 	i = 0;
+	temp = 0;
 	while (temp <= k)
 	{
 		if (str[temp] != '+')
@@ -87,18 +75,21 @@ t_env	*ft_new_env(char *str)
 	return (new);
 }
 
-void	ft_struct_env(t_data *data)
+t_env	*ft_new_env(char *str)
 {
-	int		i;
 	t_env	*new;
+	int		k;
 
-	i = 0;
-	while (data->env_path[i])
-	{
-		new = ft_new_env(data->env_path[i]);
-		if (!new)
-			ft_error(data, "malloc error\n", 1, 1);
-		ft_envadd_back(&data->env, new);
-		i++;
-	}
+	k = 0;
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->equal = ft_has_equal(str);
+	while (str[k] && str[k] != '=')
+		k++;
+	new->name = malloc(sizeof(char *) * (k + 1));
+	if (!new->name)
+		return (NULL);
+	new = give_value(new, str, k);
+	return (new);
 }

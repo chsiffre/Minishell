@@ -5,12 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/18 13:48:11 by luhumber         ###   ########.fr       */
+/*   Created: 2023/07/19 11:12:27 by luhumber          #+#    #+#             */
+/*   Updated: 2023/07/19 13:28:53 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	free_cmd(char **cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd && cmd[++i])
+	{
+		if (cmd[i])
+			free(cmd[i]);
+	}
+	if (cmd)
+		free(cmd);
+}
 
 void	*free_data(t_data *data)
 {

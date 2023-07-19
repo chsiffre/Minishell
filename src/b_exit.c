@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 13:46:40 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:31:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ static int	ft_is_valid_num(char *command)
 	return (1);
 }
 
-void	ft_exit_pack(t_data *data, int code_error)
+void	ft_exit_pack(t_data *data, int code_error, int ex)
 {
 	g_error_last = code_error;
 	printf("exit\n");
 	ft_to_free(data);
+	if (ex == 1)
+		free_data(data);
 	ft_free_for_end(data);
 	exit(g_error_last);
 }
@@ -71,7 +73,7 @@ int	ft_exit(t_data *data)
 			return (1);
 		}
 		if (ft_is_valid_num(data->iterator->content[1]))
-			ft_exit_pack(data, ft_atoi(data->iterator->content[1]) % 256);
+			ft_exit_pack(data, ft_atoi(data->iterator->content[1]) % 256, 1);
 		else
 		{
 			g_error_last = 2;
@@ -81,6 +83,6 @@ int	ft_exit(t_data *data)
 		}
 	}
 	else
-		ft_exit_pack(data, g_error_last);
+		ft_exit_pack(data, g_error_last, 1);
 	return (1);
 }

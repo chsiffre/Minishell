@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/17 14:31:05 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 13:25:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	ft_free_for_end(t_data *data)
 		free(data->env);
 		data->env = next;
 	}
+	if (data->line)
+		free(data->line);
 	ft_close_end(data);
 	close(data->savestdin);
 	close(data->savestdout);

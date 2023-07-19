@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 10:12:36 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 11:15:42 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,6 @@ int	ft_has_equal(char *str)
 		k++;
 	}
 	return (0);
-}
-
-char	*ft_switch_value(char *val, char *str, int i)
-{
-	int	k;
-
-	val = malloc(sizeof(char) * (ft_strlen(str) - i));
-	if (!val)
-		return (NULL);
-	i++;
-	k = 0;
-	while (str[i])
-	{
-		val[k] = str[i];
-		k++;
-		i++;
-	}
-	val[k] = '\0';
-	return (val);
 }
 
 char	*ft_add_value(char *str, int i)
