@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_char_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:48:27 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/14 12:19:24 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:42:46 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include "libft.h"
 #include "../include/minishell.h"
 
-int check_quote(char *str, int *index, char *charset)
+int	check_quote(char *str, int *index, char *charset)
 {
-	int size;
-    int i;
+	int	size;
+	int	i;
 
-    i = (*index);
+	i = (*index);
 	size = 0;
 	while (str[(*index)])
 	{
@@ -29,24 +29,24 @@ int check_quote(char *str, int *index, char *charset)
 		if (str[(*index)] && (str[(*index)] == '\"' || str[(*index)] == '\''))
 		{
 			size = skipping_quote(str[*index], str, index);
-            (*index) = i;
-		    return (size + 2);
-        }
+			(*index) = i;
+			return (size + 2);
+		}
 		else
 		{
 			(*index) = i;
 			return (0);
 		}
 	}
-    (*index) = i;
+	(*index) = i;
 	return (0);
 }
 
-int check_space(char *str, int *index, char *charset, int i_str)
+int	check_space(char *str, int *index, char *charset, int i_str)
 {
-	int	i;
-	int len;
-	char c;
+	int		i;
+	int		len;
+	char	c;
 
 	c = 0;
 	i = *index;
@@ -70,12 +70,12 @@ int check_space(char *str, int *index, char *charset, int i_str)
 	return (0);
 }
 
-char *copy_str(int *index, char *str, int len, char *ret)
+char	*copy_str(int *index, char *str, int len, char *ret)
 {
-	int i;
+	int	i;
 
-    i = 0;
-    ret = malloc((len + 1) * sizeof(char));
+	i = 0;
+	ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
 	while (i < len)
@@ -88,10 +88,10 @@ char *copy_str(int *index, char *str, int len, char *ret)
 	return (ret);
 }
 
-int skipping_quote(char c, char *str, int *i)
+int	skipping_quote(char c, char *str, int *i)
 {
-	int size;
-	
+	int	size;
+
 	size = 0;
 	(*i)++;
 	while (str[*i] != c && str[*i])
@@ -100,4 +100,18 @@ int skipping_quote(char c, char *str, int *i)
 		size++;
 	}
 	return (size);
+}
+
+int	ft_charset(char c, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (c == charset[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

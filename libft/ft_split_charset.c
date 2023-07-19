@@ -6,34 +6,17 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/06/12 12:16:51 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 10:42:33 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int	ft_charset(char c, char *charset)
+int	get_ac(char *str, char *charset, char c)
 {
-	int	i;
+	int		i;
+	int		count;
 
-	i = 0;
-	while (charset[i])
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	get_ac(char *str, char *charset)
-{
-	int	i;
-	int	count;
-	char c;
-
-	c = 0;
 	count = 0;
 	i = 0;
 	while (str[i])
@@ -50,7 +33,8 @@ int	get_ac(char *str, char *charset)
 		}
 		else if (str[i])
 			skiping_one(str, charset, &i, &count);
-		if (str[i] && !ft_charset(str[i], charset) && str[i] != '\'' && str[i] != '\"')
+		if (str[i] && !ft_charset(str[i], charset)
+			&& str[i] != '\'' && str[i] != '\"')
 			skiping_two(str, charset, &i, &count);
 	}
 	return (count + 1);
@@ -59,44 +43,46 @@ int	get_ac(char *str, char *charset)
 void	skiping_one(char *str, char *charset, int *i, int *count)
 {
 	(*count)++;
-	while (!ft_charset(str[*i], charset) && str[*i] && str[*i] != '\"' && str[*i] != '\'')
+	while (!ft_charset(str[*i], charset)
+		&& str[*i] && str[*i] != '\"' && str[*i] != '\'')
 		(*i)++;
 }
 
 void	skiping_two(char *str, char *charset, int *i, int *count)
 {
-	while (str[*i] &&!ft_charset(str[*i], charset) && str[*i] != '\'' && str[*i] != '\"')
+	while (str[*i] &&!ft_charset(str[*i], charset)
+		&& str[*i] != '\'' && str[*i] != '\"')
 		(*i)++;
 	(*count)++;
 }
 
-char	*give_memory(char *str, char *charset, int *index, int i_str)
+char	*give_memory(char *str, char *charset, int *in, int i_str)
 {
 	int		len;
 	char	*ret;
 
 	ret = NULL;
-	len = 0;
-	len = check_space(str, index, charset, i_str);
+	len = check_space(str, in, charset, i_str);
 	if (len != 0)
 	{
 		if (i_str == 1)
-			while (ft_charset(str[*index], charset))
-				(*index)++;
+			while (ft_charset(str[*in], charset))
+				(*in)++;
 		else
-			while (ft_charset(str[*index], charset) && str[(*index) + 1] != '\"' && str[(*index) + 1] != '\'')
-				(*index)++;
-		return (copy_str(index, str, len ,ret));
+			while (ft_charset(str[*in], charset)
+				&& str[(*in) + 1] != '\"' && str[(*in) + 1] != '\'')
+				(*in)++;
+		return (copy_str(in, str, len, ret));
 	}
-	len = check_quote(str, index, charset);
+	len = check_quote(str, in, charset);
 	if (len != 0)
-		return (copy_str(index, str, len, ret));
-	while (ft_charset(str[*index], charset))
-		(*index)++;
-	while (!ft_charset(str[*index + len], charset) && str[*index + len] &&
-	str[*index + len] != '\'' && str[*index + len] != '\"')
+		return (copy_str(in, str, len, ret));
+	while (ft_charset(str[*in], charset))
+		(*in)++;
+	while (!ft_charset(str[*in + len], charset) && str[*in + len]
+		&& str[*in + len] != '\'' && str[*in + len] != '\"')
 		len++;
-	return (copy_str(index, str, len, ret));
+	return (copy_str(in, str, len, ret));
 }
 
 char	**ft_split_charset(char *str, char *charset)
@@ -105,12 +91,14 @@ char	**ft_split_charset(char *str, char *charset)
 	int		nb_str;
 	char	**strs;
 	int		j;
+	char	c;
 
+	c = 0;
 	i = 0;
 	j = 0;
 	if (!str)
 		return (NULL);
-	nb_str = get_ac(str, charset);
+	nb_str = get_ac(str, charset, c);
 	strs = malloc(nb_str * sizeof(char *));
 	if (!strs)
 		return (NULL);
