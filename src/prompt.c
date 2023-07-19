@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 13:30:49 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:17:29 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_check_pipe(t_data *data)
 
 int	ft_check_type(t_data *data)
 {
-	if (ft_check_pipe(data) == 0)
+	if (ft_check_pipe(data) != 2)
 		return (0);
 	if (data->iterator->type == REDIR)
 	{

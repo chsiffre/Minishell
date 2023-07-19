@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 10:29:05 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 14:18:20 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	ft_while_export(t_data *data, int i)
 {
 	int	ret;
 
-	ret = ft_check_exist(data, data->env, data->lst->content[i]);
-	if (data->lst->content[i])
+	ret = ft_check_exist(data, data->env, data->iterator->content[i]);
+	if (data->iterator->content[i])
 	{
 		if (ret == -1)
-			return (ft_export_error(data->lst->content[i]), -1);
+			return (ft_export_error(data->iterator->content[i]), -1);
 		else if (ret == 0)
-			return (ft_add_var(data, data->lst->content[i], 0), 0);
+			return (ft_add_var(data, data->iterator->content[i], 0), 0);
 		else if (ret == 1)
-			return (ft_add_var(data, data->lst->content[i], 1), 0);
+			return (ft_add_var(data, data->iterator->content[i], 1), 0);
 		else if (ret == 2)
-			return (ft_add_var(data, data->lst->content[i], 2), 2);
+			return (ft_add_var(data, data->iterator->content[i], 2), 2);
 		else
 			return (-1);
 	}

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/18 13:51:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:01:45 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	list_progress(t_data *data)
 			if (ft_which_redir(data) == 1)
 			{
 				g_error_last = 1;
-				data->lst = data->lst->next;
+				data->iterator = data->iterator->next;
 				list_progress(data);
 				return (1);
 			}

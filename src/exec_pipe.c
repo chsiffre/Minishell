@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/18 13:52:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:41:34 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_dup_built(t_data *data)
 	int	i;
 
 	if (ft_make_dup(data) == 1)
-		exit (0);
+		exit (1);
 	ft_dup_pipe(data);
 	i = ft_builtins(data);
 	if (i == 1 || i == -1)
@@ -41,7 +41,7 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	if ((cmd[0] == NULL) || (is_executable(cmd[0]) != 0))
 	{
 		g_error_last = 127;
-		exit (127);
+		exit (1);
 	}
 	if (execve(cmd[0], cmd, data->env_path) == -1)
 		ft_error(data, "execve error\n", 1, 1);
@@ -72,8 +72,7 @@ int	ft_loop_pipe(t_data *data)
 		ft_restore_loop(data, pid, fd, i);
 		i++;
 		data->iterator = data->iterator->next;
-		if (list_progress(data) == 1)
-			return (1);
+		list_progress(data);
 	}
 	return (0);
 }

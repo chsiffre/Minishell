@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/19 12:06:30 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:01:04 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content)
 	int	i;
 
 	cmd[0] = ft_try_path(data, content);
+	if (cmd[0] == NULL)
+		return (cmd);
 	i = 1;
 	while (data->iterator->content[i])
 	{
