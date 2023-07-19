@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 16:03:33 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:15:53 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int	ft_parse_exec(t_data *data)
 		return (0);
 	data->line = ft_pre_split(data->line);
 	if (!data->line)
-		ft_syntax_error("`||'");
+		return (ft_syntax_error("`||'"), 1);
 	data->lst = ft_parse(data);
 	if (data->line && !data->lst)
-		ft_syntax_error("`newline'");
+		return (ft_syntax_error("`newline'"), 1);
 	data->iterator = data->lst;
 	while (data->iterator && data->iterator->content)
 	{

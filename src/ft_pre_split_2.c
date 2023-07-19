@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:59:24 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 15:59:55 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:09:02 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	resize_pre_split(char *str, int *new_size)
 			if (str[i + 1] && str[i + 1] != '<'
 				&& str[i + 1] != '>' && str[i + 1] != ' ')
 				(*new_size)++;
-			if (i!= 0 && str[i - 1] && str[i - 1] != ' ')
+			if (i != 0 && str[i - 1] && str[i - 1] != ' ')
 				(*new_size)++;
 		}
 		if (i != 0 && str[i] && str[i] == '|' && str[i - 1] != ' ')

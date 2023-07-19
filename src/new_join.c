@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_join.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:15:57 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 10:28:54 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 16:07:31 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ char	*new_join(char const *s1, char const *s2, char *str)
 	}
 	ret[i] = '\0';
 	return (ret);
+}
+
+ssize_t	ft_strs_len(char **strs)
+{
+	size_t	i;
+
+	i = 0;
+	while (strs[i])
+		i++;
+	return (i);
 }

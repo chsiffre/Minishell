@@ -1,6 +1,0 @@
-heredoc qui doit prend les var d'env
-
-quote ouverte ne doit pas fermer le programme
-
-marche pas avec quote
-export erreur avec une redir dedans

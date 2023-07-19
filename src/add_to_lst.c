@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/07/19 10:27:29 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 16:08:12 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,4 @@ void	ft_add_back(t_lst **lst, t_lst *new)
 		else
 			*lst = new;
 	}
-}
-
-ssize_t	ft_strs_len(char **strs)
-{
-	size_t	i;
-
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 15:59:40 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:20:26 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	*ft_pre_split(char *str)
 	new_size = ft_strlen(str);
 	new_size = resize_pre_split(copy, &new_size);
 	if (quote_open(str))
-	{
-		printf("quote opened\n");
-		exit(1);
-	}
+		return (free(copy), free(str), NULL);
 	free(str);
 	str = calloc((new_size + 1), sizeof(char));
 	if (!str)
@@ -97,28 +94,6 @@ int	empty(char *str)
 	}
 	return (1);
 }
-
-// int	check_chevron(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '<' || str[i] == '>')
-// 		{
-// 			if (str[i])
-// 				i++;
-// 			else
-// 				return (0);
-// 			while (str[i])
-// 			{
-// 				if ()
-// 			}
-// 		}
-// 	}
-// 	return ();
-// }
 
 int	ft_is_not_space(char c)
 {
