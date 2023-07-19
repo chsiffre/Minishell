@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/18 19:19:47 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 10:07:03 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*ft_pre_split(char *str)
 	copy = ft_strdup(str);
 	if (!copy)
 		return (NULL);
-	// if (!check_chevron(str))
-	// 	return (free(copy), str);
 	new_size = ft_strlen(str);
 	new_size = resize_pre_split(str, &new_size);
 	if (quote_open(str))
@@ -48,7 +46,7 @@ char	*ft_str_replace(char *str, char *copy, int new_size)
 	while (i < new_size)
 	{
 		str = check_chevron(str, copy, &i, &y);
-		str = check_pipes(str, copy , &i, &y);
+		str = check_pipes(str, copy, &i, &y);
 		if (!str)
 			return (free (copy), NULL);
 	}
@@ -60,19 +58,22 @@ char	*check_chevron(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && (copy[*i] == '<' || copy[*i] == '>'))
 	{
-		if (copy[*i - 1] && copy[*i - 1] != ' ' && copy[*i - 1] != '<' && copy[*i - 1] != '>')
+		if (copy[*i - 1] && copy[*i - 1] != ' '
+			&& copy[*i - 1] != '<' && copy[*i - 1] != '>')
 		{
 			str[(*y)++] = ' ';
 			if (copy[*i])
 				str[(*y)++] = copy[(*i)++];
-			if (copy[*i] && copy[*i] != '<' && copy[*i] != '>' && copy[*i] != ' ')
+			if (copy[*i] && copy[*i] != '<'
+				&& copy[*i] != '>' && copy[*i] != ' ')
 			{
 				str[(*y)++] = ' ';
 				str[(*y)++] = copy[(*i)++];
 			}
 			return (str);
 		}
-		else if (copy[*i + 1] && copy[*i + 1] != '<' && copy[*i + 1] != '>' && copy[*i + 1] != ' ')
+		else if (copy[*i + 1] && copy[*i + 1] != '<'
+			&& copy[*i + 1] != '>' && copy[*i + 1] != ' ')
 		{
 			str[(*y)++] = copy[(*i)++];
 			str[(*y)++] = ' ';
@@ -86,7 +87,8 @@ char	*check_pipes(char *str, char *copy, int *i, int *y)
 {
 	if (copy[*i] && copy[*i + 1] && (copy[*i] == '|' && copy[*i + 1] == '|'))
 		return (NULL);
-	if ((copy[*i] && copy[*i] != ' ' && copy[*i + 1] && copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
+	if ((copy[*i] && copy[*i] != ' ' && copy[*i + 1]
+			&& copy[*i + 1] == '|') || (copy[*i] == '|' && copy[*i + 1] != ' '))
 	{
 		if (copy[*i])
 			str[(*y)++] = copy[(*i)++];
@@ -99,8 +101,8 @@ char	*check_pipes(char *str, char *copy, int *i, int *y)
 
 int	quote_open(char *str)
 {
-	int	i;
-	char quote;
+	int		i;
+	char	quote;
 
 	quote = 0;
 	i = 0;
@@ -119,7 +121,7 @@ int	quote_open(char *str)
 	return (0);
 }
 
-int resize_pre_split(char *str, int *new_size)
+int	resize_pre_split(char *str, int *new_size)
 {
 	int	i;
 
@@ -130,10 +132,11 @@ int resize_pre_split(char *str, int *new_size)
 		{
 			if (!str[i + 1])
 				return (0);
-			if (str[i + 1] && str[i + 1] != '<' && str[i + 1] != '>' && str[i + 1] != ' ')
+			if (str[i + 1] && str[i + 1] != '<'
+				&& str[i + 1] != '>' && str[i + 1] != ' ')
 				(*new_size)++;
 			if (str[i - 1] && str[i - 1] != ' ')
-				(*new_size)++; 
+				(*new_size)++;
 		}
 		if (str[i] && str[i] == '|' && str[i - 1] != ' ')
 			(*new_size)++;
@@ -181,7 +184,8 @@ int	empty(char *str)
 
 int	ft_is_not_space(char c)
 {
-	if (c != ' ' && c != '\t' && c != '\n' && c != '\v' && c != '\f' && c != '\r')
+	if (c != ' ' && c != '\t' && c != '\n'
+		&& c != '\v' && c != '\f' && c != '\r')
 		return (1);
 	return (0);
 }

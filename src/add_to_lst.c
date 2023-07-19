@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:11:52 by charles           #+#    #+#             */
-/*   Updated: 2023/06/28 10:32:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:27:29 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
+t_lst	*ft_lstnew_t(char **strs, int type, int i)
 {
 	t_lst	*ptr;
-	size_t	y;
+	int		y;
 
 	y = 0;
 	ptr = malloc(sizeof(t_lst) + 1);
@@ -25,23 +25,29 @@ t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i)
 	if (!ptr->content)
 		return (NULL);
 	ptr->type = type;
-	if (strs[i] && ft_is_redir(strs[i]))
-	{
-		ptr->content[y++] = ft_strdup(strs[i++]);
-		if (!strs[i] || strs[i][0] == '|')
-			return (NULL);
-		ptr->content[y++] = ft_strdup(strs[i++]);
-	}
-	else if (strs[i] && !ft_is_redir(strs[i]) && strs[i][0] != '|')
-	{
-		while (strs[i] && strs[i][0] != '|')
-			ptr->content[y++] = ft_strdup(strs[i++]);
-	}
-	else
-		ptr->content[y++] = ft_strdup(strs[i++]);
+	ft_check_fil_content(strs, &y, &i, ptr->content);
 	ptr->content[y] = 0;
 	ptr->next = NULL;
 	return (ptr);
+}
+
+char	**ft_check_fil_content(char **strs, int *y, int *i, char **content)
+{
+	if (strs[*i] && ft_is_redir(strs[*i]))
+	{
+		content[(*y)++] = ft_strdup(strs[(*i)++]);
+		if (!strs[*i] || strs[*i][0] == '|')
+			return (NULL);
+		content[(*y)++] = ft_strdup(strs[(*i)++]);
+	}
+	else if (strs[*i] && !ft_is_redir(strs[*i]) && strs[*i][0] != '|')
+	{
+		while (strs[*i] && strs[*i][0] != '|')
+			content[(*y)++] = ft_strdup(strs[(*i)++]);
+	}
+	else
+		content[(*y)++] = ft_strdup(strs[(*i)++]);
+	return (content);
 }
 
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type)

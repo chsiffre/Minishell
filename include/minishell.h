@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/18 13:46:15 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:26:37 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ typedef struct s_data {
 int		ft_compare_str(char *s1, char *s2);
 
 //***********parsing***************//
-t_lst	*ft_parse(t_data *data);
+t_lst	*ft_parse(t_data *d);
 t_lst	*add_command(t_lst *lst, t_data *data);
 char	*ft_pre_split(char *str);
 char	*ft_str_replace(char *str, char *copy, int new_size);
 int		ft_is_redir(char *str);
-t_lst	*ft_lstnew_t(char **strs, int type, ssize_t i);
+t_lst	*ft_lstnew_t(char **strs, int type, int	i);
 t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data);
 int		ft_len_parse(char **strs, int i);
 int		ft_is_redir(char *str);
@@ -104,6 +104,7 @@ char	**check_res_split(t_data *data);
 int		resize_pre_split(char *str, int *new_size);
 int		quote_open(char *str);
 t_lst	*ft_add_lst(t_lst *lst, t_data *data, int type);
+char	**ft_check_fil_content(char **strs, int *y, int *i, char **content);
 char	**ft_check_redir(
 			char **res_parse, t_data *data, char **strs, int start);
 ssize_t	ft_strs_len(char **strs);

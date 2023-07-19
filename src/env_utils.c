@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/06/28 17:07:18 by lucas            ###   ########.fr       */
+/*   Updated: 2023/07/19 10:12:36 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_join_var(t_data *data, char *str, t_env *new)
 	char	*join;
 	char	*name;
 	int		i;
-	
+
 	i = 0;
 	name = NULL;
 	name = ft_find_name(name, str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/18 15:51:04 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:29:05 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_print_export(t_data *data)
 int	ft_while_export(t_data *data, int i)
 {
 	int	ret;
-	
+
 	ret = ft_check_exist(data, data->env, data->lst->content[i]);
 	if (data->lst->content[i])
 	{

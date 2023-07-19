@@ -6,26 +6,26 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/07/18 18:55:16 by charles          ###   ########.fr       */
+/*   Updated: 2023/07/19 10:16:14 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_lst	*ft_parse(t_data *data)
+t_lst	*ft_parse(t_data *d)
 {
 	t_lst	*lst;
 
 	lst = NULL;
-	data->res_split = ft_split_charset(data->line, " \t\n\r\v\f");
-	if (!data->res_split)
+	d->res_split = ft_split_charset(d->line, " \t\n\r\v\f");
+	if (!d->res_split)
 		return (NULL);
-	data->res_parse = malloc((ft_strs_len(data->res_split) + 1) * sizeof(char *));
-	if (!data->res_parse)
+	d->res_parse = malloc((ft_strs_len(d->res_split) + 1) * sizeof(char *));
+	if (!d->res_parse)
 		return (NULL);
-	data->res_parse = check_res_split(data);
-	data->res_parse = check_quotes(data->res_parse, data);
-	lst = ft_convert_in_lst(lst, data);
+	d->res_parse = check_res_split(d);
+	d->res_parse = check_quotes(d->res_parse, d);
+	lst = ft_convert_in_lst(lst, d);
 	if (!lst)
 		return (NULL);
 	// {
@@ -47,24 +47,24 @@ t_lst	*ft_parse(t_data *data)
 	return (lst);
 }
 
-char **check_res_split(t_data *data)
+char	**check_res_split(t_data *d)
 {
 	int	i;
 
 	i = 0;
-	while (data->res_split[i])
+	while (d->res_split[i])
 	{
-		data->res_parse = ft_check_redir(data->res_parse, data, data->res_split, i);
-		if (!data->res_parse)
+		d->res_parse = ft_check_redir(d->res_parse, d, d->res_split, i);
+		if (!d->res_parse)
 			return (NULL);
-		data->res_parse = ft_check_cmd(data->res_parse, data, data->res_split, i);
-		while (data->res_split[i] && data->res_split[i][0] != '|')
+		d->res_parse = ft_check_cmd(d->res_parse, d, d->res_split, i);
+		while (d->res_split[i] && d->res_split[i][0] != '|')
 			i++;
-		if (data->res_split[i])
-			data->res_parse[data->i++] = ft_strdup(data->res_split[i++]);
+		if (d->res_split[i])
+			d->res_parse[d->i++] = ft_strdup(d->res_split[i++]);
 	}
-	data->res_parse[i] = NULL;
-	return (data->res_parse);
+	d->res_parse[i] = NULL;
+	return (d->res_parse);
 }
 
 t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
@@ -79,7 +79,8 @@ t_lst	*ft_convert_in_lst(t_lst *lst, t_data *data)
 			data->y = data->y + 2;
 		}
 		else if (data->res_parse[data->y]
-			&& !ft_is_redir(data->res_parse[data->y]) && data->res_parse[data->y][0] != '|')
+			&& !ft_is_redir(data->res_parse[data->y])
+			&& data->res_parse[data->y][0] != '|')
 			lst = add_command(lst, data);
 		else
 			data->y++;
