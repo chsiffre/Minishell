@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/07/19 15:51:32 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/22 10:56:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*is_quote(char *str, t_data *data)
 	char	*ret;
 
 	i = -1;
-	ret = calloc(sizeof (char), ft_strlen(str) + 1);
+	ret = ft_calloc(sizeof (char), ft_strlen(str) + 1);
 	if (!ret)
 	{
 		return (NULL);

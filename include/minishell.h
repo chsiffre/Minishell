@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 13:31:20 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/22 19:21:25 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_pipe {
 	int	prev_fd;
 	int	*tab_fd;
 	int	*tab_pid;
+	int	count;
+	int	error;
 }	t_pipe;
 
 typedef struct s_data {
@@ -170,9 +172,6 @@ int		ft_check_exist(t_data *data, t_env *env, char *str);
 char	*ft_find_name(char *name, char *str);
 
 //***********prompt***************//
-void	ft_ctrl(int signal);
-void	ft_ctrl_fork(int signal);
-void	ft_here_sig(int signal);
 void	ft_init_data(t_data *data, char **envp);
 t_data	ft_init_struct(t_data data);
 int		ft_builtins(t_data *data);
@@ -189,7 +188,7 @@ int		ft_pipe(t_data *data);
 int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 int		ft_end(t_data *data);
-void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int i);
+void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int count);
 
 //***********error***************//
 int		ft_print_error(char *str, int error_code);
@@ -210,5 +209,12 @@ int		ft_lstlen(t_lst *lst);
 void	ft_to_free(t_data *data);
 int		ft_free_for_end(t_data *data);
 void	free_cmd(char **cmd);
+
+//***********signal***************//
+void	ft_ctrl(int signal);
+void	ft_ctrl_fork(int signal);
+void	ft_here_sig(int signal);
+void	ft_mini_sig(int signal);
+void	check_signal(t_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 16:20:26 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/07/22 10:56:25 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_pre_split(char *str)
 	if (quote_open(str))
 		return (free(copy), free(str), NULL);
 	free(str);
-	str = calloc((new_size + 1), sizeof(char));
+	str = ft_calloc((new_size + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	str = ft_str_replace(str, copy, new_size);

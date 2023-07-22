@@ -6,13 +6,13 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 15:41:34 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/22 22:18:40 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_dup_built(t_data *data)
+int	ft_dup_built(t_data *data)
 {
 	int	i;
 
@@ -20,8 +20,9 @@ void	ft_dup_built(t_data *data)
 		exit (1);
 	ft_dup_pipe(data);
 	i = ft_builtins(data);
-	if (i == 1 || i == -1)
-		exit (0);
+	if (i == -1 || i == 1)
+		return (1);
+	return (0);
 }
 
 int	ft_exec_pipe(t_data *data, int fd[2])
@@ -30,7 +31,6 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	int		i;
 
 	close(fd[0]);
-	ft_dup_built(data);
 	i = 0;
 	while (data->iterator->content[i])
 		i++;
@@ -38,14 +38,21 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	if (!cmd)
 		ft_error(data, "malloc error\n", 1, 1);
 	cmd = ft_cmd_options(data, cmd, data->iterator->content[0]);
-	if ((cmd[0] == NULL) || (is_executable(cmd[0]) != 0))
+	if ((cmd[0] != NULL) && (is_executable(cmd[0]) == 0))
 	{
+		if (ft_dup_built(data) == 1)
+			exit (0);
+		if (execve(cmd[0], cmd, data->env_path) == -1)
+			ft_error(data, "execve error\n", 1, 1);
+		g_error_last = 0;
+	}
+	else
+	{
+		close(fd[1]);
+		data->pipex->error = 1;
 		g_error_last = 127;
 		exit (1);
 	}
-	if (execve(cmd[0], cmd, data->env_path) == -1)
-		ft_error(data, "execve error\n", 1, 1);
-	g_error_last = 0;
 	return (0);
 }
 
@@ -53,24 +60,26 @@ int	ft_loop_pipe(t_data *data)
 {
 	int		fd[2];
 	pid_t	pid;
-	int		i;
 
-	i = 0;
 	while (data->iterator)
 	{
+		data->pipex->error = 0;
 		if (pipe(fd) == -1)
 			ft_error(data, "pipe error\n", 1, 1);
 		data->pipex->file_out = fd[1];
 		if (!data->iterator->next)
+		{
+			close(fd[0]);
 			data->pipex->file_out = STDOUT_FILENO;
+		}
 		pid = fork();
 		if (pid == -1)
 			ft_error(data, "fork error\n", 1, 1);
 		else if (pid == 0)
-			if (ft_exec_pipe(data, fd) == 1)
-				exit (1);
-		ft_restore_loop(data, pid, fd, i);
-		i++;
+			ft_exec_pipe(data, fd);
+		ft_restore_loop(data, pid, fd, data->pipex->count);
+		if (data->pipex->error == 0)
+			data->pipex->count++;
 		data->iterator = data->iterator->next;
 		list_progress(data);
 	}
@@ -86,13 +95,12 @@ int	ft_pipe(t_data *data)
 	if (data->pipex->tab_fd == NULL)
 		ft_error(data, "malloc error\n", 1, 1);
 	data->pipex->prev_fd = 0;
-	signal(SIGINT, ft_ctrl_fork);
-	signal(SIGTERM, ft_ctrl_fork);
-	signal(SIGQUIT, ft_ctrl_fork);
+	data->pipex->count = 0;
+	data->pipex->error = 0;
+	check_signal(data);
 	list_progress(data);
 	g_error_last = 0;
-	if (ft_loop_pipe(data) == 1)
-		return (1);
+	ft_loop_pipe(data);
 	ft_end(data);
 	return (0);
 }

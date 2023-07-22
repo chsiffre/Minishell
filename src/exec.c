@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/19 15:01:04 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/22 15:13:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,7 @@ int	ft_execute_cmd(t_data *data, char *content)
 	char	**cmd;
 	int		i;
 
-	signal(SIGINT, ft_ctrl_fork);
-	signal(SIGTERM, ft_ctrl_fork);
-	signal(SIGQUIT, ft_ctrl_fork);
+	check_signal(data);
 	i = ft_builtins(data);
 	if (i == -1 || i == 1)
 		return (1);
