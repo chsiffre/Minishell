@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:51:04 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/22 13:23:03 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:41:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_here_sig(int signal)
 		rl_on_new_line();
 		printf("\n");
 		rl_replace_line("", 0);
-		exit(1);
+		exit (1);
 	}
 }
 

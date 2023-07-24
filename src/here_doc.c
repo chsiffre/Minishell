@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:27:03 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 13:59:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:41:24 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	ft_pid_heredoc(t_data *data, pid_t pid, int *fd)
 		signal(SIGINT, ft_here_sig);
 		ft_heredoc_loop(data, fd);
 		close(fd[1]);
+		ft_to_free(data);
+		free_data(data);
+		ft_free_for_end(data);
 		exit(0);
 	}
 }

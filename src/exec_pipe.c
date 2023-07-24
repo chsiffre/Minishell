@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/22 22:18:40 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/24 10:08:35 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,18 @@ int	ft_exec_pipe(t_data *data, int fd[2])
 	}
 	else
 	{
+		free_cmd(cmd);
 		close(fd[1]);
 		data->pipex->error = 1;
 		g_error_last = 127;
+		free(data->pipex->tab_pid);
+		free(data->pipex->tab_fd);
+		ft_to_free(data);
+		free_data(data);
+		ft_free_for_end(data);
 		exit (1);
 	}
+	free_cmd(cmd);
 	return (0);
 }
 
