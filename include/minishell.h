@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/24 10:38:40 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:48 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_pipe {
 	int	*tab_fd;
 	int	*tab_pid;
 	int	count;
-	int	error;
 }	t_pipe;
 
 typedef struct s_data {
@@ -170,6 +169,8 @@ void	ft_envadd_back(t_env **env, t_env *new);
 int		ft_has_equal(char *str);
 int		ft_check_exist(t_data *data, t_env *env, char *str);
 char	*ft_find_name(char *name, char *str);
+char	*new_val(t_env *new, char *str, int i);
+char	*ft_add_value(char *str, int i);
 
 //***********prompt***************//
 void	ft_init_data(t_data *data, char **envp);

@@ -6,36 +6,11 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:23:01 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 11:15:42 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:03:16 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	ft_has_equal(char *str)
-{
-	int	k;
-
-	k = 0;
-	while (str[k])
-	{
-		if (str[k] == '=')
-			return (1);
-		k++;
-	}
-	return (0);
-}
-
-char	*ft_add_value(char *str, int i)
-{
-	char	*val;
-
-	val = NULL;
-	val = ft_switch_value(val, str, i);
-	if (!val)
-		return (NULL);
-	return (val);
-}
 
 void	ft_exist_var(t_data *data, char *str, t_env *new)
 {
@@ -66,7 +41,6 @@ void	ft_exist_var(t_data *data, char *str, t_env *new)
 
 void	ft_join_var(t_data *data, char *str, t_env *new)
 {
-	char	*join;
 	char	*name;
 	int		i;
 
@@ -83,9 +57,7 @@ void	ft_join_var(t_data *data, char *str, t_env *new)
 		i++;
 	if (str[i] == '=')
 	{
-		join = ft_strjoin(new->value, ft_add_value(str, i));
-		free(new->value);
-		new->value = join;
+		new->value = new_val(new, str, i);
 		if (!new->value)
 			ft_error(data, "malloc error\n", 1, 1);
 		if (ft_has_equal(new->name))

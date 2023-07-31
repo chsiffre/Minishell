@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/23 11:57:33 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:12:03 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int count)
 		}
 		data->out_redir = 0;
 	}
-	if (data->pipex->error == 0)
-	{
-		data->pipex->tab_pid[count] = pid;
-		data->pipex->tab_fd[count] = data->pipex->prev_fd;
-		data->pipex->prev_fd = fd[0];
-	}
+	data->pipex->tab_pid[count] = pid;
+	data->pipex->tab_fd[count] = data->pipex->prev_fd;
+	data->pipex->prev_fd = fd[0];
 	close(fd[1]);
 }

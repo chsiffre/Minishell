@@ -6,16 +6,28 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/19 13:59:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:22:43 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	env_error(t_data *data)
+{
+	ft_printf_fd("env: '%s': No such file or directory\n",
+		2, data->iterator->content[1]);
+	g_error_last = 127;
+}
+
 void	ft_print_env(t_data *data)
 {
 	t_env	*tmp;
 
+	if (data->iterator->content[1] != NULL)
+	{
+		env_error(data);
+		return ;
+	}
 	tmp = data->env;
 	while (tmp)
 	{

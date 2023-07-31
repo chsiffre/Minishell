@@ -1,0 +1,14 @@
+LEAKS = 
+    ls|wc
+    export Salut=bonjour non=dgasgd $$$OUI=nooon SALUT=mon SALUT+=kok
+
+
+
+
+
+
+
+
+
+
+les builtins dans les pipes qui close mal

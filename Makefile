@@ -40,6 +40,7 @@ LIST_SRC =	main.c \
 			check_quote.c \
 			check_quote_2.c \
 			export_utils.c \
+			export_tools.c \
 			new_join.c \
 			free.c \
 			pipe_utils.c \
