@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:24:22 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/31 17:47:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:25:31 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	**command_error(t_data *data)
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		ft_error(data, "malloc error\n", 1, 1);
+	if (check_built(data))
+		return (fill_built(data, cmd), cmd);
 	cmd = ft_cmd_options(data, cmd, data->iterator->content[0]);
 	if ((cmd[0] != NULL) && (is_executable(cmd[0]) == 0))
 		return (cmd);
@@ -44,6 +46,7 @@ int	ft_exec_pipe(t_data *data, int fd[2], char **cmd)
 		free_cmd(cmd);
 		close(data->pipex->prev_fd);
 		close(fd[1]);
+		close(STDOUT_FILENO);
 		free(data->pipex->tab_pid);
 		free(data->pipex->tab_fd);
 		ft_to_free(data);

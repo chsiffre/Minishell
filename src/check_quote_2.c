@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/07/19 15:11:49 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:44:10 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_int_len(int n)
 	else
 		y = n;
 	while (y >= 10)
-	{	
+	{
 		y = y / 10;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 14:25:53 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 11:59:08 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:43:08 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,11 @@ void	ft_syntax_error(char *str)
 	g_error_last = 2;
 	ft_printf_fd("bash: syntax error near unexpected token %s\n", 2, str);
 	return ;
+}
+
+void	env_error(t_data *data)
+{
+	ft_printf_fd("env: '%s': No such file or directory\n",
+		2, data->iterator->content[1]);
+	g_error_last = 127;
 }

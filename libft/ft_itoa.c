@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 09:54:11 by charles           #+#    #+#             */
-/*   Updated: 2022/11/11 16:06:22 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:45:19 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	int_len(int n)
 	else
 		y = n;
 	while (y >= 10)
-	{	
+	{
 		y = y / 10;
 		i++;
 	}

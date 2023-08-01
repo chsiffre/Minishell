@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:01:48 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/31 17:03:18 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:46:16 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*new_val(t_env *new, char *str, int i)
 {
 	char	*join;
 	char	*val;
-
 
 	val = ft_add_value(str, i);
 	join = ft_strjoin(new->value, val);

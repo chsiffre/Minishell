@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/31 17:31:48 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:43:26 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,12 +151,14 @@ int		ft_here_doc(t_data *data);
 int		ft_close_end(t_data *data);
 
 //***********builtins***************//
+int		check_built(t_data *data);
 int		ft_is_builtins(char *str);
 void	ft_echo(t_data *data);
 int		ft_unset(t_data *data);
 int		ft_export(t_data *data);
 void	ft_cd(t_data *data);
 int		ft_exit(t_data *data);
+char	**fill_built(t_data *data, char **cmd);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
@@ -201,6 +203,7 @@ int		ft_export_error(char *str);
 void	ft_rl_error(t_data *data);
 void	ft_exit_pack(t_data *data, int code_error, int ex);
 void	ft_syntax_error(char *str);
+void	env_error(t_data *data);
 
 //***********utils***************//
 int		list_progress(t_data *data);

@@ -6,17 +6,43 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:44 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/31 17:22:43 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:43:03 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	env_error(t_data *data)
+char	**fill_built(t_data *data, char **cmd)
 {
-	ft_printf_fd("env: '%s': No such file or directory\n",
-		2, data->iterator->content[1]);
-	g_error_last = 127;
+	int	i;
+
+	i = 0;
+	while (data->iterator->content[i])
+	{
+		cmd[i] = ft_strdup(data->iterator->content[i]);
+		i++;
+	}
+	cmd[i] = 0;
+	return (cmd);
+}
+
+int	check_built(t_data *data)
+{
+	if (ft_compare_str(data->iterator->content[0], "echo"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "cd"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "pwd"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "export"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "unset"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "env"))
+		return (1);
+	else if (ft_compare_str(data->iterator->content[0], "exit"))
+		return (1);
+	return (0);
 }
 
 void	ft_print_env(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:22:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 13:59:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:44:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_in_redir(t_data *data)
 		return (0);
 	}
 	else if (ft_compare_str(data->iterator->content[0], "<<"))
-	{	
+	{
 		if (ft_here_doc(data) == 1)
 		{
 			g_error_last = 130;

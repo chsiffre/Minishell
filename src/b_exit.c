@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/07/22 10:53:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:43:59 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	ft_exit(t_data *data)
 {
 	if (data->iterator->content[1])
 	{
-		if (ft_is_valid_num(data->iterator->content[1]) && data->iterator->content[2])
+		if (ft_is_valid_num(data->iterator->content[1])
+			&& data->iterator->content[2])
 		{
 			g_error_last = 1;
 			printf("exit\n");

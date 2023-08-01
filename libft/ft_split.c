@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 15:04:56 by charles           #+#    #+#             */
-/*   Updated: 2022/11/12 11:33:00 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:45:34 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	*free_tab(char **tab, int i)
 }
 
 char	**ft_split(char const *s, char c)
-{	
+{
 	int		i;
 	int		j;
 	char	**ret;
