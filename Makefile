@@ -1,6 +1,6 @@
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 CC = cc
 
@@ -37,6 +37,7 @@ LIST_SRC =	main.c \
 			add_to_lst.c \
 			expand.c \
 			expand_2.c \
+			expand_3.c \
 			check_quote.c \
 			check_quote_2.c \
 			export_utils.c \

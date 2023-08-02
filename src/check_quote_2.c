@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/07/19 15:11:49 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:38:13 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,17 @@ char	*resize_quote(char *str, t_data *data)
 	new_size = 0;
 	while (str[++i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
 		{
-			quote = str[i];
-			while (str[++i] && str[i] != quote)
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+			{
 				check_size(str, &i, &new_size, data);
+				if (str[i] && str[i] == '$')
+					continue ;
+				else if (str[i])
+					i++;
+			}
 		}
 		else
 			new_size++;
@@ -58,10 +64,13 @@ char	*resize_quote(char *str, t_data *data)
 
 void	check_size(char *str, int *i, int *new_size, t_data *data)
 {
-	if (str[*i] == '$' && str[*i + 1] == '?')
+	if (str[*i] == '$' && str[*i + 1] && str[*i + 1] == '?')
 	{
-		(*new_size) += ft_int_len(g_error_last);
-		(*i)++;
+		while (str[*i] && str[*i + 1] && str[*i + 2] && (str[*i] == '$' && str[*i + 1] == '?'))
+		{
+			(*new_size) += ft_int_len(g_error_last);
+			(*i)++;
+		}
 	}
 	else if (str[*i] == '$' && if_expand(str) && is_var(str, *i, data))
 		(*new_size) += var_exist(str, i, data);
@@ -74,24 +83,27 @@ void	check_size(char *str, int *i, int *new_size, t_data *data)
 		(*new_size)++;
 }
 
-char	*del_quote(char *str, char *ret, t_data *data)
+char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data)
 {
-	int	i;
 	int	quote;
 
 	quote = 0;
-	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
-			quote = str[i++];
+			quote = str[(i)++];
 			while (str[i] && str[i] != quote)
 			{
+				if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
+				{
+					ret = ft_convert_error(str, ret);
+					return (ret);
+				}
 				if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
 					ret = replace_var(str, ret, &i, data);
 				else if (str[i])
-					ret[data->ind++] = str[i++];
+					ret[data->ind++] = str[(i)++];
 			}
 		}
 		else
@@ -99,5 +111,14 @@ char	*del_quote(char *str, char *ret, t_data *data)
 	}
 	ret[data->ind] = '\0';
 	data->ind = 0;
+	return (NULL);
+}
+
+char	*del_quote(char *str, char *ret, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	ft_check_quote_var(str, i, ret, data);
 	return (ret);
 }
