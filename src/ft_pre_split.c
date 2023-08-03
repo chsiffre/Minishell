@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pre_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/03 13:49:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:15:03 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ char	*ft_str_replace(char *str, char *copy, int new_size)
 
 	y = 0;
 	i = 0;
-	while (i < new_size)
+	while (y < new_size)
 	{
-		if (y == new_size)
-			break ;
 		str = check_chevron(str, copy, &i, &y);
 		str = check_pipes(str, copy, &i, &y);
 	}
-	str[i] = '\0';
+	str[y] = '\0';
 	return (str);
 }
 
