@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/03 14:15:03 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:48:09 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ char	*check_chevron(char *str, char *copy, int *i, int *y)
 			&& copy[*i - 1] != '<' && copy[*i - 1] != '>')
 		{
 			str[(*y)++] = ' ';
+			while (copy[*i] && (copy[*i] == '<' || copy[*i] == '>'))
+				str[(*y)++] = copy[(*i)++];
+			if (copy[*i] != ' ')
+				str[(*y)++] = ' ';
 			if (copy[*i])
 				str[(*y)++] = copy[(*i)++];
-			if (copy[*i] && copy[*i] != '<'
-				&& copy[*i] != '>' && copy[*i] != ' ')
-			{
-				str[(*y)++] = ' ';
-				str[(*y)++] = copy[(*i)++];
-			}
 			return (str);
 		}
 		else if (copy[*i] && copy[*i + 1] && copy[*i + 1] != '<'
