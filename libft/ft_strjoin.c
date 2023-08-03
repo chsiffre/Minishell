@@ -6,14 +6,14 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 13:06:56 by charles           #+#    #+#             */
-/*   Updated: 2023/08/03 13:50:09 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:08:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
-{	
+{
 	size_t	len_tot;
 	char	*ret;
 	int		i;

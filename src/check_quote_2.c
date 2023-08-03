@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/08/03 13:49:37 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:09:55 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	check_size(char *str, int *i, int *new_size, t_data *data)
 {
 	if (str[*i] == '$' && str[*i + 1] && str[*i + 1] == '?')
 	{
-		while (str[*i] && str[*i + 1] && str[*i + 2] && (str[*i] == '$' && str[*i + 1] == '?'))
+		while (str[*i] && str[*i + 1]
+			&& str[*i + 2] && (str[*i] == '$' && str[*i + 1] == '?'))
 		{
 			(*new_size) += ft_int_len(g_error_last);
 			(*i)++;
@@ -96,10 +97,7 @@ char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data)
 			while (str[i] && str[i] != quote)
 			{
 				if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
-				{
-					ret = ft_convert_error(str, ret);
-					return (ret);
-				}
+					return (ret = ft_convert_error(str, ret), ret);
 				if (str[i] == '$' && if_expand(str) && is_var(str, i, data))
 					ret = replace_var(str, ret, &i, data);
 				else if (str[i])

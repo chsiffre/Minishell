@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:19:07 by charles           #+#    #+#             */
-/*   Updated: 2023/08/03 12:29:20 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:08:37 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_convert_error(char *str, char *ret)
 {
 	int	i;
 	int	y;
-	
+
 	y = 0;
 	i = 0;
 	if (ret)
