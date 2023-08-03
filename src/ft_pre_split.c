@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 16:20:26 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:35:37 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ char	*ft_str_replace(char *str, char *copy, int new_size)
 	i = 0;
 	while (i < new_size)
 	{
+		if (y == new_size)
+			break ;
 		str = check_chevron(str, copy, &i, &y);
 		str = check_pipes(str, copy, &i, &y);
-		if (!str)
-			return (free (copy), NULL);
 	}
 	str[i] = '\0';
 	return (str);
@@ -70,7 +70,7 @@ char	*check_chevron(char *str, char *copy, int *i, int *y)
 			}
 			return (str);
 		}
-		else if (copy[*i + 1] && copy[*i + 1] != '<'
+		else if (copy[*i] && copy[*i + 1] && copy[*i + 1] != '<'
 			&& copy[*i + 1] != '>' && copy[*i + 1] != ' ')
 		{
 			str[(*y)++] = copy[(*i)++];

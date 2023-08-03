@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/08/02 17:38:13 by charles          ###   ########.fr       */
+/*   Updated: 2023/08/03 11:48:00 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data)
 	}
 	ret[data->ind] = '\0';
 	data->ind = 0;
-	return (NULL);
+	return (ret);
 }
 
 char	*del_quote(char *str, char *ret, t_data *data)
@@ -119,6 +119,6 @@ char	*del_quote(char *str, char *ret, t_data *data)
 	int	i;
 
 	i = 0;
-	ft_check_quote_var(str, i, ret, data);
+	ret = ft_check_quote_var(str, i, ret, data);
 	return (ret);
 }
