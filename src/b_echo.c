@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/03 15:33:05 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:04:25 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,44 @@ int	empty_echo(t_data *data)
 	return (0);
 }
 
+int	ft_is_option_n(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[0] == '-')
+			i++;
+		if (str[i] && str[i] != 'n')
+			return (0);
+		if (str[i])
+			i++;
+	}
+	return (1);
+}
+
 void	ft_echo(t_data *data)
 {
 	char	*ret;
 	int		i;
 	int		option;
 
-	i = 0;
+	option = 0;
+	i = 1;
 	ret = "";
 	if (empty_echo(data) == 1)
 		return ;
-	if (ft_compare_str(data->iterator->content[1], "-n"))
+	while (ft_is_option_n(data->iterator->content[i]))
 	{
 		option = 1;
 		i++;
 	}
-	else
-		option = 0;
-	while (data->iterator->content[++i])
+	while (data->iterator->content[i])
+	{
 		ret = new_join(ret, data->iterator->content[i], data->res_split[i]);
+		i++;
+	}
 	if (option == 1)
 		printf("%s", ret);
 	else
@@ -51,3 +70,4 @@ void	ft_echo(t_data *data)
 	free(ret);
 	g_error_last = 0;
 }
+
