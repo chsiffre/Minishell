@@ -6,11 +6,24 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/03 11:56:53 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:33:05 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	empty_echo(t_data *data)
+{
+	if (!data->iterator->content[1])
+	{
+		printf("\n");
+		return (1);
+	}
+	else if (ft_compare_str(data->iterator->content[1], "-n")
+		&& !data->iterator->content[2])
+		return (1);
+	return (0);
+}
 
 void	ft_echo(t_data *data)
 {
@@ -20,6 +33,8 @@ void	ft_echo(t_data *data)
 
 	i = 0;
 	ret = "";
+	if (empty_echo(data) == 1)
+		return ;
 	if (ft_compare_str(data->iterator->content[1], "-n"))
 	{
 		option = 1;

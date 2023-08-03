@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_charset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 21:01:54 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 15:03:17 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:58:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	get_ac(char *str, char *charset, char c)
 			c = str[i++];
 			while (str[i] && str[i] != c)
 				i++;
-			i++;
+			if (str[i])
+				i++;
 			count++;
 		}
 		else if (str[i])
