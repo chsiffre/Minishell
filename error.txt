@@ -1,7 +1,0 @@
-LEAKS = 
-    ls|wc
-    export Salut=bonjour non=dgasgd $$$OUI=nooon SALUT=mon SALUT+=kok
-    export $USER
-    export TEST=$USER
-    \200 uj] ngr'gmac
-
