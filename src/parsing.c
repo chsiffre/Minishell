@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:18:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/03 14:48:12 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:41:25 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ t_lst	*ft_parse(t_data *d)
 	lst = ft_convert_in_lst(lst, d);
 	if (!lst)
 		return (NULL);
+	// t_lst *iterator;
+	// int i = 0;
+	// iterator = lst;
+	// while (iterator)
+	// {
+	// 	i = 0;
+	// 	while(iterator->content[i])
+	// 		printf("%s ", iterator->content[i++]);
+	// 	printf("\n");
+	// 	iterator = iterator->next;
+	// }
+	// exit(1);
 	return (lst);
 }
 
