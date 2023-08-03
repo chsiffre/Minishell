@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/07/22 10:56:19 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:49:45 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	**check_quotes(char **strs, t_data *data)
 	while (strs[i])
 	{
 		strs[i] = is_quote(strs[i], data);
+		if (!strs[i])
+			return (NULL);
 		i++;
 	}
 	strs[i] = NULL;
@@ -73,33 +75,5 @@ char	*replace_all_str(char *str, char *ret, int i, t_data *data)
 		ret = replace_var(str, ret, &i, data);
 		data->ind = 0;
 	}
-	return (ret);
-}
-
-char	*ft_convert_error(char *str, char *ret)
-{
-	int	i;
-	int	y;
-
-	y = 0;
-	i = 0;
-	free(ret);
-	ret = malloc(((ft_strlen(str) - 2) + ft_int_len(g_error_last)) + 1);
-	if (!ret)
-		return (NULL);
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			ret = ft_itoa(g_error_last);
-			while (ret[y])
-				y++;
-			i++;
-		}
-		else
-			ret[y++] = str[i];
-		i++;
-	}
-	ret[y] = '\0';
 	return (ret);
 }

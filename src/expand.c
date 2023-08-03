@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 10:17:00 by charles          ###   ########.fr       */
+/*   Updated: 2023/08/02 16:45:39 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char	*replace_var(char *str, char *ret, int *i, t_data *data)
 	{
 		if (str[*i] == '$')
 			ret = copy_var(str, ret, i, data);
-		(*i)++;
+		if (str[*i] && str[*i] == '$')
+			continue ;
+		else if (str[*i])
+			(*i)++;
 	}
 	ret[data->ind] = '\0';
 	return (ret);
@@ -42,7 +45,6 @@ char	*copy_var(char *str, char *ret, int *i, t_data *data)
 				ret[data->ind++] = tmp->value[y++];
 			while (str[*i] && ft_isalnum(str[*i]))
 				(*i)++;
-			(*i)--;
 			return (ret);
 		}
 		tmp = tmp->next;
@@ -61,9 +63,8 @@ int	var_exist(char *str, int *i, t_data *data)
 	{
 		if (ft_compare_var(str, tmp->name, *i))
 		{
-			while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
+			while (ft_isalnum(str[*i]))
 				(*i)++;
-			(*i)++;
 			return ((int) ft_strlen(tmp->value));
 		}
 		tmp = tmp->next;
@@ -78,6 +79,8 @@ int	is_var(char *str, int i, t_data *data)
 	tmp = data->env;
 	if (str[i] == '$')
 		(i)++;
+	if (str[i] && str[i] == '?')
+		return (1);
 	while (tmp)
 	{
 		if (ft_compare_var(str, tmp->name, i))
@@ -98,7 +101,7 @@ int	ft_compare_var(char *s1, char *s2, int i)
 	y = 0;
 	while (s1[i] && s2[y])
 	{
-		if (s1[i] == '?' && !s1[i + 1])
+		if (s1[i] == '?' && (!s1[i + 1] || s1[i + 1] == '$'))
 			return (1);
 		if (s1[i] == '\"' || s1[i] == '\'')
 			break ;

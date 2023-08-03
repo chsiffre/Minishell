@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:50:45 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/19 10:10:56 by charles          ###   ########.fr       */
+/*   Updated: 2023/08/02 12:25:12 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ char	*resize_var(char *str, t_data *data)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			new_size += check_size_var(str, &i, &new_size, data);
-		i++;
+			new_size = check_size_var(str, &i, &new_size, data);
+		if (str[i] == '$')
+			continue ;
+		else if (str[i])
+			i++;
 	}
 	return (malloc(sizeof(char ) * new_size + 1));
 }
