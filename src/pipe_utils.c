@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:56 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/31 15:12:03 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:19:23 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_end(t_data *data)
 		if (data->pipex->count > 0)
 			close(data->pipex->tab_fd[data->pipex->count]);
 	}
+	if (data->pipex->last != 0)
+		g_error_last = data->pipex->last;
 	free(data->pipex->tab_pid);
 	free(data->pipex->tab_fd);
 	return (0);

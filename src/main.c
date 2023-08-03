@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/05/30 14:51:52 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:37:32 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ char	**ft_no_env(char **envp)
 	if (getcwd(buff, REP_MAX) == NULL)
 		exit(1);
 	envp = malloc(sizeof(char **) * 5);
+	if (!envp)
+	{
+		write(2, "malloc error\n", 14);
+		exit (1);
+	}
 	envp[0] = ft_strdup("OLDPWD");
 	envp[1] = ft_strdup("SHLVL=1");
 	envp[2] = ft_strdup("_=/usr/bin/env");

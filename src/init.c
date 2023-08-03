@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 15:39:59 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/07/24 10:40:36 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:36:57 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_struct_env(t_data *data)
 	{
 		new = ft_new_env(data->env_path[i]);
 		if (!new)
-			ft_error(data, "malloc error\n", 1, 1);
+		{
+			write(2, "malloc error\n", 14);
+			exit (1);
+		}
 		ft_envadd_back(&data->env, new);
 		i++;
 	}
@@ -58,6 +61,6 @@ t_data	ft_init_struct(t_data data)
 	data.x = 0;
 	data.pipex = malloc(sizeof(t_pipe));
 	if (!data.pipex)
-		exit(1);
+		ft_error(&data, "malloc error\n", 1, 0);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 22:44:17 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/01 10:43:59 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:02:46 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int	ft_exit_error(char *str)
 {
 	char	*join;
+	char	*join2;
 
 	join = ft_strjoin("bash: exit: ", str);
-	join = ft_strjoin(join, " numeric argument required\n");
-	write(2, join, ft_strlen(join));
+	join2 = ft_strjoin(join, " numeric argument required\n");
+	write(2, join2, ft_strlen(join2));
 	free(join);
+	free(join2);
 	return (0);
 }
 
@@ -32,17 +34,12 @@ static int	ft_is_valid_num(char *command)
 	res = 0;
 	if (ft_compare_str(command, "-9223372036854775808"))
 		return (1);
-	if (command[0] == '+')
+	if (command[0] == '+' || command[0] == '-')
 		i++;
 	while (command[++i])
 	{
 		if (!ft_isdigit(command[i]))
-		{
-			if (command[i] != '-')
-				return (0);
-			else
-				i++;
-		}
+			return (0);
 		res = (res * 10) + command[i] - '0';
 		if (res > LLMAX)
 			return (0);
@@ -50,10 +47,12 @@ static int	ft_is_valid_num(char *command)
 	return (1);
 }
 
-void	ft_exit_pack(t_data *data, int code_error, int ex)
+void	ft_exit_pack(t_data *data, int code_error, int ex, int error)
 {
 	g_error_last = code_error;
 	printf("exit\n");
+	if (error == 1)
+		ft_exit_error(data->iterator->content[1]);
 	ft_to_free(data);
 	if (ex == 1)
 		free_data(data);
@@ -74,16 +73,14 @@ int	ft_exit(t_data *data)
 			return (1);
 		}
 		if (ft_is_valid_num(data->iterator->content[1]))
-			ft_exit_pack(data, ft_atoi(data->iterator->content[1]) % 256, 1);
+			ft_exit_pack(data, ft_atoi(data->iterator->content[1]) % 256, 1, 0);
 		else
 		{
 			g_error_last = 2;
-			printf("exit\n");
-			ft_exit_error(data->iterator->content[1]);
-			exit (g_error_last);
+			ft_exit_pack(data, g_error_last, 1, 1);
 		}
 	}
 	else
-		ft_exit_pack(data, g_error_last, 1);
+		ft_exit_pack(data, g_error_last, 1, 0);
 	return (1);
 }

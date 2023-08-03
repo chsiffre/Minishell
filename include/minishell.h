@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/01 10:43:26 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:17:16 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_pipe {
 	int	*tab_fd;
 	int	*tab_pid;
 	int	count;
+	int	last;
 }	t_pipe;
 
 typedef struct s_data {
@@ -88,7 +89,13 @@ typedef struct s_data {
 }	t_data;
 
 //***********prompt***************//
-int		ft_compare_str(char *s1, char *s2);
+void	ft_init_data(t_data *data, char **envp);
+t_data	ft_init_struct(t_data data);
+int		ft_builtins(t_data *data);
+char	*ft_try_path(t_data *data, char *cmd);
+void	ft_prompt(t_data *data);
+int		ft_exec(t_data *prompt, char **cmd);
+void	ft_conv_lst(char *line);
 
 //***********parsing***************//
 t_lst	*ft_parse(t_data *d);
@@ -162,7 +169,6 @@ char	**fill_built(t_data *data, char **cmd);
 
 //***********t_env***************//
 void	ft_struct_env(t_data *data);
-int		ft_has_equal(char *str);
 void	ft_add_var(t_data *data, char *str, int exist);
 char	*ft_switch_value(char *val, char *str, int i);
 t_env	*ft_envlast(t_env *lst);
@@ -173,15 +179,6 @@ int		ft_check_exist(t_data *data, t_env *env, char *str);
 char	*ft_find_name(char *name, char *str);
 char	*new_val(t_env *new, char *str, int i);
 char	*ft_add_value(char *str, int i);
-
-//***********prompt***************//
-void	ft_init_data(t_data *data, char **envp);
-t_data	ft_init_struct(t_data data);
-int		ft_builtins(t_data *data);
-char	*ft_try_path(t_data *data, char *cmd);
-void	ft_prompt(t_data *data);
-int		ft_exec(t_data *prompt, char **cmd);
-void	ft_conv_lst(char *line);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
@@ -201,11 +198,12 @@ void	ft_error(t_data *data, char *str, int exit_code, int parse);
 int		ft_special_char(char *cmd);
 int		ft_export_error(char *str);
 void	ft_rl_error(t_data *data);
-void	ft_exit_pack(t_data *data, int code_error, int ex);
+void	ft_exit_pack(t_data *data, int code_error, int ex, int error);
 void	ft_syntax_error(char *str);
 void	env_error(t_data *data);
 
 //***********utils***************//
+int		ft_compare_str(char *s1, char *s2);
 int		list_progress(t_data *data);
 int		ft_lstlen(t_lst *lst);
 

@@ -5,8 +5,3 @@ LEAKS =
     export TEST=$USER
     \200 uj] ngr'gmac
 
-
-
-
-les builtins dans les pipes qui close mal
-VERIFIER si je peux pas close les standards fd dans les pipes.

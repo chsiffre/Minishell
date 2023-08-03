@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/31 15:27:47 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:45:47 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_prompt(t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("prompt> ");
 		if (!data->line)
-			ft_exit_pack(data, g_error_last, 0);
+			ft_exit_pack(data, g_error_last, 0, 0);
 		else if (data->line[0] != '\0')
 			add_history(data->line);
 		while (data->line[i++])
