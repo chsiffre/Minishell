@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/03 10:45:47 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:51:18 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	ft_prompt(t_data *data)
 		if (to_free == 0)
 			free_data(data);
 		ft_to_free(data);
+		update_env(data);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/03 11:37:32 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:02:19 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,23 @@ int	g_error_last;
 
 void	ft_get_env(t_data *data)
 {
-	while (*data->env_path)
+	int	i;
+
+	i = 0;
+	while (data->env_path[i])
 	{
-		if (ft_strnstr(*data->env_path, "PATH", 5))
+		if (ft_strnstr(data->env_path[i], "PATH", 5))
 		{
-			data->path = *data->env_path + 5;
+			data->path = data->env_path[i] + 5;
 			data->split_path = ft_split(data->path, ':');
 			if (!data->split_path)
 				exit (1);
 			return ;
 		}
-		data->env_path++;
+		i++;
 	}
+	data->path = NULL;
+	data->split_path = NULL;
 }
 
 char	**ft_no_env(char **envp)

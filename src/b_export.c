@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/01 10:52:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:17:52 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void    update_env(t_data *data)
+{
+	int     i;
+	t_env   *tmp;
+	
+	tmp = data->env;
+	i = 0;
+	if (data->split_path)
+		while (data->split_path[i])
+			free(data->split_path[i++]);
+	free(data->split_path);
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->value)
+			data->env_path[i] = ft_strjoin(tmp->name, tmp->value);
+		else if (tmp->name)
+			data->env_path[i] = ft_strdup(tmp->name);
+		tmp = tmp->next;
+		i++;
+	}
+	ft_get_env(data);
+}
 
 void	ft_print_export(t_data *data)
 {

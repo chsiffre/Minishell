@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/03 12:17:16 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:18:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ typedef struct s_data {
 	t_lst	*iterator;
 	char	**fake_envp;
 	char	*line;
-	char	**env_path;
 	char	*path;
+	char	**env_path;
 	char	**split_path;
 	char	**cmd;
 	int		savestdin;
@@ -96,6 +96,7 @@ char	*ft_try_path(t_data *data, char *cmd);
 void	ft_prompt(t_data *data);
 int		ft_exec(t_data *prompt, char **cmd);
 void	ft_conv_lst(char *line);
+void	ft_get_env(t_data *data);
 
 //***********parsing***************//
 t_lst	*ft_parse(t_data *d);
@@ -179,6 +180,7 @@ int		ft_check_exist(t_data *data, t_env *env, char *str);
 char	*ft_find_name(char *name, char *str);
 char	*new_val(t_env *new, char *str, int i);
 char	*ft_add_value(char *str, int i);
+void    update_env(t_data *data);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
@@ -218,5 +220,6 @@ void	ft_ctrl_fork(int signal);
 void	ft_here_sig(int signal);
 void	ft_mini_sig(int signal);
 void	check_signal(t_data *data);
+
 
 #endif
