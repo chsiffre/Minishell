@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:38:28 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:50:38 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,12 @@ void	*free_data(t_data *data);
 int		empty(char *str);
 char	*ft_convert_error(char *str, char *ret);
 int		ft_int_len(int n);
+char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data);
 int		ft_is_not_space(char c);
 
 //***********expand***************//
 char	*ft_expand(char *str, t_data *data);
+void	ft_skipping_var(char *str, int *i);
 char	*copy_var(char *str, char *ret, int *i, t_data *data);
 char	*replace_all_str(char *str, char *ret, int i, t_data *data);
 int		check_size_var(char *str, int *i, int *new_size, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/08/14 14:16:47 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:06:01 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	**check_quotes(char **strs, t_data *data)
 	while (strs[i])
 	{
 		strs[i] = is_quote(strs[i], data);
-		// if (!strs[i])
-		// 	return (NULL);
+		if (!strs[i])
+			return (NULL);
 		i++;
 	}
 	strs[i] = NULL;
@@ -77,7 +77,7 @@ char	*replace_all_str(char *str, char *ret, int i, t_data *data)
 					ret[data->ind++] = str[i++];
 			}
 			ret = replace_var(str, ret, &i, data);
-		}			
+		}
 		i++;
 	}
 	ret[data->ind] = '\0';

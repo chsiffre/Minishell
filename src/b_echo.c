@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 13:00:03 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/14 12:34:50 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:06:56 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ void	ft_echo(t_data *data)
 	ret = "";
 	if (empty_echo(data) == 1)
 		return ;
-	while (data->iterator->content[i][0] != '\0' && ft_is_option_n(data->iterator->content[i]))
-	{
+	while (data->iterator->content[i++][0] != '\0' &&
+		ft_is_option_n(data->iterator->content[i]))
 		option = 1;
-		i++;
-	}
 	while (data->iterator->content[i])
 	{
 		ret = new_join(ret, data->iterator->content[i], data->res_split[i]);

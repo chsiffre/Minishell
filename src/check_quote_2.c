@@ -6,7 +6,7 @@
 /*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:14:00 by charles           #+#    #+#             */
-/*   Updated: 2023/08/14 14:30:25 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:04:07 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ char	*resize_quote(char *str, t_data *data)
 			while (str[i] && str[i] != quote)
 			{
 				check_size(str, &i, &new_size, data);
-				// if (str[i] && str[i] == '$')
-				// 	continue ;
 				if (str[i])
 					i++;
-				
 			}
 		}
 		else
@@ -85,11 +82,19 @@ void	check_size(char *str, int *i, int *new_size, t_data *data)
 		(*new_size)++;
 }
 
-void ft_skipping_var(char *str, int *i)
+void	*check_token(char *str, int *i, char *ret, t_data *data)
 {
-	(*i)++;
-	while (str[*i] && ft_isalnum(str[*i]))
-		(*i)++;
+	if (str[*i] == '$' && str[(*i) + 1] && str[(*i) + 1] == '?')
+		return (ret = ft_convert_error(str, ret), ret);
+	else if (str[*i] == '$' && 
+		if_expand(str) && is_var(str, *i, data, ret))
+		ret = replace_var(str, ret, i, data);
+	else if (str[*i] == '$' && 
+		if_expand(str) && !is_var(str, *i, data, ret))
+		ft_skipping_var(str, i);
+	else if (str[*i])
+		ret[data->ind++] = str[(*i)++];
+	return (0);
 }
 
 char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data)
@@ -103,30 +108,12 @@ char	*ft_check_quote_var(char *str, int i, char	*ret, t_data *data)
 		{
 			quote = str[(i)++];
 			while (str[i] && str[i] != quote)
-			{
-				if (str[i] == '$' && str[i + 1] && str[i + 1] == '?')
-					return (ret = ft_convert_error(str, ret), ret);
-				else if (str[i] == '$' && if_expand(str) && is_var(str, i, data, ret))
-					ret = replace_var(str, ret, &i, data);
-				else if (str[i] == '$' && if_expand(str) && !is_var(str, i, data, ret))
-					ft_skipping_var(str, &i);
-				else if (str[i])
-					ret[data->ind++] = str[(i)++];
-			}
+				check_token(str, &i, ret, data);
 		}
 		else
 			ret[data->ind++] = str[i++];
 	}
 	ret[data->ind] = '\0';
 	data->ind = 0;
-	return (ret);
-}
-
-char	*del_quote(char *str, char *ret, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	ret = ft_check_quote_var(str, i, ret, data);
 	return (ret);
 }

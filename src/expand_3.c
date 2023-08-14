@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 14:19:07 by charles           #+#    #+#             */
-/*   Updated: 2023/08/03 16:08:37 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:05:07 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,20 @@ char	*ft_convert_error(char *str, char *ret)
 	if (!ret)
 		return (NULL);
 	return (ft_return_error_last(ret, str, i, y));
+}
+
+void	ft_skipping_var(char *str, int *i)
+{
+	(*i)++;
+	while (str[*i] && ft_isalnum(str[*i]))
+		(*i)++;
+}
+
+char	*del_quote(char *str, char *ret, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	ret = ft_check_quote_var(str, i, ret, data);
+	return (ret);
 }
