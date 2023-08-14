@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:07:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/07/19 13:59:24 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:59:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	ft_old_pwd(t_data *data)
 
 	if (ft_check_exist(data, data->env, "OLDPWD=") == 0)
 		return (1);
-	if (getcwd(buff, REP_MAX) == NULL)
-		ft_error(data, "PWD error\n", 1, 1);
+	getcwd(buff, REP_MAX);
 	str = ft_strjoin("OLDPWD=", buff);
 	ft_add_var(data, str, 1);
 	free(str);
