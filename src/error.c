@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:39:01 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/02 10:50:44 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:25:29 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_free_for_end(t_data *data)
 	}
 	if (data->line)
 		free(data->line);
+	free_old_path(data, 1);
 	ft_close_end(data);
 	close(data->savestdin);
 	close(data->savestdout);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:12:25 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/07 13:24:17 by lucas            ###   ########.fr       */
+/*   Updated: 2023/08/14 14:30:45 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,32 @@ int	ft_exec(t_data *prompt, char **cmd)
 	else if (WIFSIGNALED(ret))
 		g_error_last = 130;
 	return (0);
+}
+
+char	*fake_try_path(t_data *data, char *cmd)
+{
+	int		i;
+	char	*tmp;
+	char	*tab;
+
+	i = 0;
+	if (cmd && ft_special_char(cmd) == 1)
+		return (ft_strdup(cmd));
+	tmp = ft_strjoin("/", cmd);
+	tab = NULL;
+	while (data->fake_path && data->fake_path[i])
+	{
+		tab = ft_strjoin(data->fake_path[i], tmp);
+		if (access(tab, F_OK) != -1)
+			break ;
+		free(tab);
+		tab = NULL;
+		i++;
+	}
+	free(tmp);
+	if (!tab)
+		return (ft_cmd_error(data->iterator->content[0]), NULL);
+	return (tab);
 }
 
 char	*ft_try_path(t_data *data, char *cmd)
@@ -66,7 +92,10 @@ char	**ft_cmd_options(t_data *data, char **cmd, char *content)
 {
 	int	i;
 
-	cmd[0] = ft_try_path(data, content);
+	if (data->fake == 0)
+		cmd[0] = ft_try_path(data, content);
+	else if (data->fake == 1)
+		cmd[0] = fake_try_path(data, content);
 	if (cmd[0] == NULL)
 		return (cmd);
 	i = 1;

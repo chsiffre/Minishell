@@ -6,33 +6,50 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/14 10:27:59 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:25:15 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	update_env(t_data *data)
+int	allocate_path(t_data *data)
 {
 	int		i;
 	t_env	*tmp;
 
-	tmp = data->env;
 	i = 0;
-	if (data->split_path)
-		while (data->split_path[i])
-			free(data->split_path[i++]);
-	free(data->split_path);
+	tmp = data->env;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+void	update_env(t_data *data)
+{
+	int		i;
+	t_env	*tmp;
+	int		size;
+
+	tmp = data->env;
+	free_old_path(data, 0);
+	size = allocate_path(data);
+	data->env_path = malloc(sizeof(char *) * (size + 1));
+	if (!data->env_path)
+		ft_error(data, "malloc error\n", 1, 1);
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->value)
+		if (tmp->name && tmp->value)
 			data->env_path[i] = ft_strjoin(tmp->name, tmp->value);
 		else if (tmp->name)
 			data->env_path[i] = ft_strdup(tmp->name);
 		tmp = tmp->next;
 		i++;
 	}
+	data->env_path[i] = NULL;
 	ft_get_env(data);
 }
 

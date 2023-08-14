@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:20:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 09:54:18 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:27:28 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,16 @@ int	main(int argc, char **argv, char **envp)
 	fake_envp = NULL;
 	if (!envp || !envp[0])
 	{
+		data.fake = 1;
 		fake_envp = ft_no_env(fake_envp);
+		data.fake_path = ft_split("/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", ':');
 		ft_init_data(&data, fake_envp);
 	}
 	else
+	{
 		ft_init_data(&data, envp);
+		data.fake = 0;
+	}
 	data = ft_init_struct(data);
 	ft_get_env(&data);
 	ft_prompt(&data);

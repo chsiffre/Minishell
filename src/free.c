@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:12:27 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/14 09:54:46 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:25:21 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,31 @@ void	ft_to_free(t_data *data)
 	data->i = 0;
 	data->y = 0;
 	data->ind = 0;
+}
+
+void	free_old_path(t_data *data, int end)
+{
+	int	i;
+
+	if (end == 0)
+	{
+		i = 0;
+		if (data->split_path)
+			while (data->split_path[i])
+				free(data->split_path[i++]);
+		free(data->split_path);
+	}
+	i = 0;
+	if (data->loop == 0)
+	{
+		data->env_path = NULL;
+		return ;
+	}
+	while (data->env_path && data->env_path[i])
+	{
+		free(data->env_path[i]);
+		i++;
+	}
+	if (data->env_path)
+		free(data->env_path);
 }

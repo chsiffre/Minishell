@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:37:12 by lucas             #+#    #+#             */
-/*   Updated: 2023/08/03 14:55:39 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:52:32 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	list_progress(t_data *data)
 				ft_print_error
 					("bash: syntax error near unexpected token `||'", 1);
 		}
-		else
-			return (1);
 		if (data->iterator->type == REDIR)
 		{
 			if (ft_which_redir(data) == 1)
