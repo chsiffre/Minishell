@@ -6,11 +6,20 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 11:10:38 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/14 10:03:17 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:52:00 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	free_pack(t_data *data, int to_free)
+{
+	free(data->line);
+	if (to_free == 0)
+		free_data(data);
+	ft_to_free(data);
+	update_env(data);
+}
 
 int	ft_check_pipe(t_data *data)
 {
@@ -79,6 +88,7 @@ void	ft_prompt(t_data *data)
 	int	to_free;
 
 	to_free = 0;
+	data->loop = 0;
 	while (1)
 	{
 		i = 0;
@@ -95,10 +105,7 @@ void	ft_prompt(t_data *data)
 				ft_error(data, "non printable\n", 2, 0);
 		if (ft_parse_exec(data) == 0)
 			to_free = 1;
-		free(data->line);
-		if (to_free == 0)
-			free_data(data);
-		ft_to_free(data);
-		update_env(data);
+		free_pack(data, to_free);
+		data->loop++;
 	}
 }

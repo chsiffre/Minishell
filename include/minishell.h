@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 10:19:54 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:24:58 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ int		ft_lstlen(t_lst *lst);
 void	ft_to_free(t_data *data);
 int		ft_free_for_end(t_data *data);
 void	free_cmd(char **cmd);
+void	free_old_path(t_data *data, int end);
 
 //***********signal***************//
 void	ft_ctrl(int signal);
@@ -221,6 +222,5 @@ void	ft_ctrl_fork(int signal);
 void	ft_here_sig(int signal);
 void	ft_mini_sig(int signal);
 void	check_signal(t_data *data);
-
 
 #endif
