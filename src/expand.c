@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:08:06 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:04:36 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ char	*copy_var(char *str, char *ret, int *i, t_data *data)
 		if (ft_compare_var(str, tmp->name, *i))
 		{
 			if (!tmp->value)
-			{
-				printf("ok\n");
 				return (ret);
-			}
 			while (tmp->value[y])
 				ret[data->ind++] = tmp->value[y++];
 			while (str[*i] && ft_isalnum(str[*i]))
@@ -56,7 +53,6 @@ char	*copy_var(char *str, char *ret, int *i, t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	printf("ok\n");
 	return (ret);
 }
 

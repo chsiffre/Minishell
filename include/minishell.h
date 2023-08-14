@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 14:38:28 by chsiffre         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:03:35 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ int		ft_execute_cmd(t_data *data, char *content);
 char	**ft_cmd_options(t_data *data, char **cmd, char *content);
 int		ft_end(t_data *data);
 void	ft_restore_loop(t_data *data, pid_t pid, int *fd, int count);
+char	*fake_try_path(t_data *data, char *cmd);
 
 //***********error***************//
 int		ft_print_error(char *str, int error_code);
