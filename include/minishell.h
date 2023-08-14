@@ -6,7 +6,7 @@
 /*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 09:39:13 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:19:54 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data {
 	char	f_quote;
 	char	s_quote;
 	char	quote;
+	int		loop;
 }	t_data;
 
 //***********prompt***************//
