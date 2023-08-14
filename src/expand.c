@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:23:56 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/02 16:45:39 by charles          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:08:06 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*replace_var(char *str, char *ret, int *i, t_data *data)
 			ret = copy_var(str, ret, i, data);
 		if (str[*i] && str[*i] == '$')
 			continue ;
+		else if (str[*i] == '\'' || str[*i] == '\"')
+			break ;
 		else if (str[*i])
 			(*i)++;
 	}
@@ -41,6 +43,11 @@ char	*copy_var(char *str, char *ret, int *i, t_data *data)
 	{
 		if (ft_compare_var(str, tmp->name, *i))
 		{
+			if (!tmp->value)
+			{
+				printf("ok\n");
+				return (ret);
+			}
 			while (tmp->value[y])
 				ret[data->ind++] = tmp->value[y++];
 			while (str[*i] && ft_isalnum(str[*i]))
@@ -49,6 +56,7 @@ char	*copy_var(char *str, char *ret, int *i, t_data *data)
 		}
 		tmp = tmp->next;
 	}
+	printf("ok\n");
 	return (ret);
 }
 
@@ -63,6 +71,8 @@ int	var_exist(char *str, int *i, t_data *data)
 	{
 		if (ft_compare_var(str, tmp->name, *i))
 		{
+			if (!tmp->value)
+				return (0);
 			while (ft_isalnum(str[*i]))
 				(*i)++;
 			return ((int) ft_strlen(tmp->value));
@@ -72,8 +82,9 @@ int	var_exist(char *str, int *i, t_data *data)
 	return (0);
 }
 
-int	is_var(char *str, int i, t_data *data)
+int	is_var(char *str, int i, t_data *data, char *ret)
 {
+	(void) ret;
 	t_env	*tmp;
 
 	tmp = data->env;
@@ -85,6 +96,8 @@ int	is_var(char *str, int i, t_data *data)
 	{
 		if (ft_compare_var(str, tmp->name, i))
 		{
+			if (!tmp->value)
+				return (0);
 			while (str[i] && str[i] != '\'' && str[i] != '\"')
 				(i)++;
 			return ((int) ft_strlen(tmp->value));

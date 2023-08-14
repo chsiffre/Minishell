@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/14 10:19:54 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:45:14 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		check_size_var(char *str, int *i, int *new_size, t_data *data);
 char	*replace_quote(char *str, char *ret, t_data *data);
 int		if_expand(char *str);
 int		var_exist(char *str, int *i, t_data *data);
-int		is_var(char *str, int i, t_data *data);
+int		is_var(char *str, int i, t_data *data, char *ret);
 int		ft_compare_var(char *s1, char *s2, int i);
 char	*replace_var(char *str, char *ret, int *i, t_data *data);;
 void	check_size(char *str, int *i, int *new_size, t_data *data);

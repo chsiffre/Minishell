@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chsiffre <chsiffre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:12:15 by charles           #+#    #+#             */
-/*   Updated: 2023/08/03 13:49:45 by luhumber         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:16:47 by chsiffre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	**check_quotes(char **strs, t_data *data)
 	while (strs[i])
 	{
 		strs[i] = is_quote(strs[i], data);
-		if (!strs[i])
-			return (NULL);
+		// if (!strs[i])
+		// 	return (NULL);
 		i++;
 	}
 	strs[i] = NULL;
@@ -43,8 +43,10 @@ char	*is_quote(char *str, t_data *data)
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 			return (replace_quote(str, ret, data));
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[i + 1])
 			return (replace_all_str(str, ret, i + 1, data));
+		else if (str[i] == '$' && !str[i + 1])
+			return (free(ret), str);
 	}
 	return (free(ret), str);
 }
@@ -61,19 +63,24 @@ char	*replace_quote(char *str, char *ret, t_data *data)
 
 char	*replace_all_str(char *str, char *ret, int i, t_data *data)
 {
-	if (is_var(str, i, data))
+	while (str[i])
 	{
-		if (str[i] == '?')
-			return (ft_convert_error(str, ret));
-		ret = resize_var(str, data);
-		if (str[i - 1])
+		if (is_var(str, i, data, ret))
 		{
-			i = 0;
-			while (str[i] != '$')
-				ret[data->ind++] = str[i++];
-		}
-		ret = replace_var(str, ret, &i, data);
-		data->ind = 0;
+			if (str[i] == '?')
+				return (ft_convert_error(str, ret));
+			ret = resize_var(str, data);
+			if (str[i - 1])
+			{
+				i = 0;
+				while (str[i] != '$')
+					ret[data->ind++] = str[i++];
+			}
+			ret = replace_var(str, ret, &i, data);
+		}			
+		i++;
 	}
+	ret[data->ind] = '\0';
+	data->ind = 0;
 	return (ret);
 }
