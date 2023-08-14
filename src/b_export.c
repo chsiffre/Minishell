@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:22:51 by luhumber          #+#    #+#             */
-/*   Updated: 2023/08/07 13:17:52 by lucas            ###   ########.fr       */
+/*   Updated: 2023/08/14 09:40:58 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void    update_env(t_data *data)
+void	update_env(t_data *data)
 {
-	int     i;
-	t_env   *tmp;
-	
+	int		i;
+	t_env	*tmp;
+
 	tmp = data->env;
 	i = 0;
 	if (data->split_path)

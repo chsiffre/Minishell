@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luhumber <luhumber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:09:17 by chsiffre          #+#    #+#             */
-/*   Updated: 2023/08/07 13:18:56 by lucas            ###   ########.fr       */
+/*   Updated: 2023/08/14 09:39:13 by luhumber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int		ft_check_exist(t_data *data, t_env *env, char *str);
 char	*ft_find_name(char *name, char *str);
 char	*new_val(t_env *new, char *str, int i);
 char	*ft_add_value(char *str, int i);
-void    update_env(t_data *data);
+void	update_env(t_data *data);
 
 //***********exec***************//
 int		ft_check_type(t_data *data);
